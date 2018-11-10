@@ -2,7 +2,8 @@
 namespace dao;
 
 use Model\Seat as M_Seat;
-use dao\SeatTypeDb as CategoryDb;
+use Dao\SeatTypeDb as D_SeatType;
+use Dao\CalendarDb as D_Calendar;
 
 /**
  *
@@ -12,21 +13,24 @@ class SeatDb extends SingletonDAO implements \interfaces\Idao
 
   private $connection;
   private $daoSeatTypes;
+  private $daoCalendar;
   function __construct(){
 
-    $this->daoSeatTypes = SeatTypeDb::getInstance();
+    $this->daoSeatTypes = D_SeatType::getInstance();
+    $this->daoCalendar = D_Calendar::getInstance();
 
   }
   
   
   public function add($obj){
 
-    $sql ="INSERT INTO seats (quant, price, remainig, id_seattype) VALUES (:quant, :price, :remaining, :id_seattype)";
+    $sql ="INSERT INTO seats (quant, price, remaining, id_seattype, id_calendar) VALUES (:quant, :price, :remaining, :id_seattype, :id_calendar)";
 
     $parameters['quant'] = $obj->getQuantity();
     $parameters['price'] = $obj->getPrice();
     $parameters['remaining'] =$obj->getRemaining();
     $parameters['id_seattype'] =$obj->getSeatType()->getId();
+    $parameters['id_calendar'] =$obj->getCalendar()->getId();
     
 
     try{
@@ -97,8 +101,9 @@ class SeatDb extends SingletonDAO implements \interfaces\Idao
       $resp = array_map(function($p){
           
           $seattype = $this->daoSeatTypes->retrieveById($p['id_seattype']);
+          $calendar = $this->daoCalendar->retrieveById($p['id_calendar']);
         
-           return new M_Event($p['quant'], $p['price'], $p['remaining'], $seattype, $p['id_seat']);
+           return new M_Event($p['quant'], $p['price'], $p['remaining'], $seattype, $calendar, $p['id_seat']);
          }, $value);
 
                return count($resp) >= 1 ? $resp : $arrayResponse[] = $resp['0'];

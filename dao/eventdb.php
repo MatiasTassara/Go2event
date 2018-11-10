@@ -68,8 +68,8 @@ class EventDb extends SingletonDAO implements \interfaces\Idao
 
   public function retrieveById($id){
 
-    $sql = "SELECT * from artists where id_artist = :id_artist";
-    $parameters['id_artist'] = $id;
+    $sql = "SELECT * from events where id_event = :id_event";
+    $parameters['id_event'] = $id;
     try{
        $this->connection = Connection::getInstance();
        $response = $this->connection->execute($sql, $parameters);
@@ -115,7 +115,7 @@ class EventDb extends SingletonDAO implements \interfaces\Idao
       $resp = array_map(function($p){
 
           $category = $this->daoCategories->retrieveById($p['id_category']);
-
+var_dump($p);
            return new M_Event($p['name_event'], $p['description'], $p['img_path'], $category, $p['id_event']);
          }, $value);
 

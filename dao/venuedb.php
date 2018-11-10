@@ -56,10 +56,10 @@ class VenueDb extends SingletonDAO implements \interfaces\Idao
   public function retrieveById($id){
 
     $sql = "SELECT * FROM venues WHERE id_venue =:id_venue";
-    $parameters['id_venue'] = id;
+    $parameters['id_venue'] = $id;
     try{
       $this->connection = Connection::getInstance();
-      $response = $this->connection($sql, $parameters);
+      $response = $this->connection->execute($sql, $parameters);
 
     }catch(Exception $ex){
       throw $ex;

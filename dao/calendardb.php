@@ -8,7 +8,7 @@ use dao\VenueDb as VenueDb;
 /**
  *
  */
-class EventDb extends SingletonDAO implements \interfaces\Idao
+class CalendarDb extends SingletonDAO implements \interfaces\Idao
 {
 
   private $connection;
@@ -101,11 +101,11 @@ class EventDb extends SingletonDAO implements \interfaces\Idao
           
           $venue = $this->daoVenues->retrieveById($p['id_venue']);
           $event = $this->daoEvents->retrieveById($p['id_event']);
-        
-          return new M_Event($venue, $event, $p['date_calendar'], $p['img_path'], $p['id_calendar']);
-          }, $value);
+       
+           return new M_Calendar($venue, $event, $p['date_calendar'], $p['img_path'], $p['id_calendar']);
+         }, $value);
 
-          return count($resp) >= 1 ? $resp : $arrayResponse[] = $resp['0'];
+               return count($resp) >= 1 ? $resp : $arrayResponse[] = $resp['0'];
 
   
 }
