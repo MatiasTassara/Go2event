@@ -1,5 +1,3 @@
-
-
 <?php include(ROOT."views/navbar.php") ?>
 
 <div class="uk-cover-container uk-height-medium ">

@@ -102,39 +102,44 @@
                  <input type="date" class="form-control" name="date" id="exampleFormControlFile1">
                </div>
              </div>
-             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
-                Launch demo modal
-              </button>
+             <div class="form-group ">
+               <button type="button" class="btn btn-warning mx-auto" data-toggle="modal" data-target="#exampleModalLong">
+                  Agregar Tipos de Plaza a la Venta
+                </button>
+              </div>
+
 
             <!-- Modal -->
             <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
               <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Agregar Tipos de Plaza a la Venta</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
                   <div class="modal-body">
                     <?php foreach ($seattypes as $key => $value) { ?>
-                      <div class="form-row">
-                       <div class="col auto">
-                         <label for="staticEmail" class=""><?= $value->getName() ?></label>
-                         <input type="hidden" name="type[]" readonly class="form-control-plaintext" id="staticEmail" value="<?= $value->getId()?>">
+                        <div class="form-group row">
+                          <label for="inputSeattype" class="col-sm-2 col-form-label"><?=$value->getName();?></label>
+                          <input type="hidden" name="type[]" value="<?=$value->getId()?>">
+                          <div class="col-sm-5">
+                            <input type="text" name="quant[]"class="form-control" id="inputSeattype" placeholder="Cantidad">
+                          </div>
+                          <div class="col-sm-5">
+                            <div class="input-group">
+                             <div class="input-group-prepend">
+                               <div class="input-group-text">$</div>
+                             </div>
+                             <input type="text" name="price[]" class="form-control" id="inlineFormInputGroupUsername" placeholder="Precio">
+                           </div>
                       </div>
-                       </div>
-                       <div class="col auto">
-                         <input type="number" name="quant[]" class="form-control" placeholder="1234567890" min="1">
-                       </div>
-                       <div class="col auto">
-                         <input type="number" name="price[]" class="form-control" placeholder="$$$$$$$$$$$$$$$" min="0">
-                       </div>
+                        </div>
                   <?php  } ?>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Listo</button>
                   </div>
                 </div>
               </div>

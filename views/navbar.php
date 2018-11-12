@@ -27,7 +27,7 @@
       </div>
       <div class="uk-navbar-right">
         <li class="nav-item">
-             <a class="nav-link" href="<?=FRONT_ROOT?>Artist"><button class="uk-button uk-button-text">Iniciar Sesion</button></a>
+             <a class="nav-link" href="<?=FRONT_ROOT?>Home/Login"><button class="uk-button uk-button-text">Iniciar Sesion</button></a>
         </li>
 
       </div>
