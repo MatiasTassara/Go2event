@@ -8,7 +8,6 @@ class Seat{
   private $price;
   private $seatType;
   private $calendar;
-  
 
   function __construct($quant, $price, $remaining, $seatType,$calendar, $id = ''){
     $this->id = $id;

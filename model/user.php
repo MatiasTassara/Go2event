@@ -8,14 +8,16 @@ class User{
     private $surname;
     private $pass;
     private $isAdmin;
+    private $id;
     
 
-    public function __construct($mail,$name,$surname,$pass,$isAdmin){    
+    public function __construct($mail,$name,$surname,$pass,$isAdmin,$id=''){    
         $this->mail = $mail;
         $this->name = $name;
         $this->surname = $surname;
         $this->pass = $pass;
         $this->isAdmin = $isAdmin;
+        $this->id = $id;
     }
 
    
@@ -34,6 +36,9 @@ class User{
     public function getPass(){
         return $this->pass;
     }
+    public function getId(){
+        return $this->id;
+    }
     public function setMail($mail){
         $this->mail = $mail;
     }
@@ -45,5 +50,8 @@ class User{
     }
     public function setPass($pass){
         $this->pass = $pass;
+    }
+    public function setId($id){
+        $this->id = $id;
     }
 }
