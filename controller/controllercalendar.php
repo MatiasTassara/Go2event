@@ -5,15 +5,12 @@ namespace controller;
 
 use Model\Calendar as M_Calendar;
 
-use DAO\listvenue as D_Venue;
-use DAO\listevent as D_Event;
-use DAO\listcalendar as D_Calendar;
-use DAO\listartist as D_Artist;
-//use DAO\ArtistPerCalendarDb as D_Artist_Calendar;
-//use DAO\CalendarDb as D_Calendar;
-//use DAO\VenueDb as D_Venue;
-//use DAO\EventDb as D_Event;
-//use DAO\ArtistDb as D_Artist;
+use DAO\ArtistsPerCalendarDb as D_Artist_Calendar;
+use DAO\CalendarDb as D_Calendar;
+use DAO\VenueDb as D_Venue;
+use DAO\EventDb as D_Event;
+use DAO\ArtistDb as D_Artist;
+use DAO\SeattypeDb as D_SeatType;
 
 class ControllerCalendar{
   private $daoCalendar;
@@ -29,16 +26,22 @@ class ControllerCalendar{
     $this->daoArtist = D_Artist::getInstance();
     $this->daoVenue = D_Venue::getInstance();
     $this->daoArtistPerCalendar = D_Artist_Calendar::getInstance();
+    $this->daoSeatType = D_SeatType::getInstance();
+
   }
   function index(){
     $calendars = $this->daoCalendar->getAll();
-    include(ROOT.'views/Calendars.php');
+    $events = $this->daoEvent->getAll();
+    $artists = $this->daoArtist->getAll();
+    $venues = $this->daoVenue->getAll();
+    $seattypes = $this->daoSeatType->getAll();
+    include(ROOT.'views/calendars.php');
   }
 
     public function addCalendar ($idsArtist, $idVenue, $idEvent, $date, $imgPath ){ //idsartist es arreglo de ids
     $event = $this->daoEvent->retrieveById($idEvent);
     $venue = $this->daoVenue->retrieveById($idVenue);
-    
+
     $artists = null;
     foreach ($idsArtist as $key => $value) {
       if($this->daoArtist->retrieveById($value) != null){
@@ -88,7 +91,7 @@ class ControllerCalendar{
     $this->daoCalendar->delete($idCalendar);
     $this->index();
   }
-  
+
 }
 
 

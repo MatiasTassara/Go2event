@@ -69,7 +69,7 @@
         </div>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
           <div class="card-body">
-            <form action = "<?=FRONT_ROOT?>Calendar/show" method="post">
+            <form action = "<?=FRONT_ROOT?>Calendar/" method="post">
               <div class="form-row ml-2 mr-2">
                 <div class="form-group col-6">
                   <label for="inputEmail4">Evento</label>
@@ -120,7 +120,8 @@
                     </button>
                   </div>
                   <div class="modal-body">
-                    <?php foreach ($seattypes as $key => $value) { ?>
+                    <?php if (is_array($seattypes)) {
+                       foreach ($seattypes as $key => $value) { ?>
                         <div class="form-group row">
                           <label for="inputSeattype" class="col-sm-2 col-form-label"><?=$value->getName();?></label>
                           <input type="hidden" name="type[]" value="<?=$value->getId()?>">
@@ -136,7 +137,11 @@
                            </div>
                       </div>
                         </div>
-                  <?php  } ?>
+                  <?php  }
+                }
+                else {
+                  echo "No hay tipos de plaza disponibles para la venta";
+                } ?>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-warning" data-dismiss="modal">Listo</button>

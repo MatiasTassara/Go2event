@@ -2,8 +2,8 @@
 namespace controller;
 
 use Model\Artist as M_Artist;
-use DAO\ListArtist as D_Artist;
-//use DAO\ArtistDb as D_Artist;
+//use DAO\ListArtist as D_Artist;
+use DAO\ArtistDb as D_Artist;
 
 class ControllerArtist{
   private $daoArtist;
@@ -40,7 +40,7 @@ class ControllerArtist{
     $this->daoArtist->delete($idArtist);
     $this->index();
   }
-  
+
 }
 
 

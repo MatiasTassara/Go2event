@@ -2,8 +2,8 @@
 namespace controller;
 
 use Model\Category as M_Category;
-use DAO\ListCategory as D_Category;
-//use DAO\CategoryDb as D_Category;
+//use DAO\ListCategory as D_Category;
+use DAO\CategoryDb as D_Category;
 
 class ControllerCategory{
   private $daoCategory;
@@ -29,7 +29,7 @@ class ControllerCategory{
     $obj = $this->daoCategory->retrieveById($id);
 
     $obj->setName($name);
-   
+
 
     $this->daoCategory->update($obj);
     $this->index();

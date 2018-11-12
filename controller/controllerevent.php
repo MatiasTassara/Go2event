@@ -2,11 +2,11 @@
 namespace controller;
 
 use Model\Event as M_Event;
-use DAO\ListEvent as D_Event;
-//use DAO\EventDb as D_Event;
+//use DAO\ListEvent as D_Event;
+use DAO\EventDb as D_Event;
 use Model\Category as M_Category;
-use DAO\ListCategory as D_Category;
-//use DAO\CategoryDb as D_Category;
+//use DAO\ListCategory as D_Category;
+use DAO\CategoryDb as D_Category;
 
 
 class controllerEvent{
