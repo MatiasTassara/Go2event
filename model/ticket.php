@@ -1,17 +1,16 @@
 <?php
 namespace Model;
-
 class Ticket{
   private $id;
   private $number;
   private $qr;
-
-  public function __construct($number,$qr, $id = ''){
+  private $purchaseItem;
+  public function __construct($number,$qr, $purchItem, $id = ''){
     $this->id = $id;
     $this->number = $number;
     $this->qr = $qr;
+    $this->purchaseItem = $purchItem;
   }
-
   public function getId(){
     return $this->id;
   }
@@ -20,6 +19,9 @@ class Ticket{
   }
   public function getQr(){
     return $this->qr;
+  }
+  public function getPurchaseItem(){
+    return $this->purchaseItem;
   }
   public function setId($id){
     $this->id = $id;
@@ -30,5 +32,4 @@ class Ticket{
   public function setQr($qr){
     $this->qr = $qr;
   }
-
 }
