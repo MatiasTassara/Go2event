@@ -1,6 +1,6 @@
 <?php include(ROOT."views/header.php") ?>
-  <body>
-    <?php include(ROOT."views/navbaradmin.php") ?>
+<body>
+  <?php include(ROOT."views/navbaradmin.php") ?>
     <div id="accordion">
       <div class="card rounded-0">
         <div class="card-header p-0" id="headingOne">
@@ -118,7 +118,4 @@
       </div>
     </div>
   </div>
-
-
-  </body>
-</html>
+<?php include("footer.php") ?>

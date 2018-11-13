@@ -1,19 +1,6 @@
-<?php
- include(ROOT."views/header.php") ?>
-  <body>
-      <?php include(ROOT."views/navbaradmin.php") ?>
-
-      <?php
-        if(isset($exito))
-      { ?>
-        <div class="alert alert-success alert-dismissible fade show m-0" role="alert">
-          <p class="text-center"><strong>¡Éxito!</strong> <?php echo $exito ?></p>
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-         </button>
-        </div>
-      <?php  } ?>
-
+<?php include(ROOT."views/header.php") ?>
+<body>
+  <?php include(ROOT."views/navbaradmin.php") ?>
     <div id="accordion">
       <div class="card rounded-0">
         <div class="card-header p-0" id="headingOne">
@@ -160,15 +147,4 @@
       </div>
     </div>
   </div>
-  <!--script type="text/javascript">
-   function filterMethod(){
-     const filter=document.querySelector('#filter');
-     var artists=<?php echo json_encode($artists);?>;
-                =json_decode()
-     const artistfilter=artists.filter((artist) => artist.name === filter.value);
-     console.log(obj);
-  }
-</script!-->
-  </body>
-
-</html>
+  <?php include("footer.php") ?>

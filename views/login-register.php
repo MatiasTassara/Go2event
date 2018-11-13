@@ -4,9 +4,11 @@
   <div class="uk-position uk-visible-toggle">
 
 
-    <ul class="uk-subnav uk-subnav-pill" uk-switcher="animation: uk-animation-slide-left-medium, uk-animation-slide-right-medium" style="margin-left: 344px;">
-      <li><a class="uk-link-heading" href="#">Loguearse</a></li>
-      <li><a class="uk-link-heading" href="#">Registrarse</a></li>
+    <ul class="uk-subnav uk-subnav-pill" uk-switcher="animation: uk-animation-slide-left-medium, uk-animation-slide-right-medium" >
+
+          <li><a class="uk-link-heading" href="#">Loguearse</a></li>
+          <li><a class="uk-link-heading" href="#">Registrarse</a></li>
+
     </ul>
     <ul class="uk-switcher uk-margin">
         <li>
@@ -43,8 +45,8 @@
               <input type="text" class="form-control uk-input" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese Nombre">
             </div>
             <div class="form-group">
-              <label class="uk-form-label text-center" for="exampleInputEmail1">DNI</label>
-              <input type="text" class="form-control uk-input" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese DNI">
+              <label class="uk-form-label text-center" for="exampleInputEmail1">Apellido</label>
+              <input type="text" class="form-control uk-input" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese Apellido">
             </div>
             <div class="form-group">
               <button type="submit" class="uk-button btn-warning btn-block">Registrarse</button>
