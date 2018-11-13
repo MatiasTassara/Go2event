@@ -12,9 +12,10 @@ class Seat{
   function __construct($quant, $price, $remaining, $seatType,$calendar, $id = ''){
     $this->id = $id;
     $this->quant = $quant;
-    $this->$remaining = $remaining;
+    $this->remaining = $remaining;
     $this->price = $price;
     $this->seatType = $seatType;
+    $this->calendar = $calendar;
   }
 
   public function getId(){

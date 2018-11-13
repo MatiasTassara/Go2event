@@ -10,7 +10,7 @@
 	/**
 	 * Archivos necesarios de inicio
 	 */
-	require_once "Config/constants.php";
+	require_once "Config/Constants.php";
 	require_once "Config/Autoload.php";
 	require_once "Config/Request.php";
 	require_once "Config/Router.php";

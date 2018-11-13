@@ -4,6 +4,7 @@ namespace controller;
 
 
 use Model\Calendar as M_Calendar;
+use Model\Seat as M_Seat;
 
 use DAO\ArtistsPerCalendarDb as D_Artist_Calendar;
 use DAO\CalendarDb as D_Calendar;
@@ -11,6 +12,7 @@ use DAO\VenueDb as D_Venue;
 use DAO\EventDb as D_Event;
 use DAO\ArtistDb as D_Artist;
 use DAO\SeattypeDb as D_SeatType;
+use DAO\SeatDb as D_Seat;
 
 class ControllerCalendar{
   private $daoCalendar;
@@ -18,6 +20,8 @@ class ControllerCalendar{
   private $daoArtist;
   private $daoVenue;
   private $daoArtistPerCalendar;
+  private $daoSeat;
+  private $daoSeatType;
 
 
   public function __construct(){
@@ -27,7 +31,7 @@ class ControllerCalendar{
     $this->daoVenue = D_Venue::getInstance();
     $this->daoArtistPerCalendar = D_Artist_Calendar::getInstance();
     $this->daoSeatType = D_SeatType::getInstance();
-
+    $this->daoSeat = D_Seat::getInstance();
   }
   function index(){
     $calendars = $this->daoCalendar->getAll();
@@ -38,8 +42,10 @@ class ControllerCalendar{
     include(ROOT.'views/calendars.php');
   }
 
-    public function addCalendar ($idsArtist, $idVenue, $idEvent, $date, $imgPath ){ //idsartist es arreglo de ids
-    $event = $this->daoEvent->retrieveById($idEvent);
+    public function addCalendar ( $idEvent, $idVenue, $idsArtist, $date, $arrIdsSeatType, $arrQuant, $arrPrice ){ //idsartist es arreglo de ids
+     // echo '<br><br>'. var_dump($date) .'<br>';
+      
+      $event = $this->daoEvent->retrieveById($idEvent);
     $venue = $this->daoVenue->retrieveById($idVenue);
 
     $artists = null;
@@ -49,30 +55,37 @@ class ControllerCalendar{
       }
     }
     //hasta este punto tenemos evento,lugar y array de artistas....
-    $objCalendar = new M_Calendar(/*$artists,*/ $venue, $event, $date, $imgPath);
+    $objCalendar = new M_Calendar ($venue, $event, $date);
     $calendarLastId = $this->daoCalendar->add($objCalendar);
-    $this->daoArtistPerCalendar->add($calendarLastId,$artists);//incluir los daos y cargar la plaza
-    $calendar = $this->daoCalendar->retrieveById($calendarLastId);
-    $this->index();
+    $calendar = $this->daoCalendar->getLastCalendar();
+   
+   // echo "<pre>";
+    //var_dump($calendar);
+    foreach ($artists as $key => $value) {
+      $this->daoArtistPerCalendar->addArtistPerCalendar($calendar,$value);//incluir los daos y cargar la plaza
+    }
+    $this->addSeats($arrQuant, $arrPrice, $arrIdsSeatType,$calendar);
   }
-  public function addSeats($arrQuant, $arrPrice, $arrRemaining, $arrIdsSeatType,$idCalendar){
-    $calendar = $this->daoCalendar->retrieveById($idCalendar);
+  public function addSeats($arrQuant, $arrPrice, $arrIdsSeatType,$calendar){
+    
     $seatTypes = null;//ver si hay que usar la funcion array()
-    foreach ($arrIdsSeattype as $key => $value) {
+    foreach ($arrIdsSeatType as $key => $value) {
       if($this->daoSeatType->retrieveById($value) != null){
-         $seatTypes[] = $this->daoSeatTypes->retrieveById($value);
+         $seatTypes[] = $this->daoSeatType->retrieveById($value);
       }
     }
 
-    while(!isempty($arrQuant)){
-      $quant= array_shift($arrQuant);
-
+    while(!empty($arrQuant)){
+      $quant = array_shift($arrQuant);
       $prize = array_shift($arrPrice);
-      $remaining = array_shift($arrRemaining);
+      $remaining = $quant;
       $seatType = $this->daoSeatType->retrieveById(array_shift($arrIdsSeatType));
       $seatobj = new M_Seat($quant,$prize,$remaining,$seatType,$calendar);
+     
       $this->daoSeat->add($seatobj);
+
     }
+    $this->index();
   }
 
   public function modifyCalendar($id,$artists, $venue, $event, $date,$imgPath) {
@@ -92,8 +105,24 @@ class ControllerCalendar{
     $this->index();
   }
 
-}
+  public function filterEvents(){
+    $calendarArray = $this->daoCalendar->getAll();
+    $viewArray = [];
+    foreach ($calendarArray as $key => $value) {
+      $check = true;
+      for($i = 0;$i <= sizeof($viewArray) && $check;$i++){
+        if($viewArray[sizeof($viewArray)]->getName() == $value->getEvent()->getName()){
+          $check = false;
+        }
+      }
+      if($check){
+        array_push($viewArray,$value->getEvent());
+      } 
+    }
+    
+  } 
 
+} 
 
 
  ?>

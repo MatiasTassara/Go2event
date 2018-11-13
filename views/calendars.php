@@ -69,7 +69,7 @@
         </div>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
           <div class="card-body">
-            <form action = "<?=FRONT_ROOT?>Calendar/" method="post">
+            <form action = "<?=FRONT_ROOT?>Calendar/addCalendar" method="post">
               <div class="form-row ml-2 mr-2">
                 <div class="form-group col-6">
                   <label for="inputEmail4">Evento</label>

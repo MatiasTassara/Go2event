@@ -23,24 +23,44 @@ class CalendarDb extends SingletonDAO implements \interfaces\Idao
   
   public function add($obj){
 
-    $sql ="INSERT INTO calendars (id_venue, id_event, date_calendar, img_path) VALUES (:id_venue, :id_event, :date_calendar, :img_path)";
+    $sql ="INSERT INTO calendars (id_venue, id_event, date_calendar) VALUES (:id_venue, :id_event, :date_calendar)";
 
     $parameters['id_venue'] = $obj->getVenue()->getId();
     $parameters['id_event'] = $obj->getEvent()->getId();
     $parameters['date_calendar'] = $obj->getDate();
-    $parameters['img_path'] = $obj->getImgPath();
+   // $parameters['img_path'] = $obj->getImgPath();
     
 
     try{
       $this->connection = Connection::getInstance();
 
       $response = $this->connection->executeNonQuery($sql, $parameters);
-      return lastInsertId();
+    
 
     }catch(\PDOException $ex){
       throw $ex;
 
     }
+
+  }
+
+  public function getLastCalendar(){
+    $sql = "SELECT * FROM calendars order by id_calendar desc limit 1";
+    try{
+      $this->connection = Connection::getInstance();
+      $response =$this->connection->execute($sql);
+    }catch(Exception $ex){
+      throw $ex;
+    }
+    if(!empty($response)){
+
+      $result = $this->map($response);
+      return array_shift($result);
+    }
+          
+     else
+          return null;
+
 
   }
 
@@ -84,7 +104,7 @@ class CalendarDb extends SingletonDAO implements \interfaces\Idao
     }catch(Exception $ex){
       throw $ex;
     }
-    if(!isset($response))
+    if(isset($response))
       return $this->map($response);
     else
       return null;
@@ -102,7 +122,7 @@ class CalendarDb extends SingletonDAO implements \interfaces\Idao
           $venue = $this->daoVenues->retrieveById($p['id_venue']);
           $event = $this->daoEvents->retrieveById($p['id_event']);
        
-           return new M_Calendar($venue, $event, $p['date_calendar'], $p['img_path'], $p['id_calendar']);
+           return new M_Calendar($venue, $event, $p['date_calendar'], $p['id_calendar']);
          }, $value);
 
                return count($resp) >= 1 ? $resp : $arrayResponse[] = $resp['0'];

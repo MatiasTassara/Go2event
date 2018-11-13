@@ -28,7 +28,7 @@ class ArtistsPerCalendarDb extends SingletonDAO implements \interfaces\Idao
   }
   public function add($obj){
 
-
+    echo "<br> acordarse de usar addArtistPerCalendar, no add";
 
   }
   /*El siguiente método recibe un calendario y un artista y lo carga en la tabla artists_x_calendar*/
@@ -37,6 +37,8 @@ class ArtistsPerCalendarDb extends SingletonDAO implements \interfaces\Idao
     $sql = "INSERT INTO artists_x_calendar(id_calendar, id_artist) values (:id_calendar, :id_artist)";
     $parameters['id_calendar'] = $calendar->getId();
     $parameters['id_artist'] = $artist->getId();
+    
+    
 
     try{
       $this->connection = Connection::getInstance();

@@ -18,8 +18,8 @@ class ControllerSeat{
     include(ROOT.'views/seats.php');
   }
 
-  function addSeats($quant, $price, $remaining, $seatType){
-    $objSeat = new M_Seat($quant, $price,$remaining,$seatType);
+  function addSeats($quant, $price, $remaining, $seatType,$calendar){
+    $objSeat = new M_Seat($quant, $price,$remaining,$seatType,$calendar);
     $this->daoSeat->add($objSeat);
     $this->index();
     }
