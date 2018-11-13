@@ -28,12 +28,18 @@ class controllerEvent{
 
 
 
-    public function addEvent($name,$idCategory,$desc,$imgRoute){
+    public function addEvent($name,$idCategory,$desc, $fileTopload){
+        $imgRoute = basename($_FILES["fileToUpload"]["name"]);
+
         $objCategory = $this->daoCategory->retrieveById($idCategory);
         $objEvent = new M_Event($name,$desc,$imgRoute,$objCategory);
 
+        $fileController = new ControllerFile();
         $this->daoEvent->add($objEvent);
-        $this->index();
+      $fileController->upload($objEvent->getImgPath(), 'images');
+
+           $this->index();
+
     }
 
     function modifyEvent($id,$name,$imgRoute,$category) {
