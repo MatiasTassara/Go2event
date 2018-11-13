@@ -9,7 +9,7 @@
         <div class="input-group mx-auto">
           <input type="text" class="form-control" placeholder="Buscá por evento o artista..." aria-label="Recipient's username" aria-describedby="button-addon2">
           <div class="input-group-append">
-            <button class="btn btn-warning" type="button" id="button-addon2"><span uk-icon="icon: search"></span></button>
+            <button class="btn btn-warning" type="button" id="button-addon2"><span class="icon-index" uk-icon="icon: search"></span></button>
           </div>
         </div>
       </div>

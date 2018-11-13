@@ -4,7 +4,7 @@
     <nav class="uk-navbar uk-navbar uk-navbar-container uk-margin" uk-navbar="dropbar: true;">
       <div class="uk-navbar-left">
           <a class="uk-navbar-toggle" uk-toggle="target: #offcanvas-nav">
-            <span uk-navbar-toggle-icon uk-icon-navbar></span>
+            <span uk-navbar-toggle-icon class="icon-index" uk-icon-navbar></span>
         </a>
         <span class="uk-margin-small-left"><a href="<?=FRONT_ROOT?>"><img class="img-responisve" src="<?=FRONT_ROOT?>img/Go2EventLogo.png"></a></span>
       </div>
