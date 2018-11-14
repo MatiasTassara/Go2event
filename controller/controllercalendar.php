@@ -104,6 +104,17 @@ class ControllerCalendar{
     $this->daoCalendar->delete($idCalendar);
     $this->index();
   }
+  
+  public function getTotalSeats($objCalendar){
+    $seats = $this->daoSeat->getAll();
+    $acum = null;
+    foreach ($seats as $key => $value) {
+      if($value->getCalendar()->getId() == $objCalendar->getId()){
+        $acum += $value->getQuant();
+      }
+    }
+    return $acum;
+  }
 
   public function filterEvents(){
     $calendarArray = $this->daoCalendar->getAll();
