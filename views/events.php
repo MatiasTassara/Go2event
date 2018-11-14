@@ -22,6 +22,7 @@
                         <th scope="col">Nombre</th>
                         <th scope="col">Descripcion</th>
                         <th scope="col">Fecha</th>
+                        <th scope="col">Flyer</th>
                         <th scope="col"></th>
                         <th scope="col"></th>
                       </tr>
@@ -35,6 +36,8 @@
                              <td> <?php echo $value->getName(); ?></td>
                              <td> <?php echo $value->getDesc ();?></td>
                              <td> <?php echo $value->getCategory()->getName()?></td>
+                             <td><img src="<?= FRONT_ROOT ?>images/<?php echo $value->getImgPath() ?>" width="150" heigth="150"></td>
+
                              <td>
                                 <div class="col-auto ">
                                   <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#ModifyModal">
@@ -72,7 +75,7 @@
         </div>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
           <div class="card-body">
-            <form action = "<?=FRONT_ROOT?>Event/addEvent" method="post">
+            <form action = "<?=FRONT_ROOT?>Event/addEvent" method="post" enctype="multipart/form-data">
               <div class="form-row ml-2 mr-2">
                 <div class="form-group col-6">
                   <label for="inputEmail4">Nombre</label>
@@ -94,7 +97,7 @@
                 </div>
                 <div class="col-auto form-group">
                  <label for="exampleFormControlFile1">Flyer del Evento</label>
-                 <input type="file" multiple accept="image/*" class="form-control-file" name="fileRoute" id="exampleFormControlFile1"required>
+                 <input type="file" multiple accept="image/*" class="form-control-file" name="fileToUpload" id="fileToUpload" required>
                </div>
                 <div class="col-2 form-group">
                   <div class="form-group row">

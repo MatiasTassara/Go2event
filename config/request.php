@@ -53,6 +53,10 @@ class Request{
             } else {
                 $this->params = $_POST;
             }
+
+						if($_FILES){
+							$this->params[] = $_FILES;
+					}
            /* echo '<pre>';
             var_dump($this);
             echo '</pre>';*/
