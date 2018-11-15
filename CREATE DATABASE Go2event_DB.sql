@@ -144,17 +144,13 @@ BEGIN
 END $$
 DELIMITER ;
 
+/* Para agregar un par de usuarios para arrancar
+	USER: admin@admin
+	PASS: 1234
 
-SELECT
-		c.is_admin
-	FROM
-		clients c
-	WHERE
-		c.pass = "$2y$10$LoXVkSa62nQTtvTnfQN9EudP25rpfPxWvhubr2lErJo7z70AdSQui";
-
-SELECT
-		c.is_admin
-	FROM
-		clients c
-	WHERE
-		c.pass = "$2y$10$mrG95dhyFQchG7BhL7ya5u.7goe0W.YJU/etqmb3bZXVT6BWYrDTu";
+	USER: cliente@cliente
+	PASS: 1234
+*/
+INSERT INTO clients(email,name,surname,pass,is_admin)
+	VALUES 	("admin@admin","Root","Casi Master of the Universe","$2y$10$LoXVkSa62nQTtvTnfQN9EudP25rpfPxWvhubr2lErJo7z70AdSQui",true),
+			("cliente@cliente","Simple","Peasant","$2y$10$mrG95dhyFQchG7BhL7ya5u.7goe0W.YJU/etqmb3bZXVT6BWYrDTu",false);
