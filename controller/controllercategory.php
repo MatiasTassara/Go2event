@@ -20,7 +20,6 @@ class ControllerCategory{
       include(ROOT.'views/categories.php');
       }else include(ROOT.'views/index.php');
   }
-  }
 
   public function addCategory($name){
     $objCategory = new M_Category($name);
