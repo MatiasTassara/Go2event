@@ -14,8 +14,10 @@ class ControllerVenue{
     }
 
     public function index(){
-        $venues = $this->daoVenue->getAll();
-        include(ROOT.'views/venues.php');
+        if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+            $venues = $this->daoVenue->getAll();
+            include(ROOT.'views/venues.php');
+        }else include(ROOT.'views/index.php');
     }
 
     public function addVenue($name,$capacity,$city,$address){

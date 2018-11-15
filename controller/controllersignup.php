@@ -17,12 +17,20 @@ class ControllerSignUp{
         include(ROOT.'views/signup.php');
     }
 
-    public function addUser($mail,$name,$surname,$pass){
+    public function addUser($mail,$pass,$name,$surname){
         $hashedPass = password_hash($pass,PASSWORD_BCRYPT);
         $objUser = new M_User($mail,$name,$surname,$hashedPass,$isAdmin = false);
         $this->daoUser->add($objUser);
-        include(ROOT.'views/login.php');
+        include(ROOT.'views/login-register.php');
     }
+
+    public function addAdmin($mail,$pass,$name,$surname){
+        $hashedPass = password_hash($pass,PASSWORD_BCRYPT);
+        $objUser = new M_User($mail,$name,$surname,$hashedPass,$isAdmin = true);
+        $this->daoUser->add($objUser);
+        include(ROOT.'views/Artist.php');
+    }
+
     public function modifyUser($id,$name){
         //echo "<br>id = $id y name= $name<br>"; //borrable
         $obj = $this->daoUser->retrieveById($id);

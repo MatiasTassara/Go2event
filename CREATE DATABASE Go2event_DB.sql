@@ -131,3 +131,30 @@ CREATE TABLE admins(
 	constraint unq_admins unique (email)
 );
 
+DROP PROCEDURE IF EXISTS isAdmin;
+DELIMITER $$
+CREATE PROCEDURE isAdmin(in hashedPass varchar(200), OUT isAdmin boolean)
+BEGIN
+	SELECT
+		c.is_admin INTO isAdmin
+	FROM
+		clients c
+	WHERE
+		c.pass = hashedPass;
+END $$
+DELIMITER ;
+
+
+SELECT
+		c.is_admin
+	FROM
+		clients c
+	WHERE
+		c.pass = "$2y$10$LoXVkSa62nQTtvTnfQN9EudP25rpfPxWvhubr2lErJo7z70AdSQui";
+
+SELECT
+		c.is_admin
+	FROM
+		clients c
+	WHERE
+		c.pass = "$2y$10$mrG95dhyFQchG7BhL7ya5u.7goe0W.YJU/etqmb3bZXVT6BWYrDTu";

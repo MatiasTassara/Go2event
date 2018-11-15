@@ -14,8 +14,10 @@ class ControllerArtist{
 
   }
   function index(){
-    $artists = $this->daoArtist->getAll();
+    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+      $artists = $this->daoArtist->getAll();
     include(ROOT.'views/artists.php');
+    }else include(ROOT.'views/index.php');
   }
 
   function addArtist($name, $desc = ''){

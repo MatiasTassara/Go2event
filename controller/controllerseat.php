@@ -14,8 +14,10 @@ class ControllerSeat{
 
   }
   function index(){
-    $seats = $this->daoSeats->getAll();
-    include(ROOT.'views/seats.php');
+    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+      $seats = $this->daoSeats->getAll();
+      include(ROOT.'views/seats.php');
+    }else include(ROOT.'views/index.php');
   }
 
   function addSeats($quant, $price, $remaining, $seatType,$calendar){

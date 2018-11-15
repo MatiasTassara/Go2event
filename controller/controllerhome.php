@@ -8,6 +8,9 @@ class  ControllerHome{
     include(ROOT.'views/index.php');
   }
 
+  public function login(){
+    include(ROOT.'views/login-register.php');
+  }
 
 
 }

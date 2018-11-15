@@ -15,8 +15,11 @@ class ControllerCategory{
   }
 
   public function index(){
-    $categories = $this->daoCategory->getAll();
-    include(ROOT.'views/categories.php');
+    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+      $categories = $this->daoCategory->getAll();
+      include(ROOT.'views/categories.php');
+      }else include(ROOT.'views/index.php');
+  }
   }
 
   public function addCategory($name){

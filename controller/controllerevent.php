@@ -20,10 +20,12 @@ class controllerEvent{
     }
 
     public function index(){
-    $events = $this->daoEvent->getAll();
-
-    $categories = $this->daoCategory->getAll();
-    include(ROOT.'views/events.php'); //ver nombre de la vista
+        if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+            $events = $this->daoEvent->getAll();
+            $categories = $this->daoCategory->getAll();
+            include(ROOT.'views/events.php'); //ver nombre de la vista
+        }else include(ROOT.'views/index.php');
+        }
     }
 
 

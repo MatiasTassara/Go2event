@@ -16,9 +16,10 @@ class ControllerSeatType
 	}
 
 	public function index(){
-
-		$seattypes = $this->daoSeattype->getAll();
-		include(ROOT.'views/seattypes.php');
+		if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+			$seattypes = $this->daoSeattype->getAll();
+			include(ROOT.'views/seattypes.php');
+		 }else include(ROOT.'views/index.php');
 	}
 
 	public function addSeatType($name, $description){
