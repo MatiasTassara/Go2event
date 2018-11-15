@@ -43,8 +43,6 @@ class ControllerCalendar{
       include(ROOT.'views/calendars.php');
     }else include(ROOT.'views/index.php');
   }
-    
-  }
 
     public function addCalendar ( $idEvent, $idVenue, $idsArtist, $date, $arrIdsSeatType, $arrQuant, $arrPrice ){ //idsartist es arreglo de ids
      // echo '<br><br>'. var_dump($date) .'<br>';
