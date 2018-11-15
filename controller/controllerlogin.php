@@ -54,4 +54,10 @@ class ControllerLogin extends ControllerArtist{
                 $this->index($alert);
             }            
         }
-    }}
+    }
+    
+    public function logout(){
+        session_unset();
+        session_destroy();
+    }
+}
