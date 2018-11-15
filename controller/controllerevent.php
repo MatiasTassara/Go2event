@@ -25,7 +25,6 @@ class controllerEvent{
             $categories = $this->daoCategory->getAll();
             include(ROOT.'views/events.php'); //ver nombre de la vista
         }else include(ROOT.'views/index.php');
-        }
     }
 
 
