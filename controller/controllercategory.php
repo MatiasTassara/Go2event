@@ -1,24 +1,31 @@
 <?php
 namespace controller;
 
+use Controller\ControllerHome as C_Home;
 use Model\Category as M_Category;
 //use DAO\ListCategory as D_Category;
 use DAO\CategoryDb as D_Category;
 
 class ControllerCategory{
   private $daoCategory;
+  private $cHome;
 
   public function __construct(){
 
     $this->daoCategory = D_Category::getInstance();
+    $this->cHome = new C_Home();
 
   }
 
   public function index(){
-    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+    if(isset($_SESSION["Client"]) && $_SESSION["Client"]->getIsAdmin() == 1)
+    {
       $categories = $this->daoCategory->getAll();
       include(ROOT.'views/categories.php');
-      }else include(ROOT.'views/index.php');
+    }
+      else {
+        $this->cHome->index();
+      }
   }
 
   public function addCategory($name){

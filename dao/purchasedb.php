@@ -5,8 +5,8 @@ use Model\Purchase as M_Purchase;
 use dao\ClientDb as D_Client;
 
 /**
- *
- */
+*
+*/
 class PurchaseDb extends SingletonDAO implements \interfaces\Idao
 {
 
@@ -25,7 +25,7 @@ class PurchaseDb extends SingletonDAO implements \interfaces\Idao
 
     $parameters['date_purchase'] = $obj->getDate();
     $parameters['id_client'] = $obj->getClient()->getId();
-    
+
 
 
     try{
@@ -38,10 +38,10 @@ class PurchaseDb extends SingletonDAO implements \interfaces\Idao
     }
 
   }
- 
+
   public function retrieveByName($name){
 
-   
+
   }
 
 
@@ -50,8 +50,8 @@ class PurchaseDb extends SingletonDAO implements \interfaces\Idao
     $sql = "SELECT * from purchases where id_purchase = :id_purchase";
     $parameters['id_purchase'] = $id;
     try{
-       $this->connection = Connection::getInstance();
-       $response = $this->connection->execute($sql, $parameters);
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql, $parameters);
 
     }catch(Exception $ex){
       throw $ex;
@@ -62,8 +62,8 @@ class PurchaseDb extends SingletonDAO implements \interfaces\Idao
       return array_shift($result);
     }
 
-     else
-          return null;
+    else
+    return null;
 
 
 
@@ -81,37 +81,37 @@ class PurchaseDb extends SingletonDAO implements \interfaces\Idao
       throw $ex;
     }
     if(!empty($response))
-      return $this->map($response);
+    return $this->map($response);
     else
-      return null;
+    return null;
 
   }
-    
+
 
   protected function map($value) {
 
-      $value = is_array($value) ? $value : [];
-      $arrayResponse = array();
+    $value = is_array($value) ? $value : [];
+    $arrayResponse = array();
 
 
-      $resp = array_map(function($p){
+    $resp = array_map(function($p){
 
-          $client = $this->daoClients->retrieveById($p['id_client']);
+      $client = $this->daoClients->retrieveById($p['id_client']);
 
-           return new M_Purchase($p['date_purchase'], $client, $p['id_purchase']);
-         }, $value);
+      return new M_Purchase($p['date_purchase'], $client, $p['id_purchase']);
+    }, $value);
 
-               return count($resp) >= 1 ? $resp : $arrayResponse[] = $resp['0'];
+    return count($resp) >= 1 ? $resp : $arrayResponse[] = $resp['0'];
 
 
-}
+  }
 
   public function update($obj){
     $sql = "UPDATE purchases SET date_purchase = :date_purchase, id_client = :id_client where id_purchase = :id_purchase";
     $parameters['id_purchase'] = $obj->getId();
     $parameters['date_purchase'] = $obj->getDate();
     $parameters['id_client'] = $obj->getClient()->getId();
-   
+
     try{
       $this->connection = Connection::getInstance();
       return $this->connection->ExecuteNonQuery($sql, $parameters);
@@ -143,4 +143,4 @@ class PurchaseDb extends SingletonDAO implements \interfaces\Idao
 }
 
 
- ?>
+?>

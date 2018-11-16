@@ -7,12 +7,12 @@ class ListCalendar extends SingletonDAO implements \interfaces\Idao{
 
 
   function __construct(){
-      if(!isset($_SESSION['calendars'])){
-            $_SESSION['calendars'] = array();
-            $id = (isset($_SESSION['idsCalendars'])) ? $_SESSION['idsCalendars'] : 0;
-            $_SESSION['idsCalendars'] = $id;
-        }
-        $this->calendars = $_SESSION['calendars'];
+    if(!isset($_SESSION['calendars'])){
+      $_SESSION['calendars'] = array();
+      $id = (isset($_SESSION['idsCalendars'])) ? $_SESSION['idsCalendars'] : 0;
+      $_SESSION['idsCalendars'] = $id;
+    }
+    $this->calendars = $_SESSION['calendars'];
   }
 
   public function add($obj){
@@ -20,7 +20,7 @@ class ListCalendar extends SingletonDAO implements \interfaces\Idao{
     $this->calendars = $_SESSION['calendars'];
     foreach ($this->calendars as $key => $value) {
       if($value->getName() == $obj->getName()){
-          $check = false;
+        $check = false;
       }
     }
     if($check){
@@ -32,49 +32,49 @@ class ListCalendar extends SingletonDAO implements \interfaces\Idao{
     }
   }
 
-   public function retrieveByName($name){
-        $artistsReturn = null;
-        foreach ($this->calendars as $key => $value) {
-            if($name == $value->getName()){
-                if($artistsReturn == null){
-                   $artistsReturn = array();
-                }
-                $artistsReturn[] = $value;
-            }
+  public function retrieveByName($name){
+    $artistsReturn = null;
+    foreach ($this->calendars as $key => $value) {
+      if($name == $value->getName()){
+        if($artistsReturn == null){
+          $artistsReturn = array();
         }
-        return $artistsReturn;
-    }
-
-    public function retrieveById($id){
-        $artistReturn = null;
-        foreach ($this->calendars as $key => $value) {
-            if($id == $value->getId()){
-
-                $artistReturn = $value;
-            }
-        }
-        return $artistReturn;
-    }
-
-    public function update($obj){
-        $this->calendars = $_SESSION['seattypes'];
-        if(isset($this->calendars[$obj->getId()])){
-            $this->calendars[$obj->getId()] = $obj;
-        }
-    }
-
-  public function delete($id){
-      $calendars = $_SESSION['calendars'];
-      foreach ($this->seattypes as $key => $value) {
-        if($value->getId() == $id){
-          unset($calendars[$key]);
-          $_SESSION['calendars'] = $calendars;
-        }
+        $artistsReturn[] = $value;
       }
     }
+    return $artistsReturn;
+  }
+
+  public function retrieveById($id){
+    $artistReturn = null;
+    foreach ($this->calendars as $key => $value) {
+      if($id == $value->getId()){
+
+        $artistReturn = $value;
+      }
+    }
+    return $artistReturn;
+  }
+
+  public function update($obj){
+    $this->calendars = $_SESSION['seattypes'];
+    if(isset($this->calendars[$obj->getId()])){
+      $this->calendars[$obj->getId()] = $obj;
+    }
+  }
+
+  public function delete($id){
+    $calendars = $_SESSION['calendars'];
+    foreach ($this->seattypes as $key => $value) {
+      if($value->getId() == $id){
+        unset($calendars[$key]);
+        $_SESSION['calendars'] = $calendars;
+      }
+    }
+  }
 
   public function getAll(){
-        $this->calendars = $_SESSION['calendars'];
-        return $this->calendars;
-    }
+    $this->calendars = $_SESSION['calendars'];
+    return $this->calendars;
+  }
 }

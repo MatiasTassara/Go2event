@@ -2,8 +2,8 @@
 namespace dao;
 use Model\SeatType as M_SeatType;
 /**
- *
- */
+*
+*/
 class SeatTypeDb extends SingletonDAO implements \interfaces\Idao
 {
 
@@ -45,7 +45,7 @@ class SeatTypeDb extends SingletonDAO implements \interfaces\Idao
       $result = $this->map($response);
       return array_shift($result);
     }else
-       return false;
+    return false;
 
 
   }
@@ -66,7 +66,7 @@ class SeatTypeDb extends SingletonDAO implements \interfaces\Idao
       return array_shift($result);
     }
     else
-      return null;
+    return null;
 
   }
   public function getAll(){
@@ -81,9 +81,9 @@ class SeatTypeDb extends SingletonDAO implements \interfaces\Idao
     }
     if(!empty($response)){
       return  $this->map($response);
-          }
+    }
     else
-      return null;
+    return null;
 
   }
 
@@ -122,16 +122,16 @@ class SeatTypeDb extends SingletonDAO implements \interfaces\Idao
 
   protected function map($value) {
 
-      $value = is_array($value) ? $value : [];
+    $value = is_array($value) ? $value : [];
 
-      $resp = array_map(function($p){
-        return new M_SeatType($p['name_seattype'], $p['description'], $p['id_seattype']);}, $value);
+    $resp = array_map(function($p){
+      return new M_SeatType($p['name_seattype'], $p['description'], $p['id_seattype']);}, $value);
 
-               return count($resp) >= 1 ? $resp : $arrayResponse[] = $resp['0'];
-
-
-}
-}
+      return count($resp) >= 1 ? $resp : $arrayResponse[] = $resp['0'];
 
 
- ?>
+    }
+  }
+
+
+  ?>

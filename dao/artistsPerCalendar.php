@@ -1,12 +1,13 @@
 <?php
 namespace dao;
 
-use Model\Category as M_Category;
+use Model\Calendar as M_Calendar;
+use Model\Artist as M_Artist;
 
 /**
 *
 */
-class CategoryDb extends SingletonDAO implements \interfaces\Idao
+class ArtistsPerCalendar extends SingletonDAO implements \interfaces\Idao
 {
 
   private $connection;
@@ -15,46 +16,44 @@ class CategoryDb extends SingletonDAO implements \interfaces\Idao
   }
   public function add($obj){
 
-    $sql ="INSERT INTO categories (name_category) VALUES (:name_category)";
 
-    $parameters['name_category'] = $obj->getName();
 
+  }
+  public function add($calendar, $artist){
+
+    $sql = "INSERT INTO artists_x_calendar(id_calendar, id_artist) values (:id_calendar, :id_artist)";
+    $parameters['id_calendar'] = $calendar->getId();
+    $parameters['id_artist'] = $artist->getId();
 
     try{
       $this->connection = Connection::getInstance();
-
       return $this->connection->executeNonQuery($sql, $parameters);
     }catch(\PDOException $ex){
       throw $ex;
-
     }
-
   }
 
 
 
   public function retrieveByName($name){
 
-    $sql = "SELECT * FROM categories where name_category = :name_category";
 
-    $parameters['name_category'] = $name;
+  }
+  public retrieveArtistsByIdCalendar($id_calendar){
 
-    try {
-      $this->connection = Connection::getInstance();
+    $sql= "SELECT a".".name_artist, a".".description"."FROM artists a INNER JOIN artists_x_calendar ac on
+    a.id_artist = ac.id_artist WHERE ac.id_calendar = :id_calendar";
+    $parameters['id_calendar'] = $id_calendar;
+    try{
+      $this->connection = Connnection::getInstance();
       $response = $this->connection->execute($sql, $parameters);
-    } catch(Exception $ex) {
+
+    }catch(Exception $ex){
       throw $ex;
     }
-
-
     if(!empty($response)){
 
-      $result =  $this->map($response);
-      return array_shift($result);
     }
-
-    else
-    return null;
 
   }
 
@@ -79,6 +78,8 @@ class CategoryDb extends SingletonDAO implements \interfaces\Idao
     else
     return null;
 
+  }
+  public function retrieveById($idCalendar, $idArtist){
 
 
   }

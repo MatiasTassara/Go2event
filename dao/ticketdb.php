@@ -1,12 +1,12 @@
-<?php 
+<?php
 namespace dao;
 
 use Model\Ticket as M_Ticket;
 use dao\PurchaseItemDb as D_PurchaseItem;
 
 /**
- *
- */
+*
+*/
 class TicketDb extends SingletonDAO implements \interfaces\Idao
 {
 
@@ -27,7 +27,7 @@ class TicketDb extends SingletonDAO implements \interfaces\Idao
     $parameters['number_ticket'] = $obj->getNumber();
     $parameters['qr'] = $obj->getQr();
     $parameters['id_purchase_item'] = $obj->getPurchaseItem()->getId();
-    
+
 
 
     try{
@@ -40,10 +40,10 @@ class TicketDb extends SingletonDAO implements \interfaces\Idao
     }
 
   }
- 
+
   public function retrieveByName($name){
 
-   
+
   }
 
 
@@ -52,8 +52,8 @@ class TicketDb extends SingletonDAO implements \interfaces\Idao
     $sql = "SELECT * from tickets where id_ticket = :id_ticket";
     $parameters['id_ticket'] = $id;
     try{
-       $this->connection = Connection::getInstance();
-       $response = $this->connection->execute($sql, $parameters);
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql, $parameters);
 
     }catch(Exception $ex){
       throw $ex;
@@ -64,8 +64,8 @@ class TicketDb extends SingletonDAO implements \interfaces\Idao
       return array_shift($result);
     }
 
-     else
-          return null;
+    else
+    return null;
 
 
 
@@ -84,33 +84,33 @@ class TicketDb extends SingletonDAO implements \interfaces\Idao
       throw $ex;
     }
     if(!empty($response))
-      return $this->map($response);
+    return $this->map($response);
     else
-      return null;
+    return null;
 
   }
 
-  
+
 
   protected function map($value) {
 
-      $value = is_array($value) ? $value : [];
-      $arrayResponse = array();
+    $value = is_array($value) ? $value : [];
+    $arrayResponse = array();
 
 
-      $resp = array_map(function($p){
+    $resp = array_map(function($p){
 
-          $purchaseItem = $this->daoPurchasesItem->retrieveById($p['id_purchase_item']);
+      $purchaseItem = $this->daoPurchasesItem->retrieveById($p['id_purchase_item']);
 
-           return new M_Ticket ($p['number_ticket'], $p['qr'], $purchaseItem, $p['id_ticket']);
-         }, $value);
+      return new M_Ticket ($p['number_ticket'], $p['qr'], $purchaseItem, $p['id_ticket']);
+    }, $value);
 
-               return count($resp) >= 1 ? $resp : $arrayResponse[] = $resp['0'];
+    return count($resp) >= 1 ? $resp : $arrayResponse[] = $resp['0'];
 
 
-}
- 
-  
+  }
+
+
   public function update($obj){
     $sql = "UPDATE tickets SET number_ticket = :number_ticket, qr = :qr, id_purchase_item = :id_purchase_item where id_ticket = :id_ticket";
     $parameters['id_ticket'] = $obj->getId();
@@ -118,7 +118,7 @@ class TicketDb extends SingletonDAO implements \interfaces\Idao
     $parameters['qr'] = $obj->getQr();
     $parameters['id_purchase_item'] = $obj->getPurchaseItem()->getId();
 
-   
+
     try{
       $this->connection = Connection::getInstance();
       return $this->connection->ExecuteNonQuery($sql, $parameters);
@@ -129,7 +129,7 @@ class TicketDb extends SingletonDAO implements \interfaces\Idao
 
   }
 
-  
+
   public function delete($id){
 
     $sql = "DELETE from tickets where id_ticket = :id_ticket";
@@ -150,4 +150,4 @@ class TicketDb extends SingletonDAO implements \interfaces\Idao
 }
 
 
- ?>
+?>

@@ -14,17 +14,15 @@ class ControllerSeat{
 
   }
   function index(){
-    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-      $seats = $this->daoSeats->getAll();
-      include(ROOT.'views/seats.php');
-    }else include(ROOT.'views/index.php');
+    $seats = $this->daoSeats->getAll();
+    include(ROOT.'views/seats.php');
   }
 
   function addSeats($quant, $price, $remaining, $seatType,$calendar){
     $objSeat = new M_Seat($quant, $price,$remaining,$seatType,$calendar);
     $this->daoSeat->add($objSeat);
     $this->index();
-    }
+  }
 
 
 

@@ -4,8 +4,8 @@ namespace dao;
 use Model\Venue as M_Venue;
 
 /**
- *
- */
+*
+*/
 class VenueDb extends SingletonDAO implements \interfaces\Idao
 {
 
@@ -43,14 +43,14 @@ class VenueDb extends SingletonDAO implements \interfaces\Idao
       $response = $this->connection->execute($sql, $parameters);
     }catch(Exception $ex){
       throw $ex;
-      
+
     }
     if(!empty($response)){
       $result = $this->map($response);
       return array_shift($result);
     }
     else
-      return null;
+    return null;
 
   }
   public function retrieveById($id){
@@ -69,11 +69,11 @@ class VenueDb extends SingletonDAO implements \interfaces\Idao
       return array_shift($result);
     }
     else
-      return null;
+    return null;
 
   }
 
-  
+
 
   public function getAll(){
 
@@ -85,11 +85,11 @@ class VenueDb extends SingletonDAO implements \interfaces\Idao
       throw $ex;
     }
     if(!empty($response)){
-      
+
       return $this->map($response);
     }
     else
-      return null;
+    return null;
 
   }
 
@@ -124,19 +124,19 @@ class VenueDb extends SingletonDAO implements \interfaces\Idao
 
   }
 
-  
+
   protected function map($value) {
 
-      $value = is_array($value) ? $value : [];
+    $value = is_array($value) ? $value : [];
 
-      $resp = array_map(function($p){
-        return new M_Venue($p['name_venue'], $p['address'], $p['city'], $p['capacityLimit'], $p['id_venue']);}, $value);
+    $resp = array_map(function($p){
+      return new M_Venue($p['name_venue'], $p['address'], $p['city'], $p['capacityLimit'], $p['id_venue']);}, $value);
 
-               return count($resp) >= 1 ? $resp : $arrayResponse[] = $resp['0'];
-
-  
-}
-}
+      return count($resp) >= 1 ? $resp : $arrayResponse[] = $resp['0'];
 
 
- ?>
+    }
+  }
+
+
+  ?>

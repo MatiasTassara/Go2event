@@ -5,8 +5,8 @@ use Model\Event as M_Event;
 use dao\CategoryDb as CategoryDb;
 
 /**
- *
- */
+*
+*/
 class EventDb extends SingletonDAO implements \interfaces\Idao
 {
 
@@ -44,24 +44,24 @@ class EventDb extends SingletonDAO implements \interfaces\Idao
 
     $sql = "SELECT * FROM events where name_event LIKE %:name_event%";
 
-               $parameters['name_event'] = $name;
+    $parameters['name_event'] = $name;
 
-               try {
-                    $this->connection = Connection::getInstance();
-                    $response = $this->connection->execute($sql, $parameters);
-               } catch(Exception $ex) {
-                   throw $ex;
-               }
+    try {
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql, $parameters);
+    } catch(Exception $ex) {
+      throw $ex;
+    }
 
 
-               if(!empty($response)){
+    if(!empty($response)){
 
-                   $result = $this->map($response);
-                   return array_shift($result);
-               }
+      $result = $this->map($response);
+      return array_shift($result);
+    }
 
-               else
-                    return null;
+    else
+    return null;
 
   }
 
@@ -71,8 +71,8 @@ class EventDb extends SingletonDAO implements \interfaces\Idao
     $sql = "SELECT * from events where id_event = :id_event";
     $parameters['id_event'] = $id;
     try{
-       $this->connection = Connection::getInstance();
-       $response = $this->connection->execute($sql, $parameters);
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql, $parameters);
 
     }catch(Exception $ex){
       throw $ex;
@@ -83,8 +83,8 @@ class EventDb extends SingletonDAO implements \interfaces\Idao
       return array_shift($result);
     }
 
-     else
-          return null;
+    else
+    return null;
 
 
 
@@ -101,28 +101,28 @@ class EventDb extends SingletonDAO implements \interfaces\Idao
       throw $ex;
     }
     if(!empty($response))
-      return $this->map($response);
+    return $this->map($response);
     else
-      return null;
+    return null;
 
   }
   protected function map($value) {
 
-      $value = is_array($value) ? $value : [];
-      $arrayResponse = array();
+    $value = is_array($value) ? $value : [];
+    $arrayResponse = array();
 
 
-      $resp = array_map(function($p){
+    $resp = array_map(function($p){
 
-          $category = $this->daoCategories->retrieveById($p['id_category']);
+      $category = $this->daoCategories->retrieveById($p['id_category']);
 
-           return new M_Event($p['name_event'], $p['description'], $p['img_path'], $category, $p['id_event']);
-         }, $value);
+      return new M_Event($p['name_event'], $p['description'], $p['img_path'], $category, $p['id_event']);
+    }, $value);
 
-               return count($resp) >= 1 ? $resp : $arrayResponse[] = $resp['0'];
+    return count($resp) >= 1 ? $resp : $arrayResponse[] = $resp['0'];
 
 
-}
+  }
 
   public function update($obj){
     $sql = "UPDATE events SET name_event = :name_event, description = :description, img_path = :img_path, id_category = :id_category where id_event = :id_event";
@@ -161,4 +161,4 @@ class EventDb extends SingletonDAO implements \interfaces\Idao
 }
 
 
- ?>
+?>

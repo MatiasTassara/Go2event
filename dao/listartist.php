@@ -9,14 +9,14 @@ class ListArtist extends SingletonDAO implements \interfaces\Idao{
 
   function __construct(){
 
-      if(!isset($_SESSION['artists'])){
-                $_SESSION['artists'] = array();
+    if(!isset($_SESSION['artists'])){
+      $_SESSION['artists'] = array();
 
-                $id = (isset($_SESSION['idsArtists'])) ? $_SESSION['idsArtists'] : 0;
+      $id = (isset($_SESSION['idsArtists'])) ? $_SESSION['idsArtists'] : 0;
 
-                $_SESSION['idsArtists'] = $id;
-        }
-        $this->artists = $_SESSION['artists'];
+      $_SESSION['idsArtists'] = $id;
+    }
+    $this->artists = $_SESSION['artists'];
 
 
 
@@ -29,7 +29,7 @@ class ListArtist extends SingletonDAO implements \interfaces\Idao{
     $this->artists = $_SESSION['artists'];
     foreach ($this->artists as $key => $value) {
       if($value->getName() == $obj->getName()){
-          $check = false;
+        $check = false;
       }
     }
 
@@ -43,64 +43,64 @@ class ListArtist extends SingletonDAO implements \interfaces\Idao{
 
     }
   }
-   public function retrieveByName($name){
+  public function retrieveByName($name){
 
-        $artistsReturn = null;
-        foreach ($this->artists as $key => $value) {
-            if($name === $value->getName()){
-                if($artistsReturn == null){
+    $artistsReturn = null;
+    foreach ($this->artists as $key => $value) {
+      if($name === $value->getName()){
+        if($artistsReturn == null){
 
-                   $artistsReturn = array();
-                }
-
-                $artistsReturn[] = $value;
-            }
+          $artistsReturn = array();
         }
-        return $artistsReturn;
-    }
-    public function retrieveById($id){
 
-        $artistReturn = null;
-        foreach ($this->artists as $key => $value) {
-            if($id === $value->getId()){
-
-                $artistReturn = $value;
-            }
-        }
-        return $artistReturn;
-    }
-
-
-
-
-    public function update($obj){
-
-      $this->artists = $_SESSION['seattypes'];
-      if(isset($this->artists[$obj->getId()])){
-
-        $this->artists[$obj->getId()] = $obj;
+        $artistsReturn[] = $value;
       }
-
     }
+    return $artistsReturn;
+  }
+  public function retrieveById($id){
+
+    $artistReturn = null;
+    foreach ($this->artists as $key => $value) {
+      if($id === $value->getId()){
+
+        $artistReturn = $value;
+      }
+    }
+    return $artistReturn;
+  }
+
+
+
+
+  public function update($obj){
+
+    $this->artists = $_SESSION['seattypes'];
+    if(isset($this->artists[$obj->getId()])){
+
+      $this->artists[$obj->getId()] = $obj;
+    }
+
+  }
 
 
   public function delete($id){
 
-      $artists = $_SESSION['artists'];
-      foreach ($this->seattypes as $key => $value) {
-        if($value->getId() === $id){
-          unset($artists[$key]);
-          $_SESSION['artists'] = $artists;
+    $artists = $_SESSION['artists'];
+    foreach ($this->seattypes as $key => $value) {
+      if($value->getId() === $id){
+        unset($artists[$key]);
+        $_SESSION['artists'] = $artists;
 
-        }
       }
     }
+  }
 
   public function getAll(){
-        $this->artists = $_SESSION['artists'];
-        return $this->artists;
-    }
+    $this->artists = $_SESSION['artists'];
+    return $this->artists;
+  }
 }
 
 
- ?>
+?>

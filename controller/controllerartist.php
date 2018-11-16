@@ -1,23 +1,30 @@
 <?php
 namespace controller;
 
+use Controller\ControllerHome as C_Home;
 use Model\Artist as M_Artist;
 //use DAO\ListArtist as D_Artist;
 use DAO\ArtistDb as D_Artist;
 
 class ControllerArtist{
   private $daoArtist;
+  private $cHome;
 
   public function __construct(){
 
     $this->daoArtist = D_Artist::getInstance();
+    $this->cHome = new C_Home();
 
   }
   function index(){
-    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+    if(isset($_SESSION["Client"]) && $_SESSION["Client"]->getIsAdmin() == 1)
+    {
       $artists = $this->daoArtist->getAll();
-    include(ROOT.'views/artists.php');
-    }else include(ROOT.'views/index.php');
+      include(ROOT.'views/artists.php');
+    }
+    else {
+      $this->cHome->index();
+    }
   }
 
   function addArtist($name, $desc = ''){
@@ -39,7 +46,9 @@ class ControllerArtist{
   }
 
   public function deleteArtist($idArtist) {
+
     $this->daoArtist->delete($idArtist);
+
     $this->index();
   }
 
@@ -47,4 +56,4 @@ class ControllerArtist{
 
 
 
- ?>
+?>

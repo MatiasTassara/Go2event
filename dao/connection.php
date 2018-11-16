@@ -2,14 +2,14 @@
 namespace dao;
 
 /**
- *
- */
+*
+*/
 class Connection{
 
 
-private $pdo = null;
-private $pdoStatement = null;
-private static $instance = null;
+  private $pdo = null;
+  private $pdoStatement = null;
+  private static $instance = null;
 
   function __construct(){
 
@@ -26,7 +26,7 @@ private static $instance = null;
 
   public static function getInstance(){
     if (self::$instance == null)
-      self::$instance = new Connection();
+    self::$instance = new Connection();
     return self::$instance;
   }
 
@@ -49,21 +49,21 @@ private static $instance = null;
   public function executeNonQuery($query, $parameters = array()){
 
     try
-          {
+    {
 
-               $this->pdoStatement = $this->pdo->prepare($query);
-               foreach($parameters as $parameterName => $value) {
-                    
-                    $this->pdoStatement->bindParam(":$parameterName", $parameters[$parameterName]);
-               }
-               $this->pdoStatement->execute();
-               return $this->pdoStatement->rowCount();
-          }
-          catch(\PDOException $ex)
-          {
-               throw $ex;
-          }
+      $this->pdoStatement = $this->pdo->prepare($query);
+      foreach($parameters as $parameterName => $value) {
+
+        $this->pdoStatement->bindParam(":$parameterName", $parameters[$parameterName]);
+      }
+      $this->pdoStatement->execute();
+      return $this->pdoStatement->rowCount();
+    }
+    catch(\PDOException $ex)
+    {
+      throw $ex;
+    }
   }
 }
 
- ?>
+?>

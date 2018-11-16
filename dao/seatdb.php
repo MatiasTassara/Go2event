@@ -6,8 +6,8 @@ use Dao\SeatTypeDb as D_SeatType;
 use Dao\CalendarDb as D_Calendar;
 
 /**
- *
- */
+*
+*/
 class SeatDb extends SingletonDAO implements \interfaces\Idao
 {
 
@@ -20,8 +20,8 @@ class SeatDb extends SingletonDAO implements \interfaces\Idao
     $this->daoCalendar = D_Calendar::getInstance();
 
   }
-  
-  
+
+
   public function add($obj){
 
     $sql ="INSERT INTO seats (quant, price, remaining, id_seattype, id_calendar) VALUES (:quant, :price, :remaining, :id_seattype, :id_calendar)";
@@ -31,7 +31,7 @@ class SeatDb extends SingletonDAO implements \interfaces\Idao
     $parameters['remaining'] =$obj->getRemaining();
     $parameters['id_seattype'] =$obj->getSeatType()->getId();
     $parameters['id_calendar'] =$obj->getCalendar()->getId();
-    
+
 
     try{
       $this->connection = Connection::getInstance();
@@ -46,7 +46,7 @@ class SeatDb extends SingletonDAO implements \interfaces\Idao
 
   public function retrieveByName($name){
 
-   
+
 
   }
 
@@ -56,8 +56,8 @@ class SeatDb extends SingletonDAO implements \interfaces\Idao
     $sql = "SELECT * from seats where id_seat = :id_seat";
     $parameters['id_seat'] = $id;
     try{
-       $this->connection = Connection::getInstance();
-       $response = $this->connection->execute($sql, $parameters);
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql, $parameters);
 
     }catch(Exception $ex){
       throw $ex;
@@ -67,15 +67,15 @@ class SeatDb extends SingletonDAO implements \interfaces\Idao
       $result = $this->map($response);
       return array_shift($result);
     }
-          
-     else
-          return null;
+
+    else
+    return null;
 
 
 
   }
-  
-	
+
+
   public function getAll(){
 
     $sql = "SELECT * FROM seats";
@@ -86,30 +86,30 @@ class SeatDb extends SingletonDAO implements \interfaces\Idao
       throw $ex;
     }
     if(!isset($response))
-      return $this->map($response);
+    return $this->map($response);
     else
-      return null;
+    return null;
 
   }
-  
+
   protected function map($value) {
 
-      $value = is_array($value) ? $value : [];
-      $arrayResponse = array();
+    $value = is_array($value) ? $value : [];
+    $arrayResponse = array();
 
 
-      $resp = array_map(function($p){
-          
-          $seattype = $this->daoSeatTypes->retrieveById($p['id_seattype']);
-          $calendar = $this->daoCalendar->retrieveById($p['id_calendar']);
-        
-           return new M_Event($p['quant'], $p['price'], $p['remaining'], $seattype, $calendar, $p['id_seat']);
-         }, $value);
+    $resp = array_map(function($p){
 
-               return count($resp) >= 1 ? $resp : $arrayResponse[] = $resp['0'];
+      $seattype = $this->daoSeatTypes->retrieveById($p['id_seattype']);
+      $calendar = $this->daoCalendar->retrieveById($p['id_calendar']);
 
-  
-}
+      return new M_Event($p['quant'], $p['price'], $p['remaining'], $seattype, $calendar, $p['id_seat']);
+    }, $value);
+
+    return count($resp) >= 1 ? $resp : $arrayResponse[] = $resp['0'];
+
+
+  }
 
   public function update($obj){
     $sql = "UPDATE seats SET quant = :quant, price = :price, remaining = :remaining,  where id_seat = :id_seat";
@@ -121,18 +121,18 @@ class SeatDb extends SingletonDAO implements \interfaces\Idao
       return $this->connection->ExecuteNonQuery($sql, $parameters);
     }catch(\PDOException $ex){
       throw $ex;
-      
+
     }
 
   }
 
   public function delete($id){
 
-    
+
   }
 
-  
+
 }
 
 
- ?>
+?>

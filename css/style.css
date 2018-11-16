@@ -35,3 +35,7 @@
 {
   background-color: #efca29 !important;
 }
+.uk-subnav-pill  {
+  justify-content: center;
+  align-items: center;
+}

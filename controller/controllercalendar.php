@@ -1,11 +1,9 @@
 <?php
 namespace controller;
 
-
-
+use Controller\ControllerHome as C_Home;
 use Model\Calendar as M_Calendar;
 use Model\Seat as M_Seat;
-
 use DAO\ArtistsPerCalendarDb as D_Artist_Calendar;
 use DAO\CalendarDb as D_Calendar;
 use DAO\VenueDb as D_Venue;
@@ -22,7 +20,7 @@ class ControllerCalendar{
   private $daoArtistPerCalendar;
   private $daoSeat;
   private $daoSeatType;
-
+  private $cHome;
 
   public function __construct(){
     $this->daoCalendar = D_Calendar::getInstance();
@@ -32,36 +30,41 @@ class ControllerCalendar{
     $this->daoArtistPerCalendar = D_Artist_Calendar::getInstance();
     $this->daoSeatType = D_SeatType::getInstance();
     $this->daoSeat = D_Seat::getInstance();
+    $this->cHome = new C_Home();
   }
   function index(){
-    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+    if(isset($_SESSION["Client"]) && $_SESSION["Client"]->getIsAdmin() == 1)
+    {
       $calendars = $this->daoCalendar->getAll();
       $events = $this->daoEvent->getAll();
       $artists = $this->daoArtist->getAll();
       $venues = $this->daoVenue->getAll();
       $seattypes = $this->daoSeatType->getAll();
       include(ROOT.'views/calendars.php');
-    }else include(ROOT.'views/index.php');
+    }
+    else {
+      $this->cHome->index();
+    }
   }
 
-    public function addCalendar ( $idEvent, $idVenue, $idsArtist, $date, $arrIdsSeatType, $arrQuant, $arrPrice ){ //idsartist es arreglo de ids
-     // echo '<br><br>'. var_dump($date) .'<br>';
-      
-      $event = $this->daoEvent->retrieveById($idEvent);
+  public function addCalendar ( $idEvent, $idVenue, $idsArtist, $date, $arrIdsSeatType, $arrQuant, $arrPrice ){ //idsartist es arreglo de ids
+    // echo '<br><br>'. var_dump($date) .'<br>';
+
+    $event = $this->daoEvent->retrieveById($idEvent);
     $venue = $this->daoVenue->retrieveById($idVenue);
 
     $artists = null;
     foreach ($idsArtist as $key => $value) {
       if($this->daoArtist->retrieveById($value) != null){
-         $artists[] = $this->daoArtist->retrieveById($value);
+        $artists[] = $this->daoArtist->retrieveById($value);
       }
     }
     //hasta este punto tenemos evento,lugar y array de artistas....
     $objCalendar = new M_Calendar ($venue, $event, $date);
     $calendarLastId = $this->daoCalendar->add($objCalendar);
     $calendar = $this->daoCalendar->getLastCalendar();
-   
-   // echo "<pre>";
+
+    // echo "<pre>";
     //var_dump($calendar);
     foreach ($artists as $key => $value) {
       $this->daoArtistPerCalendar->addArtistPerCalendar($calendar,$value);//incluir los daos y cargar la plaza
@@ -69,11 +72,11 @@ class ControllerCalendar{
     $this->addSeats($arrQuant, $arrPrice, $arrIdsSeatType,$calendar);
   }
   public function addSeats($arrQuant, $arrPrice, $arrIdsSeatType,$calendar){
-    
+
     $seatTypes = null;//ver si hay que usar la funcion array()
     foreach ($arrIdsSeatType as $key => $value) {
       if($this->daoSeatType->retrieveById($value) != null){
-         $seatTypes[] = $this->daoSeatType->retrieveById($value);
+        $seatTypes[] = $this->daoSeatType->retrieveById($value);
       }
     }
 
@@ -81,11 +84,12 @@ class ControllerCalendar{
       $quant = array_shift($arrQuant);
       $prize = array_shift($arrPrice);
       $remaining = $quant;
-      $seatType = $this->daoSeatType->retrieveById(array_shift($arrIdsSeatType));
-      $seatobj = new M_Seat($quant,$prize,$remaining,$seatType,$calendar);
-     
-      $this->daoSeat->add($seatobj);
-
+      if($quant != 0)
+      {
+        $seatType = $this->daoSeatType->retrieveById(array_shift($arrIdsSeatType));
+        $seatobj = new M_Seat($quant,$prize,$remaining,$seatType,$calendar);
+        $this->daoSeat->add($seatobj);
+      }
     }
     $this->index();
   }
@@ -106,17 +110,6 @@ class ControllerCalendar{
     $this->daoCalendar->delete($idCalendar);
     $this->index();
   }
-  
-  public function getTotalSeats($objCalendar){
-    $seats = $this->daoSeat->getAll();
-    $acum = null;
-    foreach ($seats as $key => $value) {
-      if($value->getCalendar()->getId() == $objCalendar->getId()){
-        $acum += $value->getQuant();
-      }
-    }
-    return $acum;
-  }
 
   public function filterEvents(){
     $calendarArray = $this->daoCalendar->getAll();
@@ -130,12 +123,12 @@ class ControllerCalendar{
       }
       if($check){
         array_push($viewArray,$value->getEvent());
-      } 
+      }
     }
-    
-  } 
 
-} 
+  }
+
+}
 
 
- ?>
+?>

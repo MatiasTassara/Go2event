@@ -1,12 +1,12 @@
-<?php 
+<?php
 namespace dao;
 
 use Model\PurchaseItem as M_PurchaseItem;
 use dao\PurchaseDb as D_Purchase;
 
 /**
- *
- */
+*
+*/
 class PurchaseItemDb extends SingletonDAO implements \interfaces\Idao
 {
 
@@ -26,7 +26,7 @@ class PurchaseItemDb extends SingletonDAO implements \interfaces\Idao
     $parameters['quantity'] = $obj->getQuantity();
     $parameters['price'] = $obj->getPrice();
     $parameters['id_purchase'] = $obj->getPurchase()->getId();
-    
+
 
 
     try{
@@ -39,10 +39,10 @@ class PurchaseItemDb extends SingletonDAO implements \interfaces\Idao
     }
 
   }
- 
+
   public function retrieveByName($name){
 
-   
+
   }
 
 
@@ -51,8 +51,8 @@ class PurchaseItemDb extends SingletonDAO implements \interfaces\Idao
     $sql = "SELECT * from purchase_items where id_purchase_item = :id_purchase_item";
     $parameters['id_purchase_item'] = $id;
     try{
-       $this->connection = Connection::getInstance();
-       $response = $this->connection->execute($sql, $parameters);
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql, $parameters);
 
     }catch(Exception $ex){
       throw $ex;
@@ -63,8 +63,8 @@ class PurchaseItemDb extends SingletonDAO implements \interfaces\Idao
       return array_shift($result);
     }
 
-     else
-          return null;
+    else
+    return null;
 
 
 
@@ -83,32 +83,32 @@ class PurchaseItemDb extends SingletonDAO implements \interfaces\Idao
       throw $ex;
     }
     if(!empty($response))
-      return $this->map($response);
+    return $this->map($response);
     else
-      return null;
+    return null;
 
   }
 
-    
+
 
   protected function map($value) {
 
-      $value = is_array($value) ? $value : [];
-      $arrayResponse = array();
+    $value = is_array($value) ? $value : [];
+    $arrayResponse = array();
 
 
-      $resp = array_map(function($p){
+    $resp = array_map(function($p){
 
-          $purchase = $this->daoPurchases->retrieveById($p['id_purchase']);
+      $purchase = $this->daoPurchases->retrieveById($p['id_purchase']);
 
-           return new M_PurchaseItem ($p['quantity'], $p['price'], $purchase, $p['id_purchase_item']);
-         }, $value);
+      return new M_PurchaseItem ($p['quantity'], $p['price'], $purchase, $p['id_purchase_item']);
+    }, $value);
 
-               return count($resp) >= 1 ? $resp : $arrayResponse[] = $resp['0'];
+    return count($resp) >= 1 ? $resp : $arrayResponse[] = $resp['0'];
 
 
-}
-  
+  }
+
   public function update($obj){
     $sql = "UPDATE purchase_items SET quantity = :quantity, price = :price, id_purchase = :id_purchase where id_purchase_item = :id_purchase_item";
     $parameters['id_purchase_item'] = $obj->getId();
@@ -116,7 +116,7 @@ class PurchaseItemDb extends SingletonDAO implements \interfaces\Idao
     $parameters['price'] = $obj->getPrice();
     $parameters['id_purchase'] = $obj->getPurchase()->getId();
 
-   
+
     try{
       $this->connection = Connection::getInstance();
       return $this->connection->ExecuteNonQuery($sql, $parameters);
@@ -126,7 +126,7 @@ class PurchaseItemDb extends SingletonDAO implements \interfaces\Idao
     }
 
   }
-  
+
   public function delete($id){
 
     $sql = "DELETE from purchase_items where id_purchase_item = :id_purchase_item";
@@ -147,4 +147,4 @@ class PurchaseItemDb extends SingletonDAO implements \interfaces\Idao
 }
 
 
- ?>
+?>
