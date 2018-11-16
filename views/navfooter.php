@@ -1,8 +1,12 @@
-<nav class="uk-position-relative uk-navbar uk-navbar uk-navbar-container  ">
+<nav class="uk-navbar uk-navbar uk-navbar-container  ">
   <div class="uk-navbar-left">
-      <p class = "uk-text-muted">Copyright (c) 2018 Todos los derechos y los izquierdos bien puestos</p>
+    <p class = "uk-text-muted">Copyright (c) 2018 Todos los derechos y los izquierdos bien puestos</p>
   </div>
   <div class="uk-navbar-right">
-      <a href="" uk-totop uk-scroll></a>
+    <a href="" uk-totop uk-scroll></a>
   </div>
 </nav>
+
+
+
+<?php include (ROOT."views/footer.php"); ?>

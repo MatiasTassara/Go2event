@@ -14,20 +14,28 @@
           <a class="nav-link" href="<?=FRONT_ROOT?>"><button class="uk-button uk-button-text">Inicio</button></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?=FRONT_ROOT?>Artist"><button class="uk-button uk-button-text">Proximos</button></a>
+          <a class="nav-link" href="<?=FRONT_ROOT?>"><button class="uk-button uk-button-text">Proximos</button></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?=FRONT_ROOT?>Artist"><button class="uk-button uk-button-text">Mas Vendidos</button></a>
+          <a class="nav-link" href="<?=FRONT_ROOT?>"><button class="uk-button uk-button-text">Mas Vendidos</button></a>
         </li>
 
       </ul>
     </div>
     <div class="uk-navbar-right">
+      <?php if(!isset($_SESSION["Client"])){?>
       <li class="nav-item">
         <a class="nav-link" href="<?=FRONT_ROOT?>Home/Login"><button class="uk-button uk-button-text">Iniciar Sesion</button></a>
       </li>
-
+    <?php }else{ ?>
+      <li class = "nav-item">
+        <a class="nav-link"><button class="uk-button uk-button-text"><?= $_SESSION["Client"]->getName()?></button></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<?=FRONT_ROOT?>Login/Logout"><button class="uk-button uk-button-text">Cerrar Sesion</button></a>
+      </li>
     </div>
+  <?php } ?>
   </nav>
 
 </div>
@@ -36,11 +44,17 @@
 
     <div class="uk-width-1-2@s uk-width-2-5@m">
       <ul class="uk-nav uk-nav-default">
-        <li class="uk-active"><a href="#">Inicio</a></li>
-        <li><a href="#">Próximos</a></li>
-        <li><a href="#">Más Vendidos</a></li>
-        <li style="padding-top: 450px;"><a href="#">Menu Admin</a></li>
-        <li><a href="#">Iniciar Sesion</a></li>
+        <li class="uk-active"><a href="<?=FRONT_ROOT?>">Inicio</a></li>
+        <li><a href="<?=FRONT_ROOT?>">Próximos</a></li>
+        <li><a href="<?=FRONT_ROOT?>">Más Vendidos</a></li>
+       <?php if (!isset($_SESSION["Client"])) { ?>
+         <li><a href="<?=FRONT_ROOT?>Home/Login">Iniciar Sesion</a></li>
+       <?php  }else{ ?>
+         <li><a href="<?=FRONT_ROOT?>Login/logOut">Cerrar Sesion</a></li>
+       <?php if(($_SESSION["Client"]->getIsAdmin() == 1)){ ?>
+        <li><a href="<?=FRONT_ROOT?>Artist">Menu Admin</a></li>
+      <?php } }?>
+
       </ul>
     </div>
 

@@ -53,7 +53,6 @@
             </div>
           </form>
           <!-- ACA ARRANCA FACEBOOK
-
           <script>
               var finished_rendering = function() {
                 console.log("finished rendering plugins");
@@ -74,4 +73,4 @@
 
 
 
-  <?php include (ROOT."views/footer.php"); ?>
+<?php include (ROOT."views/footer.php"); ?>

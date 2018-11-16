@@ -20,20 +20,20 @@
                     <th scope="col">ID</th>
                     <th scope="col">Evento</th>
                     <th scope="col">Fecha</th>
-                    <th scope="col">Plazas</th>
+                    <th scope="col">Flyer</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php
-                  if(1 == 0){
-                    foreach ($events as $key => $value) {?>
+                  if(isset($calendars)){
+                    foreach ($calendars as $key => $value) {?>
                       <tr>
                         <td> <?php echo $value->getId(); ?></td>
-                        <td> <?php echo $value->getName(); ?></td>
-                        <td> <?php echo $value->getDesc ();?></td>
-                        <td> <?php echo $value->getCategory()->getName();?></td>
+                        <td> <?php echo $value->getEvent()->getName(); ?></td>
+                        <td> <?php echo $value->getDate();?></td>
+                        <td><img src="<?= FRONT_ROOT ?>images/<?php echo $value->getEvent()->getImgPath() ?>" width="150" heigth="150"></td>
                         <td>
                           <div class="col-auto ">
                             <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#ModifyModal">
@@ -126,14 +126,14 @@
                           <label for="inputSeattype" class="col-sm-2 col-form-label"><?=$value->getName();?></label>
                           <input type="hidden" name="type[]" value="<?=$value->getId()?>">
                           <div class="col-sm-5">
-                            <input type="text" name="quant[]"class="form-control" id="inputSeattype" placeholder="Cantidad">
+                            <input type="text" name="quant[]" class="form-control" value ="0" id="inputSeattype" placeholder="Cantidad">
                           </div>
                           <div class="col-sm-5">
                             <div class="input-group">
                               <div class="input-group-prepend">
                                 <div class="input-group-text">$</div>
                               </div>
-                              <input type="text" name="price[]" class="form-control" id="inlineFormInputGroupUsername" placeholder="Precio">
+                              <input type="text" name="price[]" class="form-control" value ="0" id="inlineFormInputGroupUsername" placeholder="Precio">
                             </div>
                           </div>
                         </div>

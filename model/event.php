@@ -8,10 +8,10 @@ class Event{
   private $category;
   private $description;
 
-  function __construct($name,$description,$Path,$category, $id = '') {
+  function __construct($name,$description,$imgPath,$category, $id = '') {
     $this->id = $id;
     $this->name = $name;
-    $this->Path = $Path;
+    $this->imgPath = $imgPath;
     $this->category = $category;
     $this->description = $description;
 
