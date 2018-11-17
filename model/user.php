@@ -3,26 +3,30 @@ namespace model;
 
 class User{
     
-    private $mail;
+    private $email;
     private $name;
     private $surname;
     private $pass;
-    private $isAdmin;
+    private $role;
     private $id;
     
 
-    public function __construct($mail,$name,$surname,$pass,$isAdmin,$id=''){    
-        $this->mail = $mail;
+    public function __construct($email,$name,$surname,$pass,$role,$id=''){    
+        $this->email = $email;
         $this->name = $name;
         $this->surname = $surname;
         $this->pass = $pass;
-        $this->isAdmin = $isAdmin;
+        $this->role = $role;
         $this->id = $id;
     }
 
-   
-    public function getMail(){
-        return $this->mail;
+    public function isAdmin(){
+        if($this->role->getName() == "admin"){
+            return true;
+        }else return false;
+    }
+    public function getEmail(){
+        return $this->email;
     }
     public function getName(){
         return $this->name;
@@ -30,8 +34,8 @@ class User{
     public function getSurname(){
         return $this->surname;
     }
-    public function getIsAdmin(){
-        return $this->isAdmin;
+    public function getRole(){
+        return $this->role;
     }
     public function getPass(){
         return $this->pass;
@@ -39,8 +43,8 @@ class User{
     public function getId(){
         return $this->id;
     }
-    public function setMail($mail){
-        $this->mail = $mail;
+    public function setEmail($email){
+        $this->email = $email;
     }
     public function setName($name){
         $this->name = $name;
