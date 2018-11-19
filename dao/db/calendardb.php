@@ -103,8 +103,8 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
     }catch(Exception $ex){
       $ex->getMessage();
     }
-    if(isset($response))
-    return $this->map($response);
+    if(!empty($response))
+      return $this->map($response);
     else
     return null;
 
@@ -113,8 +113,6 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
   protected function map($value) {
 
     $value = is_array($value) ? $value : [];
-//    $arrayResponse = array();
-
 
     $resp = array_map(function($p){
 
@@ -126,6 +124,7 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
     return count($resp) >= 1 ? $resp : $arrayResponse[] = $resp['0'];
 
   }
+
 
   public function update($obj){
     $sql = "UPDATE calendars SET date_calendar = :date_calendar, img_path = :img_path, id_venue = :id_venue, id_event = :id_event where id_calendar = :id_calendar";
@@ -157,6 +156,49 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
     }
 
 
+
+  }
+  public function retrieveByIdEvent($id){
+
+    $sql = "SELECT * from calendars where id_event = :id_event";
+    $parameters['id_event'] = $id;
+    try{
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql, $parameters);
+
+    }catch(Exception $ex){
+      throw $ex;
+    }
+      if(isset($response))
+        return $this->map($response);
+      else
+        return null;
+
+  }
+  public function retrieveUpcomingEvents(){
+
+    $sql = "SELECT id_event FROM (SELECT min(date_calendar) as date, id_event FROM calendars WHERE date_calendar >= now() GROUP BY id_event ORDER BY min(date_calendar)limit 10) as tb;";
+    try{
+      $this->connection = Connection::getInstance();
+      $response =$this->connection->execute($sql);
+    }catch(Exception $ex){
+      $ex->getMessage();
+    }
+    if(isset($response))
+    {
+      $response = is_array($response) ? $response : [];
+      $arrayResponse = array();
+      $resp = array_map(function($p){
+        $event = $this->daoEvents->retrieveById($p['id_event']);
+
+        return $event; }, $response);
+
+      return count($resp) >= 1 ? $resp : $arrayResponse[] = $resp['0'];
+
+    return $this->map($response);
+    }
+    else
+    return null;
 
   }
 
