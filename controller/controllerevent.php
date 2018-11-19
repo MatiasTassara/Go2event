@@ -3,11 +3,11 @@ namespace controller;
 
 use Controller\ControllerHome as C_Home;
 use Model\Event as M_Event;
-//use DAO\ListEvent as D_Event;
-use DAO\EventDb as D_Event;
+//use Dao\db\ListEvent as D_Event;
+use Dao\db\EventDb as D_Event;
 use Model\Category as M_Category;
-//use DAO\ListCategory as D_Category;
-use DAO\CategoryDb as D_Category;
+//use Dao\db\ListCategory as D_Category;
+use Dao\db\CategoryDb as D_Category;
 
 
 class controllerEvent{
@@ -24,7 +24,7 @@ class controllerEvent{
   }
 
   public function index(){
-    if(isset($_SESSION["Client"]) && $_SESSION["Client"]->getIsAdmin() == 1)
+    if(isset($_SESSION["Client"]) && $_SESSION["Client"]->isAdmin() == 1)
     {
       $events = $this->daoEvent->getAll();
       $categories = $this->daoCategory->getAll();

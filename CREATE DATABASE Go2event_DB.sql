@@ -82,23 +82,31 @@ CREATE TABLE seats(
 	constraint fk_seats_seattypes foreign key (id_seattype) references seattypes (id_seattype)
 );
 
-CREATE TABLE clients(
-	id_client int unsigned auto_increment,
+CREATE TABLE roles(
+	id_role  int unsigned auto_increment,
+	name_role varchar (20),
+	constraint pk_roles primary key (id_role)
+);
+INSERT INTO roles (name_role) values ('admin'), ('client');
+
+CREATE TABLE users(
+	id_user int unsigned auto_increment,
+	id_role int unsigned,
 	email varchar(80),
 	name varchar(50),
 	surname varchar(50),
 	pass varchar(200),
-	is_admin boolean,
-	constraint pk_clients primary key (id_client),
-	constraint unq_clients unique (email)
+	constraint pk_users primary key (id_user),
+	constraint unq_user unique (email),
+	constraint fk_users_rol foreign key (id_role) references roles (id_role)
 );
 
 CREATE TABLE purchases(
 	id_purchase int unsigned auto_increment,
 	date_purchase datetime,
-	id_client int unsigned,
+	id_user int unsigned,
 	constraint pk_purchase primary key (id_purchase),
-	constraint fk_purchase_client foreign key (id_client) references clients(id_client)
+	constraint fk_purchase_user foreign key (id_user) references users(id_user)
 	
 );
 CREATE TABLE purchase_items(
@@ -120,37 +128,10 @@ CREATE TABLE tickets(
 
 );
 
-CREATE TABLE admins(
-	id_admin int unsigned auto_increment,
-	email varchar(80),
-	name varchar(50),
-	surname varchar(50),
-	pass varchar(200),
-	is_admin boolean,
-	constraint pk_admins primary key (id_admin),
-	constraint unq_admins unique (email)
-);
+INSERT INTO users(id_role,email,name,surname,pass)
+	VALUES 	(1,"admin@admin","Root","Casi Master of the Universe","$2y$10$LoXVkSa62nQTtvTnfQN9EudP25rpfPxWvhubr2lErJo7z70AdSQui"),
+			(2,"cliente@cliente","Simple","Peasant","$2y$10$mrG95dhyFQchG7BhL7ya5u.7goe0W.YJU/etqmb3bZXVT6BWYrDTu");
 
-DROP PROCEDURE IF EXISTS isAdmin;
-DELIMITER $$
-CREATE PROCEDURE isAdmin(in hashedPass varchar(200), OUT isAdmin boolean)
-BEGIN
-	SELECT
-		c.is_admin INTO isAdmin
-	FROM
-		clients c
-	WHERE
-		c.pass = hashedPass;
-END $$
-DELIMITER ;
 
-/* Para agregar un par de usuarios para arrancar
-	USER: admin@admin
-	PASS: 1234
 
-	USER: cliente@cliente
-	PASS: 1234
-*/
-INSERT INTO clients(email,name,surname,pass,is_admin)
-	VALUES 	("admin@admin","Root","Casi Master of the Universe","$2y$10$LoXVkSa62nQTtvTnfQN9EudP25rpfPxWvhubr2lErJo7z70AdSQui",true),
-			("cliente@cliente","Simple","Peasant","$2y$10$mrG95dhyFQchG7BhL7ya5u.7goe0W.YJU/etqmb3bZXVT6BWYrDTu",false);
+

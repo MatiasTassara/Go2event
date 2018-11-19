@@ -4,13 +4,13 @@ namespace controller;
 use Controller\ControllerHome as C_Home;
 use Model\Calendar as M_Calendar;
 use Model\Seat as M_Seat;
-use DAO\ArtistsPerCalendarDb as D_Artist_Calendar;
-use DAO\CalendarDb as D_Calendar;
-use DAO\VenueDb as D_Venue;
-use DAO\EventDb as D_Event;
-use DAO\ArtistDb as D_Artist;
-use DAO\SeattypeDb as D_SeatType;
-use DAO\SeatDb as D_Seat;
+use Dao\db\ArtistsPerCalendarDb as D_Artist_Calendar;
+use Dao\db\CalendarDb as D_Calendar;
+use Dao\db\VenueDb as D_Venue;
+use Dao\db\EventDb as D_Event;
+use Dao\db\ArtistDb as D_Artist;
+use Dao\db\SeattypeDb as D_SeatType;
+use Dao\db\SeatDb as D_Seat;
 
 class ControllerCalendar{
   private $daoCalendar;
@@ -33,7 +33,7 @@ class ControllerCalendar{
     $this->cHome = new C_Home();
   }
   function index(){
-    if(isset($_SESSION["Client"]) && $_SESSION["Client"]->getIsAdmin() == 1)
+    if(isset($_SESSION["Client"]) && $_SESSION["Client"]->isAdmin() == 1)
     {
       $calendars = $this->daoCalendar->getAll();
       $events = $this->daoEvent->getAll();

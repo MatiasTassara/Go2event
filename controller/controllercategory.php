@@ -3,8 +3,8 @@ namespace controller;
 
 use Controller\ControllerHome as C_Home;
 use Model\Category as M_Category;
-//use DAO\ListCategory as D_Category;
-use DAO\CategoryDb as D_Category;
+//use Dao\db\ListCategory as D_Category;
+use Dao\db\CategoryDb as D_Category;
 
 class ControllerCategory{
   private $daoCategory;
@@ -18,7 +18,7 @@ class ControllerCategory{
   }
 
   public function index(){
-    if(isset($_SESSION["Client"]) && $_SESSION["Client"]->getIsAdmin() == 1)
+    if(isset($_SESSION["Client"]) && $_SESSION["Client"]->isAdmin() == 1)
     {
       $categories = $this->daoCategory->getAll();
       include(ROOT.'views/categories.php');

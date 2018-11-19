@@ -1,9 +1,9 @@
 <?php
 namespace controller;
-use Model\Client as M_Client;
-use DAO\ClientDb as D_Client;
-use Model\Admin as M_Admin;
-use DAO\AdminDb as D_Admin;
+use Model\User as M_Client;
+use Dao\db\UserDb as D_Client;
+use Model\User as M_Admin;
+use Dao\db\UserDb as D_Admin;
 use Controller\ControllerHome as C_Home;
 class ControllerLogin extends ControllerArtist{
 
@@ -34,9 +34,8 @@ class ControllerLogin extends ControllerArtist{
                 $_SESSION['loggedin'] = true;
                 $this->cHome->index();
               }
-            }
-          $this->index();
-        }
+      }else $this->index();
+  }
 
 
 

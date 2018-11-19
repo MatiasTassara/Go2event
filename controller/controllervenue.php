@@ -3,8 +3,8 @@ namespace controller;
 
 use Controller\ControllerHome as C_Home;
 use Model\Venue as M_Venue;
-//use DAO\ListVenue as D_Venue;
-use DAO\VenueDb as D_Venue;
+//use Dao\db\ListVenue as D_Venue;
+use Dao\db\VenueDb as D_Venue;
 
 class ControllerVenue{
 
@@ -17,7 +17,7 @@ class ControllerVenue{
   }
 
   public function index(){
-    if(isset($_SESSION["Client"]) && $_SESSION["Client"]->getIsAdmin() == 1)
+    if(isset($_SESSION["Client"]) && $_SESSION["Client"]->isAdmin() == 1)
     {
       $venues = $this->daoVenue->getAll();
       include(ROOT.'views/venues.php');

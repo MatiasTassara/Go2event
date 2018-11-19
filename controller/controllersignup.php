@@ -2,7 +2,7 @@
 namespace controller;
 
 use Model\User as M_User;
-use DAO\ClientDb as D_Client;
+use Dao\db\ClientDb as D_Client;
 
 class ControllerSignUp{
   private $daoClient;

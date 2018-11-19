@@ -2,8 +2,8 @@
 namespace controller;
 
 use Model\Seat as M_Seat;
-//use DAO\ListSeat as D_Seat;
-use DAO\SeatDb as D_Seat;
+//use Dao\db\ListSeat as D_Seat;
+use Dao\db\SeatDb as D_Seat;
 
 class ControllerSeat{
   private $daoSeat;

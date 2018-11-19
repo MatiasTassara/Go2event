@@ -3,8 +3,8 @@ namespace controller;
 
 use Controller\ControllerHome as C_Home;
 use Model\Artist as M_Artist;
-//use DAO\ListArtist as D_Artist;
-use DAO\ArtistDb as D_Artist;
+//use Dao\db\ListArtist as D_Artist;
+use Dao\db\ArtistDb as D_Artist;
 
 class ControllerArtist{
   private $daoArtist;
@@ -17,7 +17,7 @@ class ControllerArtist{
 
   }
   function index(){
-    if(isset($_SESSION["Client"]) && $_SESSION["Client"]->getIsAdmin() == 1)
+    if(isset($_SESSION["Client"]) && $_SESSION["Client"]->isAdmin() == 1)
     {
       $artists = $this->daoArtist->getAll();
       include(ROOT.'views/artists.php');

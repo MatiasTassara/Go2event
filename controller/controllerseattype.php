@@ -3,7 +3,7 @@ namespace controller;
 
 use Controller\ControllerHome as C_Home;
 use Model\SeatType as M_SeatType;
-use DAO\SeatTypeDb as D_SeatType;
+use Dao\db\SeatTypeDb as D_SeatType;
 
 
 class ControllerSeatType
@@ -19,7 +19,7 @@ class ControllerSeatType
 	}
 
 	public function index(){
-		if(isset($_SESSION["Client"]) && $_SESSION["Client"]->getIsAdmin() == 1)
+		if(isset($_SESSION["Client"]) && $_SESSION["Client"]->isAdmin() == 1)
 		{
 			$seattypes = $this->daoSeattype->getAll();
 			include(ROOT.'views/seattypes.php');
