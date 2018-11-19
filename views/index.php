@@ -5,7 +5,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8 mx-auto" style="top: 96px;left: 0px;">
-        <p class="uk-text-large uk-text-bold uk-text-middle uk-text-center text-white">LA TERCERA ES LA VENCIDA -- ADRIAN PERDONANOS ♥ </p>
+        <p class="uk-text-large uk-text-bold uk-text-middle uk-text-center text-white">TEN PIEDAD DE NOSOTROS...</p>
         <div class="input-group mx-auto">
           <input type="text" class="form-control" placeholder="No busques por evento o artista..." aria-label="Recipient's username" aria-describedby="button-addon2">
           <div class="input-group-append">
@@ -17,6 +17,7 @@
   </div>
 </div>
 
+<?php if(isset($events)){?>
 <div class="uk-container uk-container-expand mt-3 mb-3">
 
   <h2 class="uk-heading-line uk-text-center"><span>Próximos</span></h2>
@@ -24,7 +25,9 @@
   <div class="uk-position-relative uk-visible-toggle uk-light" uk-slider="clsActivated: uk-transition-active; center: true; pause-on-hover: true; autoplay: true; autoplay-interval: 4500">
     <ul class="uk-slider-items uk-grid">
       <?php foreach ($events as $key => $value) {?>
+
         <li class="uk-width-1-2">
+          <a href="<?=FRONT_ROOT?>Home/EventInfo/<?= $value->getId();?>">
           <div class="uk-panel">
             <img src="<?= FRONT_ROOT ?>images/<?php echo $value->getImgPath() ?>">
             <div class="uk-overlay uk-overlay-primary uk-position-bottom uk-text-center uk-transition-slide-bottom">
@@ -32,16 +35,19 @@
               <p class="uk-margin-remove uk-text-truncate"><?= $value->getDesc()  ?></p>
             </div>
           </div>
+          </a>
         </li>
       <?php } ?>
     </ul>
+
 
     <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
     <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
 
   </div>
-</div>
 
+</div>
+  <?php } ?>
 <div class="uk-container uk-container-expand  mb-3">
 
 

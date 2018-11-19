@@ -126,14 +126,14 @@
                           <label for="inputSeattype" class="col-sm-2 col-form-label"><?=$value->getName();?></label>
                           <input type="hidden" name="type[]" value="<?=$value->getId()?>">
                           <div class="col-sm-5">
-                            <input type="text" name="quant[]" class="form-control" value ="0" id="inputSeattype" placeholder="Cantidad">
+                            <input type="text" name="quant[]"class="form-control" id="inputSeattype" placeholder="Cantidad">
                           </div>
                           <div class="col-sm-5">
                             <div class="input-group">
                               <div class="input-group-prepend">
                                 <div class="input-group-text">$</div>
                               </div>
-                              <input type="text" name="price[]" class="form-control" value ="0" id="inlineFormInputGroupUsername" placeholder="Precio">
+                              <input type="text" name="price[]" class="form-control" id="inlineFormInputGroupUsername" placeholder="Precio">
                             </div>
                           </div>
                         </div>

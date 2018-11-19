@@ -45,7 +45,7 @@
          <li><a href="<?=FRONT_ROOT?>Home/Login">Iniciar Sesion</a></li>
        <?php  }else{ ?>
          <li><a href="<?=FRONT_ROOT?>Login/logOut">Cerrar Sesion</a></li>
-       <?php if(($_SESSION["Client"]->getIsAdmin() == 1)){ ?>
+       <?php if(($_SESSION["Client"]->isAdmin() == 1)){ ?>
         <li><a href="<?=FRONT_ROOT?>Artist">Menu Admin</a></li>
       <?php } }?>
 
