@@ -31,15 +31,19 @@ class  ControllerHome{
     $this->daoSeat = D_Seat::getInstance();
   }
   public function index(){
-    $calendars = $this->daoCalendar->getAll();
-    $events = $this->daoEvent->getAll();
-    $artists = $this->daoArtist->getAll();
-    $venues = $this->daoVenue->getAll();
-    $seattypes = $this->daoSeatType->getAll();
+    $events = $this->daoCalendar->retrieveUpcomingEvents();
     include(ROOT.'views/index.php');
   }
   public function login(){
     include(ROOT.'views/login-register.php');
+
+  }
+
+  public function eventInfo($id)
+  {
+    $event = $this->daoEvent->retrieveById($id);
+    $calendars = $this->daoCalendar->retrieveByIdEvent($id);
+    include(ROOT.'views/event-info.php');
 
   }
 
