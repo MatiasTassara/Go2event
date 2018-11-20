@@ -1,0 +1,14 @@
+To Do List:
+--> Mostrar y/o Guardar fecha sin hora en un calendario.
+--> Ver como mostrar los artistas en event-info.
+--> Vista de multiples eventos
+--> Controladoras + Métodos de busqueda por Nombre/Artista/Categoria
+--> Vista de Ventas + Vista de Carrito de compras
+--> Controladora de venta + Método de venta (Revisar Seats porque agrega todos y los que no deberia agregar los deja en 0.
+--> Vender un evento.
+-->  \   /
+-->   \ /
+-->    |   Salimos haciendo la vertical!
+-->   /|\
+-->  /(_)\
+     
