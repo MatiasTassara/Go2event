@@ -4,7 +4,7 @@ namespace model;
 class Calendar{
   private $id;
   //private $artists; // clase artista array
-  private $venue; 
+  private $venue;
   private $date;
   private $event;
 
@@ -35,7 +35,7 @@ class Calendar{
   public function getEvent(){
     return $this->event;
   }
-  
+
 /*
   public function setArtists($artists){
     $this->artists = $artists;
@@ -50,7 +50,7 @@ class Calendar{
   public function setEvent($event){
     $this->event = $event;
   }
-  
+
 
 
 
