@@ -34,22 +34,19 @@
 </div>
 
 <div id="offcanvas-nav-admin" uk-offcanvas="overlay: true">
-  <div class="uk-offcanvas-bar">
-
-    <div class="uk-width-1-2@s uk-width-2-5@m">
-      <ul class="uk-nav uk-nav-default">
-        <li class="uk-active"><a href="<?=FRONT_ROOT?>">Inicio</a></li>
+      <ul class="uk-nav uk-nav-primary">
+        <li class="<?php if(ACTIVE_METHOD == ''){echo "uk-active";}?>"><a href="<?=FRONT_ROOT?>">Inicio</a></li>
         <li><a href="<?=FRONT_ROOT?>">Próximos</a></li>
         <li><a href="<?=FRONT_ROOT?>">Más Vendidos</a></li>
-       <?php if (!isset($_SESSION["user"])) { ?>
-         <li><a href="<?=FRONT_ROOT?>Home/Login">Iniciar Sesion</a></li>
-       <?php  }else{ ?>
-         <li><a href="<?=FRONT_ROOT?>Login/logOut">Cerrar Sesion</a></li>
-       <?php if(($_SESSION["user"]->isAdmin() == 1)){ ?>
-        <li><a href="<?=FRONT_ROOT?>Artist">Menu Admin</a></li>
-      <?php } }?>
+        <?php if (!isset($_SESSION["user"])) { ?>
+          <li class="<?php if(ACTIVE_METHOD == 'Login'){echo "uk-active";}?>"><a href="<?=FRONT_ROOT?>Home/Login">Iniciar Sesion</a></li>
+        <?php  }else{ ?>
+          <li><a href="<?=FRONT_ROOT?>Login/logOut">Cerrar Sesion</a></li>
+          <?php if(($_SESSION["user"]->isAdmin() == 1)){ ?>
+            <li><a href="<?=FRONT_ROOT?>Artist">Menu Admin</a></li>
+          <?php } }?>
 
-      </ul>
+        </ul>
     </div>
 
   </div>
