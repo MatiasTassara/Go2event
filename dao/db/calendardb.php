@@ -160,7 +160,7 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
   }
   public function retrieveByIdEvent($id){
 
-    $sql = "SELECT * from calendars where id_event = :id_event";
+    $sql = "SELECT * from calendars where id_event = :id_event AND date_calendar >= NOW()";
     $parameters['id_event'] = $id;
     try{
       $this->connection = Connection::getInstance();
