@@ -34,6 +34,8 @@
 </div>
 
 <div id="offcanvas-nav-admin" uk-offcanvas="overlay: true">
+  <div class="uk-offcanvas-bar">
+    <div class="">
       <ul class="uk-nav uk-nav-primary">
         <li class="<?php if(ACTIVE_METHOD == ''){echo "uk-active";}?>"><a href="<?=FRONT_ROOT?>">Inicio</a></li>
         <li class="<?php if(ACTIVE_METHOD == 'UpcomingEvents'){echo "uk-active";}?>"><a href="<?=FRONT_ROOT?>Home/UpcomingEvents">Próximos</a></li>
@@ -47,7 +49,6 @@
           <?php } }?>
 
         </ul>
+      </div>
     </div>
-
   </div>
-</div>
