@@ -5,9 +5,8 @@ use Model\Calendar as M_Calendar;
 use dao\db\EventDb as EventDb;
 use dao\db\VenueDb as VenueDb;
 use Dao\singletondao as SingletonDAO;
-/**
-*
-*/
+// error_reporting(E_ALL ^ E_NOTICE); // deja de mostrar el "Notice: Undefined offset: 0" cuando la base de datos de calendar está vacia
+
 class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
 {
 
