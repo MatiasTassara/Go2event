@@ -43,16 +43,23 @@ class  ControllerHome{
   {
     $event = $this->daoEvent->retrieveById($id);
     $calendars = $this->daoCalendar->retrieveByIdEvent($id);
-    //$artists = $this->daoArtistPerCalendar->retrieveArtistsByIdCalendar($);
-
     foreach ($calendars as $key => $value) {
       $artistsPerCalendar[$value->getId()] = $this->daoArtistPerCalendar->retrieveArtistsByIdCalendar($value->getId());
     }
-
-    //Si no tenemos un array de artistas (Como plantea el modelo que nos dieron)
-    //tengo que hacer un foreach por cada fecha de un evento*/
     include(ROOT.'views/event-info.php');
+  }
 
+  public function upcomingEvents()
+  {
+    $events = $this->daoCalendar->retrieveUpcomingEvents();
+    if(sizeof($events) > 1)
+    {
+      include(ROOT.'views/list-events.php');
+    }
+    else if(sizeof($events) == 1)
+    {
+      $this->eventInfo($events[0]->getId());
+    }
   }
 
 
