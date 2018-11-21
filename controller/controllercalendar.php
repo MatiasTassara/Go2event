@@ -51,24 +51,37 @@ class ControllerCalendar{
 
     $event = $this->daoEvent->retrieveById($idEvent);
     $venue = $this->daoVenue->retrieveById($idVenue);
-
-    $artists = null;
-    foreach ($idsArtist as $key => $value) {
-      if($this->daoArtist->retrieveById($value) != null){
-        $artists[] = $this->daoArtist->retrieveById($value);
+    $venueTotal = $venue->getCapacityLimit();
+    $addedQuant = 0;
+    foreach($arrQuant as $key =>$value){
+      $addedQuant += $value;       
+    }
+    if($addedQuant <= $venueTotal){
+      $artists = null;
+      foreach ($idsArtist as $key => $value) {
+        if($this->daoArtist->retrieveById($value) != null){
+          $artists[] = $this->daoArtist->retrieveById($value);
+        }
       }
+      //hasta este punto tenemos evento,lugar y array de artistas....
+      $objCalendar = new M_Calendar ($venue, $event, $date);
+      $calendarLastId = $this->daoCalendar->add($objCalendar);
+      $calendar = $this->daoCalendar->getLastCalendar();
+      
+      // echo "<pre>";
+      //var_dump($calendar);
+      foreach ($artists as $key => $value) {
+        $this->daoArtistPerCalendar->addArtistPerCalendar($calendar,$value);//incluir los daos y cargar la plaza
+      }
+      $this->addSeats($arrQuant, $arrPrice, $arrIdsSeatType,$calendar);
     }
-    //hasta este punto tenemos evento,lugar y array de artistas....
-    $objCalendar = new M_Calendar ($venue, $event, $date);
-    $calendarLastId = $this->daoCalendar->add($objCalendar);
-    $calendar = $this->daoCalendar->getLastCalendar();
+    else{// si la cantidad de plazas que se quieren agregar supera a la maxima del lugar(venue)
+      $addCalendarException = "La cantidad de plazas agregadas supera a la máxima del lugar.";
+      echo $addCalendarException;
+      $this->index();
+    }
+    
 
-    // echo "<pre>";
-    //var_dump($calendar);
-    foreach ($artists as $key => $value) {
-      $this->daoArtistPerCalendar->addArtistPerCalendar($calendar,$value);//incluir los daos y cargar la plaza
-    }
-    $this->addSeats($arrQuant, $arrPrice, $arrIdsSeatType,$calendar);
   }
   public function addSeats($arrQuant, $arrPrice, $arrIdsSeatType,$calendar){
 
