@@ -51,7 +51,7 @@ class  ControllerHome{
 
   public function upcomingEvents()
   {
-    $events = $this->daoCalendar->retrieveUpcomingEvents();
+    $events = $this->daoCalendar->retrieveAllEvents();
     if(sizeof($events) > 1)
     {
       include(ROOT.'views/list-events.php');
@@ -60,6 +60,18 @@ class  ControllerHome{
     {
       $this->eventInfo($events[0]->getId());
     }
+    else if(sizeof($events) == 0)
+    {
+      $this->index();
+    }
+  }
+  public function search($text)
+  {
+    $eventsByName = $this->daoCalendar->retrieveEventsByName($text);
+    $eventsByCategory = $this->daoCalendar->retrieveEventsByCategory($text);
+    $eventsByArtist = $this->daoCalendar->retrieveEventsByArtist($text);
+    include(ROOT.'views/list-events.php');
+
   }
 
 
