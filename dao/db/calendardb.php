@@ -5,8 +5,9 @@ use Model\Calendar as M_Calendar;
 use dao\db\EventDb as EventDb;
 use dao\db\VenueDb as VenueDb;
 use Dao\singletondao as SingletonDAO;
-// error_reporting(E_ALL ^ E_NOTICE); // deja de mostrar el "Notice: Undefined offset: 0" cuando la base de datos de calendar está vacia
-
+/**
+*
+*/
 class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
 {
 
@@ -157,6 +158,7 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
 
 
   }
+  //Desde calendars
   public function retrieveByIdEvent($id){
 
     $sql = "SELECT * from calendars where id_event = :id_event AND date_calendar >= NOW()";
@@ -168,7 +170,7 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
     }catch(Exception $ex){
       throw $ex;
     }
-      if(!empty($response))
+      if(isset($response))
         return $this->map($response);
       else
         return null;
@@ -176,31 +178,145 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
   }
   public function retrieveUpcomingEvents(){
 
-    $sql = "SELECT id_event FROM (SELECT min(date_calendar) as date, id_event FROM calendars WHERE date_calendar >= now() GROUP BY id_event ORDER BY min(date_calendar)limit 10) as tb;";
+    $sql = "SELECT id_event FROM calendars WHERE date_calendar >= now() GROUP BY id_event ORDER BY min(date_calendar)limit 6;";
+
     try{
       $this->connection = Connection::getInstance();
-      $response =$this->connection->execute($sql);
+      $response = $this->connection->execute($sql);
     }catch(Exception $ex){
       $ex->getMessage();
     }
-    if(!empty($response)) //cualquier cosa ver aca por el warning
-    {
-      $response = is_array($response) ? $response : [];
-      $arrayResponse = array();
-      $resp = array_map(function($p){
-        $event = $this->daoEvents->retrieveById($p['id_event']);
+    $arrayEvents = array();
+    if(!empty($response)){
+      foreach ($response as $key => $value) {
+        $event = $this->daoEvents->retrieveById($value['id_event']);
+        $arrayEvents[] = $event;
 
-        return $event; }, $response);
+      }
+      return $arrayEvents;
 
-      return count($resp) >= 1 ? $resp : $arrayResponse[] = $resp['0'];
-
-    return $this->map($response);
+    }else{
+      return null;
     }
-    else
-    return null;
 
   }
+  public function retrieveAllEvents(){
 
+    $sql = "SELECT id_event FROM calendars where date_calendar >= now() GROUP BY id_event ORDER BY min(date_calendar);";
+    try{
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql);
+    }catch(Exception $ex){
+      $ex->getMessage();
+    }
+    $arrayEvents = array();
+    if(!empty($response)){
+      foreach ($response as $key => $value) {
+        $event = $this->daoEvents->retrieveById($value['id_event']);
+        $arrayEvents[] = $event;
+
+      }
+      return $arrayEvents;
+
+    }else{
+      return null;
+    }
+  }
+  public function retrieveEventsByCategory($category){
+
+    $sql = "SELECT c.id_event
+    FROM calendars c inner join events e on c.id_event = e.id_event
+    inner join categories ca on ca.id_category = e.id_category
+    where LOWER(ca.name_category) LIKE :name_category
+    and c.date_calendar >= now()
+    GROUP BY c.id_event, c.date_calendar
+    ORDER BY min(c.date_calendar);";
+
+    $categ = strtolower($category);
+    $parameters['name_category'] = '%'.$categ.'%';
+
+    try{
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql, $parameters);
+    }catch(Exception $ex){
+      $ex->getMessage();
+    }
+    $arrayEvents = array();
+    if(isset($response)){
+      foreach ($response as $key => $value) {
+        $event = $this->daoEvents->retrieveById($value['id_event']);
+        $arrayEvents[] = $event;
+
+      }
+      return $arrayEvents;
+
+    }else{
+      return null;
+    }
+  }
+
+  public function retrieveEventsByName($name){
+    $sql = "SELECT c.id_event
+    FROM calendars c inner join events e on c.id_event = e.id_event
+    where
+    lower(e.name_event) like :name_event and c.date_calendar >= now()
+    GROUP BY c.id_event, c.date_calendar
+    ORDER BY (c.date_calendar);";
+
+    $na = strtolower($name);
+    $parameters['name_event'] = '%'.$na.'%';
+    try{
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql, $parameters);
+    }catch(Exception $ex){
+      $ex->getMessage();
+    }
+    $arrayEvents = array();
+    if(isset($response)){
+      foreach ($response as $key => $value) {
+        $event = $this->daoEvents->retrieveById($value['id_event']);
+        $arrayEvents[] = $event;
+
+      }
+      return $arrayEvents;
+
+    }else{
+      return null;
+    }
+  }
+  public function retrieveEventsByArtist($name_art){
+
+    $sql = "SELECT c.id_event
+    from calendars c inner join  artists_x_calendar ac
+    on c.id_calendar = ac.id_calendar
+    inner join artists a on ac.id_artist = a.id_artist
+    where LOWER(a.name_artist) LIKE :name_artist and c.date_calendar >= now()
+    GROUP BY c.id_event, c.date_calendar
+    ORDER BY c.date_calendar;";
+
+    $artist = strtolower($name_art);
+    $parameters['name_artist'] = '%'.$artist.'%';
+
+    try{
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql,$parameters);
+    }catch(Exception $ex){
+      $ex->getMessage();
+    }
+    $arrayEvents = array();
+    if(isset($response)){
+      foreach ($response as $key => $value) {
+        $event = $this->daoEvents->retrieveById($value['id_event']);
+        $arrayEvents[] = $event;
+
+      }
+      return $arrayEvents;
+
+    }else{
+      return null;
+    }
+
+  }
 
 }
 
