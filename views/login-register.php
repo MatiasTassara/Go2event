@@ -31,7 +31,7 @@
 
         <li>
           <div class="container pr-5 pl-5">
-          <form action="<?= FRONT_ROOT ?>Signup/addUser" class="" method="post">
+          <form action="<?= FRONT_ROOT ?>Signup/addClient" class="" method="post">
             <div class="form-group">
               <label class="uk-form-label text-center" for="exampleInputEmail1">Email</label>
               <input type="email" name="email" class="form-control uk-input" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese Email">

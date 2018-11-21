@@ -1,8 +1,8 @@
 <?php
 namespace dao\db;
 
-use Dao\singletondao as SingletonDAO;
-use Model\role as M_Role;
+use Dao\Singletondao as SingletonDAO;
+use Model\Role as M_Role;
 /**
 *
 */
@@ -45,7 +45,7 @@ class RoleDb extends SingletonDAO implements \interfaces\Idao
     }
    if(!empty($response)){
 
-      $resul = $this->map($response);
+      $result = $this->map($response);
       return array_shift($result);
 
     }

@@ -4,19 +4,22 @@ namespace controller;
 use Model\Role as M_Role;
 use Model\User as M_User;
 use Dao\db\UserDb as D_User;
+use Dao\db\RoleDb as D_Role;
 
 class ControllerSignUp{
   private $daoUser;
+  private $daoRole;
   public function __construct(){
     $this->daoUser = D_User::getInstance();
-
-  }
+    $this->daoRole = D_Role::getInstance();
+}
   public function index(){
     include(ROOT.'views/login-register.php');
   }
-  public function addUser($mail,$pass,$name,$surname){
+  public function addClient($mail,$pass,$name,$surname){
     $hashedPass = password_hash($pass,PASSWORD_BCRYPT);
-    $objUser = new M_User($mail,$name,$surname,$hashedPass);
+    $role = $this->daoRole->retrieveByname('client');
+    $objUser = new M_User($mail,$name,$surname,$hashedPass,$role);
     $this->daoUser->add($objUser);
     include(ROOT.'views/login-register.php');
   }

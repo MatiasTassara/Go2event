@@ -25,7 +25,7 @@ class User{
             return true;
         }else return false;
     }
-    public function getEmail(){
+    public function getMail(){
         return $this->email;
     }
     public function getName(){
@@ -43,7 +43,7 @@ class User{
     public function getId(){
         return $this->id;
     }
-    public function setEmail($email){
+    public function setMail($email){
         $this->email = $email;
     }
     public function setName($name){

@@ -21,7 +21,7 @@ class UserDb extends SingletonDAO implements \interfaces\Idao
 
   public function add($obj){
 
-    $sql ="INSERT INTO users (email, name, surname, pass, role) VALUES (:email, :name, :surname, :pass, :role)";
+    $sql ="INSERT INTO users (email, name, surname, pass, id_role) VALUES (:email, :name, :surname, :pass, :role)";
 
     $parameters['email'] = $obj->getMail();
     $parameters['name'] =$obj->getName();
