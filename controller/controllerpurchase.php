@@ -54,5 +54,65 @@ class ControllerPurchase{
             $this->index();
         }
     }
+    //cuando se efectue la compra hacer unset de session[purchase] y session[purchaseitem]
+    public function placeOrder($nameAsOnCard,$expirationDate,$cardNumber,$securityCode){
+        //parametros extra para a futuro usar api de tarjeta de credito
+        $purchase = $_SESSION['purchase'];
+        $purchaseItems[] = $_SESSION['purchaseItems'];
+        if(is_valid_luhn($cardNumber) == true){
+            $this->daoPurchase->add($purchase);
+            foreach ($purchaseItems as $key => $value) {
+                $this->$daoPurchaseItem->add($value);
+            }
+            unset($_SESSION['purchase']);
+            unset($_SESSION['purchaseItems']);
+        }
+    }
 
+
+
+    private function is_valid_luhn($number) {
+        settype($number, 'string');
+        $sumTable = array(
+          array(0,1,2,3,4,5,6,7,8,9),
+          array(0,2,4,6,8,1,3,5,7,9));
+        $sum = 0;
+        $flip = 0;
+        for ($i = strlen($number) - 1; $i >= 0; $i--) {
+          $sum += $sumTable[$flip++ & 0x1][$number[$i]];
+        }
+        return $sum % 10 == 0;
+    }
+    private function sendMail($mail){
+        $from = '<matiastassara59@gmail.com>';
+        $to      = $mail;
+        $subject = '¡Gracias por comprar en GoToEvent!';
+        $msg = "Hola, como estas? aca estan el/los codigos QR";
+        
+        $headers = array(
+            'From' => $from,
+            'To' => $to,
+            'Subject' => $subject
+        );
+
+        $smtp = Mail::factory('smtp', array(
+                'host' => 'ssl://smtp.gmail.com',
+                'port' => '465',
+                'auth' => true,
+                'username' => 'johndoe@gmail.com',
+                'password' => 'iuy34WEFsef_=-'
+            ));
+
+        $mail = $smtp->send($to, $headers, $msg);
+
+        if (PEAR::isError($mail)) {
+            echo('<p>' . $mail->getMessage() . '</p>');
+        } else {
+            echo('<p>Message successfully sent!</p>');
+        }
+    }
+
+    public function removeFromCart(){
+
+    }
 }
