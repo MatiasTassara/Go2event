@@ -36,7 +36,7 @@
 <div id="offcanvas-nav-admin" uk-offcanvas="overlay: true">
       <ul class="uk-nav uk-nav-primary">
         <li class="<?php if(ACTIVE_METHOD == ''){echo "uk-active";}?>"><a href="<?=FRONT_ROOT?>">Inicio</a></li>
-        <li><a href="<?=FRONT_ROOT?>">Próximos</a></li>
+        <li class="<?php if(ACTIVE_METHOD == 'UpcomingEvents'){echo "uk-active";}?>"><a href="<?=FRONT_ROOT?>Home/UpcomingEvents">Próximos</a></li>
         <li><a href="<?=FRONT_ROOT?>">Más Vendidos</a></li>
         <?php if (!isset($_SESSION["user"])) { ?>
           <li class="<?php if(ACTIVE_METHOD == 'Login'){echo "uk-active";}?>"><a href="<?=FRONT_ROOT?>Home/Login">Iniciar Sesion</a></li>

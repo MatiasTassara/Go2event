@@ -14,7 +14,7 @@
           <a class="nav-link" href="<?=FRONT_ROOT?>"><button class="uk-button uk-button-text">Inicio</button></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?=FRONT_ROOT?>Home/EventInfo/1"><button class="uk-button uk-button-text">Proximos</button></a>
+          <a class="nav-link" href="<?=FRONT_ROOT?>Home/UpcomingEvents"><button class="uk-button uk-button-text">Proximos</button></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<?=FRONT_ROOT?>"><button class="uk-button uk-button-text">Mas Vendidos</button></a>
@@ -45,7 +45,7 @@
     <div class="">
       <ul class="uk-nav uk-nav-primary">
         <li class="<?php if(ACTIVE_METHOD == ''){echo "uk-active";}?>"><a href="<?=FRONT_ROOT?>">Inicio</a></li>
-        <li><a href="<?=FRONT_ROOT?>">Próximos</a></li>
+        <li class="<?php if(ACTIVE_METHOD == 'UpcomingEvents'){echo "uk-active";}?>"><a href="<?=FRONT_ROOT?>Home/UpcomingEvents">Próximos</a></li>
         <li><a href="<?=FRONT_ROOT?>">Más Vendidos</a></li>
         <?php if (!isset($_SESSION["user"])) { ?>
           <li class="<?php if(ACTIVE_METHOD == 'Login'){echo "uk-active";}?>"><a href="<?=FRONT_ROOT?>Home/Login">Iniciar Sesion</a></li>

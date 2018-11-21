@@ -32,7 +32,7 @@
             <img src="<?= FRONT_ROOT ?>images/<?php echo $value->getImgPath() ?>">
             <div class="uk-overlay uk-overlay-primary uk-position-bottom uk-text-center uk-transition-slide-bottom">
               <h3 class="uk-margin-remove"><?= $value->getName(); ?></h3>
-              <p class="uk-margin-remove uk-text-truncate"><?= $value->getDesc()  ?></p>
+              <p class="uk-margin-remove uk-text-truncate"><?= $value->getDesc()?></p>
             </div>
           </div>
           </a>
