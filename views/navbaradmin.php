@@ -28,7 +28,9 @@
       <li class="nav-item">
         <a class="nav-link" href="<?=FRONT_ROOT?>SeatType"><button class="uk-button uk-button-text">Tipos de Plaza</button></a>
       </li>
-
+      <li class="nav-item">
+        <a class="nav-link" href="<?=FRONT_ROOT?>Signup/indexAdmin"><button class="uk-button uk-button-text">Administración de Usuarios</button></a>
+      </li>
     </div>
   </nav>
 </div>

@@ -76,7 +76,7 @@ class ControllerCalendar{
       $this->addSeats($arrQuant, $arrPrice, $arrIdsSeatType,$calendar);
     }
     else{// si la cantidad de plazas que se quieren agregar supera a la maxima del lugar(venue)
-      $addCalendarException = "La cantidad de plazas agregadas supera a la máxima del lugar.";
+      $addCalendarException = "La cantidad de plazas agregadas supera a la capacidad máxima del lugar";
       echo $addCalendarException;
       $this->index();
     }

@@ -16,6 +16,9 @@ class ControllerSignUp{
   public function index(){
     include(ROOT.'views/login-register.php');
   }
+  public function indexAdmin(){
+    include(ROOT.'views/admin-signup.php');
+  }
   public function addClient($mail,$pass,$name,$surname){
     $hashedPass = password_hash($pass,PASSWORD_BCRYPT);
     $role = $this->daoRole->retrieveByname('client');
@@ -23,11 +26,13 @@ class ControllerSignUp{
     $this->daoUser->add($objUser);
     include(ROOT.'views/login-register.php');
   }
+
   public function addAdmin($mail,$pass,$name,$surname){
     $hashedPass = password_hash($pass,PASSWORD_BCRYPT);
-    $objUser = new M_User($mail,$name,$surname,$hashedPass);
+    $role = $this->daoRole->retrieveByname('admin');
+    $objUser = new M_User($mail,$name,$surname,$hashedPass,$role);
     $this->daoUser->add($objUser);
-    include(ROOT.'views/Artist.php');
+    include(ROOT.'views/admin-signup.php');
   }
   public function modifyUser($id,$name){
     //echo "<br>id = $id y name= $name<br>"; //borrable
