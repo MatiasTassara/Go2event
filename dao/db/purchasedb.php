@@ -2,7 +2,7 @@
 namespace dao\db;
 
 use Model\Purchase as M_Purchase;
-use Dao\db\ClientDb as D_Client;
+use Dao\db\UserDb as D_User;
 use Dao\singletondao as SingletonDAO;
 /**
 *
@@ -21,10 +21,10 @@ class PurchaseDb extends SingletonDAO implements \interfaces\Idao
 
   public function add($obj){
 
-    $sql ="INSERT INTO purchases (date_purchase, id_client) VALUES (:date_purchase, :id_client)";
+    $sql ="INSERT INTO purchases (date_purchase, id_user) VALUES (:date_purchase, :id_user)";
 
     $parameters['date_purchase'] = $obj->getDate();
-    $parameters['id_client'] = $obj->getClient()->getId();
+    $parameters['id_user'] = $obj->getClient()->getId();
 
 
 
@@ -107,10 +107,10 @@ class PurchaseDb extends SingletonDAO implements \interfaces\Idao
   }
 
   public function update($obj){
-    $sql = "UPDATE purchases SET date_purchase = :date_purchase, id_client = :id_client where id_purchase = :id_purchase";
+    $sql = "UPDATE purchases SET date_purchase = :date_purchase, id_user = :id_user where id_purchase = :id_purchase";
     $parameters['id_purchase'] = $obj->getId();
     $parameters['date_purchase'] = $obj->getDate();
-    $parameters['id_client'] = $obj->getClient()->getId();
+    $parameters['id_user'] = $obj->getUser()->getId();
 
     try{
       $this->connection = Connection::getInstance();

@@ -6,6 +6,7 @@ To Do List:
 --> Vista de Ventas + Vista de Carrito de compras
 --> Controladora de venta + Método de venta (Revisar Seats porque agrega todos y los que no deberia agregar los deja en 0).
 --> Vender un evento.
+--> Capturar las excepciones de PDO en el mismo DAO, castañeda nos dijo que estaba OK.
 
 
 --> BUGS: - Cuando la imagen es muy pesada (tampoco tan pesada, con img menor a 5mb igual se rompe)

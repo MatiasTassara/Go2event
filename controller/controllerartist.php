@@ -46,9 +46,17 @@ class ControllerArtist{
   }
 
   public function deleteArtist($idArtist) {
-
+    try{
     $this->daoArtist->delete($idArtist);
-
+    }
+    catch (\PDOException $exe){
+      if($exe->getCode() == 23000){
+        $crashToView = "Imposible borrar un artista que posea fechas cargadas";
+      }
+      else {
+        $crashToView = "Hubo un error en la base de datos. Error = ".$exe->getCode();
+      }
+    }
     $this->index();
   }
 

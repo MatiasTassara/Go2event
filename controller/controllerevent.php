@@ -62,7 +62,12 @@ class controllerEvent{
   }
 
   function deleteEvent($idEvent) {
+    try{
     $this->daoEvent->delete($idEvent);
+    }
+    catch (\PDOException $exe){
+      $crashToView = "Hubo un error en la base de datos. Error = ".$exe->getCode();
+    }
     $this->index();
   }
 
