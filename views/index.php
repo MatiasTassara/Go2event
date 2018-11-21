@@ -2,8 +2,9 @@
 
 <div class="uk-cover-container uk-height-medium ">
   <!--<iframe src="https://www.youtube.com/embed/XVHe6mgBWBk?playlist=XVHe6mgBWBk&iv_load_policy=3&enablejsapi=1&disablekb=1&autoplay=1&controls=0&showinfo=0&rel=0&loop=0&modestbranding=1&nologo=1&widgetid=1" width="560" height="355" frameborder="0" allowfullscreen = "1" uk-cover></iframe>-->
-  <iframe src="<?= FRONT_ROOT ?>img/goToHeader.mp4" width="560" height="355" frameborder="0" allowfullscreen = "1" uk-cover ></iframe>
-  <div class="container">
+  <video autoplay loop muted playsinline uk-cover>
+    <source src="<?= FRONT_ROOT ?>img/goToHeader.mp4" type="video/mp4">
+  </video><div class="container">
     <div class="row">
       <div class="col-md-8 mx-auto" style="top: 96px;left: 0px;">
         <p class="uk-text-large uk-text-bold uk-text-middle uk-text-center text-white">TEN PIEDAD DE NOSOTROS...</p>
