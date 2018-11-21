@@ -184,7 +184,7 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
     }catch(Exception $ex){
       $ex->getMessage();
     }
-    if(isset($response))
+    if(isset($response)) //cualquier cosa ver aca por el warning
     {
       $response = is_array($response) ? $response : [];
       $arrayResponse = array();

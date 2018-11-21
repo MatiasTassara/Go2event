@@ -33,8 +33,7 @@ class ControllerCalendar{
     $this->cHome = new C_Home();
   }
   function index(){
-    if(isset($_SESSION["user"]) && $_SESSION["user"]->isAdmin() == 1)
-    {
+    if(isset($_SESSION["user"]) && $_SESSION["user"]->isAdmin() == 1){
       $calendars = $this->daoCalendar->getAll();
       $events = $this->daoEvent->getAll();
       $artists = $this->daoArtist->getAll();
