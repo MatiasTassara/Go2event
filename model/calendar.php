@@ -3,14 +3,12 @@ namespace model;
 
 class Calendar{
   private $id;
-  //private $artists; // clase artista array
   private $venue;
   private $date;
   private $event;
 
-  function __construct(/*$artists,*/ $venue, $event, $date,$id=''){
+  function __construct( $venue, $event, $date,$id=''){
     $this->id = $id;
-   // $artists = $artists;
     $this->venue = $venue;
     $this->event = $event;
     $this->date = $date;
@@ -20,11 +18,7 @@ class Calendar{
   public function getId(){
     return $this->id;
   }
-/*
-  public function getArtists(){
-    return $this->$artists;
-  }
-*/
+
   public function getVenue(){
     return $this->venue;
   }
@@ -37,10 +31,7 @@ class Calendar{
     return $this->event;
   }
 
-/*
-  public function setArtists($artists){
-    $this->artists = $artists;
-  }*/
+
   public function setVenue($venue){
     $this->venue = $venue;
   }
