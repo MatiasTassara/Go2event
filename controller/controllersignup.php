@@ -17,6 +17,7 @@ class ControllerSignUp{
     include(ROOT.'views/login-register.php');
   }
   public function indexAdmin(){
+    $users = $this->daoUser->getAll();
     include(ROOT.'views/admin-signup.php');
   }
   public function addClient($mail,$pass,$name,$surname){
