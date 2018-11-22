@@ -6,6 +6,7 @@ To Do List:
 --> Controladora de venta + Método de venta (Revisar Seats porque agrega todos y los que no deberia agregar los deja en 0).
 --> Vender un evento.
 --> Agrear alertas y capturar exceptions. (eg. Si agregué que aparezca un "Agregado correctamente" o algo asi).
+--> Intentar registrar un cliente con Facebook.
 --> Capturar las excepciones de PDO en el mismo DAO, castañeda nos dijo que estaba OK.
 
 
