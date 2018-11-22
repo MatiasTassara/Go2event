@@ -24,11 +24,13 @@ class Calendar{
   }
 
   public function getDate(){
-    return $this->date;
+    $date = date("d/m/Y",strtotime($this->date));
+    return $date;
   }
   public function getEvent(){
     return $this->event;
   }
+
 
   public function setVenue($venue){
     $this->venue = $venue;
