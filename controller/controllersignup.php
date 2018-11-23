@@ -16,10 +16,6 @@ class ControllerSignUp{
   public function index(){
     include(ROOT.'views/login-register.php');
   }
-  public function indexAdmin(){
-    $users = $this->daoUser->getAll();
-    include(ROOT.'views/admin-signup.php');
-  }
   public function addClient($mail,$pass,$name,$surname){
     $hashedPass = password_hash($pass,PASSWORD_BCRYPT);
     $role = $this->daoRole->retrieveByname('client');

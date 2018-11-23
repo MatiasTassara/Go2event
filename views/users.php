@@ -10,14 +10,6 @@
         </h5>
       </div>
       <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-
-        <!--div class="card-header">
-        <input onkeydown="filterMethod()"type="text" id="filter" class="form-control" placeholder="Busca tu artista ya :P" aria-label="Recipient's username" aria-describedby="button-addon2">
-
-      </div!-->
-
-
-
       <table class="table table-striped">
         <thead>
           <tr>
@@ -64,7 +56,7 @@
                       <p>¿Esta seguro que quiere hacer administrador a <?= $value->getName() .' '. $value->getSurname(); ?>?</p>
                     </div>
                     <div class="modal-footer">
-                      <form class="" action="<?= FRONT_ROOT ?>Artist/deleteArtist" method="post">
+                      <form class="" action="<?= FRONT_ROOT ?>User/addAdmin" method="post">
                         <input type="hidden" name="id" value="<?=$value->getId();?>">
                         <button type="submit" class="btn btn-warning">Aceptar</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -87,9 +79,9 @@
                       <p>¿Esta seguro que quiere dar de baja a <?= $value->getName() .' '. $value->getSurname(); ?>?</p>
                     </div>
                     <div class="modal-footer">
-                      <form class="" action="<?= FRONT_ROOT ?>Artist/deleteArtist" method="post">
+                      <form class="" action="<?= FRONT_ROOT ?>User/Unsuscribe" method="post">
                         <input type="hidden" name="id" value="<?=$value->getId();?>">
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                        <button type="submit" class="btn btn-danger">Dar de Baja</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                       </form>
                     </div>

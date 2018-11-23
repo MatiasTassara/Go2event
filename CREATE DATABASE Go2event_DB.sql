@@ -87,7 +87,7 @@ CREATE TABLE roles(
 	name_role varchar (20),
 	constraint pk_roles primary key (id_role)
 );
-INSERT INTO roles (name_role) values ('admin'), ('client');
+INSERT INTO roles (name_role) values ('admin'), ('client'),('unsuscribed');
 
 CREATE TABLE users(
 	id_user int unsigned auto_increment,

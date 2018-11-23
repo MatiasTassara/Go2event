@@ -46,6 +46,9 @@ class User{
     public function setMail($email){
         $this->email = $email;
     }
+    public function setRole($role){
+        $this->role = $role;
+    }
     public function setName($name){
         $this->name = $name;
     }

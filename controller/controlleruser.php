@@ -3,43 +3,41 @@ namespace controller;
 
 use Model\User as M_User;
 use Dao\db\UserDb as D_User;
+use Dao\db\RoleDb as D_Role;
 
 class ControllerUser{
   private $daoUser;
+  private $daoRole;
 
   public function __construct(){
     $this->daoUser = D_User::getInstance();
+    $this->daoRole = D_Role::getInstance();
   }
 
   public function index(){
-    if(session_status() != 2){
-      $this->daoUser->retrieveByname($_SESSION['user']);
-      include(ROOT.'views/user.php');
+    if(isset($_SESSION["user"]) && $_SESSION["user"]->isAdmin() == 1)
+		{
+      $users = $this->daoUser->getAll();
+      include(ROOT.'views/users.php');
     }
     else{
-      include(ROOT.'views/login.php');
+      include(ROOT.'views/index.php');
     }
   }
 
-  public function modifyUser($mail,$name,$surname,$pass,$newPass){
-    $obj = $this->daoUser->retrieveById($id);
-    if(password_verify($pass,$value->getPass())){
-      $obj->setName($name);
-      $obj->setSurname($surname);
-      if($newPass != ""){ //ver como llega cuando la contreaseña nueva no se completa (queda la anterior)
-        $hashedPass = password_hash($newPass,PASSWORD_BCRYPT);
-        $obj->setPass($hashedPass);
-      }
-      $this->daoUser->update($obj);
-    }else{
-      //     arning contraseña incorrecta
-    }
+  public function addAdmin($id)
+  {
+    $user = $this->daoUser->retrieveById($id);
+    $user->setRole($this->daoRole->retrieveById(1));
+    $this->daoUser->update($user);
     $this->index();
   }
-  public function deleteUser($id){
-    $this->daoUser->delete($id);
+  public function unsuscribe($id)
+  {
+    $user = $this->daoUser->retrieveById($id);
+    $user->setRole($this->daoRole->retrieveById(3));
+    $this->daoUser->update($user);
     $this->index();
   }
-
 
 }

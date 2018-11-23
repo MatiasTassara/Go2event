@@ -98,7 +98,7 @@ class UserDb extends SingletonDAO implements \interfaces\Idao
 
   public function retrieveById($id){
 
-    $sql = "SELECT * from users where id_client = :id_client";
+    $sql = "SELECT * from users where id_user = :id_user";
     $parameters['id_user'] = $id;
     try{
       $this->connection = Connection::getInstance();
@@ -160,13 +160,13 @@ protected function map($value) {
 
 
   public function update($obj){
-    $sql = "UPDATE users SET email = :email, name = :name, surname = :surname, pass = :pass, id_role = :is_role where id_user = :id_user";
+    $sql = "UPDATE users SET email = :email, name = :name, surname = :surname, pass = :pass, id_role = :id_role where id_user = :id_user";
     $parameters['id_user'] = $obj->getId();
     $parameters['email'] = $obj->getMail();
     $parameters['name'] = $obj->getName();
     $parameters['surname'] = $obj->getSurname();
     $parameters['pass'] = $obj->getPass();
-    $parameters['id_role'] = $obj->getRol()->getId();
+    $parameters['id_role'] = $obj->getRole()->getId();
     try{
       $this->connection = Connection::getInstance();
       return $this->connection->ExecuteNonQuery($sql, $parameters);
