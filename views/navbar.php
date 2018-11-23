@@ -25,14 +25,17 @@
     <div class="uk-navbar-right">
       <?php if(!isset($_SESSION["user"])){?>
         <li class="nav-item">
-          <a class="nav-link" href="<?=FRONT_ROOT?>Home/Login"><button class="uk-button uk-button-text">Iniciar Sesion</button></a>
+          <a href="<?=FRONT_ROOT?>Home/Login"><button class="uk-button uk-button-text">Iniciar Sesion</button></a>
         </li>
       <?php }else{ ?>
         <li class = "nav-item">
           <span class="nav-link text-white uk-button"><?= $_SESSION["user"]->getName()?></span>
         </li>
+        <li class = "nav-item">
+          <a href="" ><span uk-icon="icon: cart; ratio: 1.5"></span></a>
+        </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?=FRONT_ROOT?>Login/Logout"><button class="uk-button uk-button-text">Cerrar Sesion</button></a>
+          <a href="<?=FRONT_ROOT?>Login/Logout"><button class="uk-button uk-button-text">Cerrar Sesion</button></a>
         </li>
       </div>
     <?php } ?>

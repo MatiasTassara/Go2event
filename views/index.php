@@ -7,9 +7,9 @@
   </video><div class="container">
     <div class="row">
       <div class="col-md-8 mx-auto" style="top: 96px;left: 0px;">
-        <p class="uk-text-large uk-text-bold uk-text-middle uk-text-center text-white">TEN PIEDAD DE NOSOTROS...</p>
+        <p class="uk-text-large uk-text-bold uk-text-middle uk-text-center text-white">ENCONTRA TU EVENTO IDEAL</p>
         <div class="input-group mx-auto">
-          <input type="text" name="name" class="form-control" placeholder="No busques por evento o artista..." aria-label="Recipient's username" aria-describedby="button-addon2">
+          <input type="text" name="name" class="form-control" placeholder="Buscá por evento, artista o categoría..." aria-label="Recipient's username" aria-describedby="button-addon2">
           <div class="input-group-append">
             <button class="btn btn-warning" type="submit" id="button-addon2"><span class="icon-index" uk-icon="icon: search"></span></button>
           </div>
