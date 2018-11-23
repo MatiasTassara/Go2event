@@ -27,7 +27,7 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
     $parameters['id_venue'] = $obj->getVenue()->getId();
     $parameters['id_event'] = $obj->getEvent()->getId();
     $parameters['date_calendar'] = $obj->getDate();
-    // $parameters['img_path'] = $obj->getImgPath();
+    
 
 
     try{
@@ -37,7 +37,7 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
 
 
     }catch(\PDOException $ex){
-      throw $ex;
+       $ex->getMessage();
 
     }
 
@@ -49,7 +49,7 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
       $this->connection = Connection::getInstance();
       $response =$this->connection->execute($sql);
     }catch(Exception $ex){
-      throw $ex;
+       $ex->getMessage();
     }
     if(!empty($response)){
 
@@ -78,7 +78,7 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
       $response = $this->connection->execute($sql, $parameters);
 
     }catch(Exception $ex){
-      throw $ex;
+      $ex->getMessage();
 
     }if(!empty($response)){
 
@@ -137,7 +137,7 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
       $this->connection = Connection::getInstance();
       return $this->connection->ExecuteNonQuery($sql, $parameters);
     }catch(\PDOException $ex){
-      throw $ex;
+       $ex->getMessage();
 
     }
 
@@ -152,7 +152,7 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
       $this->connection = Connection::getInstance();
       $response = $this->connection->executeNonQuery($sql, $parameters);
     }catch(Exception $ex){
-      throw $ex;
+       $ex->getMessage();
     }
 
 
@@ -168,7 +168,7 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
       $response = $this->connection->execute($sql, $parameters);
 
     }catch(Exception $ex){
-      throw $ex;
+       $ex->getMessage();
     }
       if(isset($response))
         return $this->map($response);

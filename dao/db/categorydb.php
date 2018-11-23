@@ -25,7 +25,7 @@ class CategoryDb extends SingletonDAO implements \interfaces\Idao
 
       return $this->connection->executeNonQuery($sql, $parameters);
     }catch(\PDOException $ex){
-      throw $ex;
+       $ex->getMessage();
 
     }
 
@@ -43,7 +43,7 @@ class CategoryDb extends SingletonDAO implements \interfaces\Idao
       $this->connection = Connection::getInstance();
       $response = $this->connection->execute($sql, $parameters);
     } catch(Exception $ex) {
-      throw $ex;
+       $ex->getMessage();
     }
 
 
@@ -68,7 +68,7 @@ class CategoryDb extends SingletonDAO implements \interfaces\Idao
       $response = $this->connection->execute($sql, $parameters);
 
     }catch(Exception $ex){
-      throw $ex;
+       $ex->getMessage();
 
     }if(!empty($response)){
 
@@ -91,7 +91,7 @@ class CategoryDb extends SingletonDAO implements \interfaces\Idao
       $this->connection = Connection::getInstance();
       $response =$this->connection->execute($sql);
     }catch(Exception $ex){
-      throw $ex;
+       $ex->getMessage();
     }
     if(!empty($response))
     return $this->map($response);
@@ -120,7 +120,7 @@ class CategoryDb extends SingletonDAO implements \interfaces\Idao
         $this->connection = Connection::getInstance();
         return $this->connection->ExecuteNonQuery($sql, $parameters);
       }catch(\PDOException $ex){
-        throw $ex;
+         $ex->getMessage();
 
       }
 
@@ -135,7 +135,7 @@ class CategoryDb extends SingletonDAO implements \interfaces\Idao
         $this->connection = Connection::getInstance();
         $response = $this->connection->executeNonQuery($sql, $parameters);
       }catch(Exception $ex){
-        throw $ex;
+         $ex->getMessage();
       }
 
 

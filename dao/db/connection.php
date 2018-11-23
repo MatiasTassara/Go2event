@@ -21,7 +21,7 @@ class Connection{
 
     }catch(Exception $ex){
 
-      throw $ex;
+      $ex->getMessage();
     }
 
   }
@@ -45,7 +45,7 @@ class Connection{
       return $this->pdoStatement->fetchAll();
     }catch(Exception $ex){
 
-      throw $ex;
+       $ex->getMessage();
     }
   }
   public function executeNonQuery($query, $parameters = array()){
@@ -63,7 +63,7 @@ class Connection{
     }
     catch(\PDOException $ex)
     {
-      throw $ex;
+       $ex->getMessage();
     }
   }
 }

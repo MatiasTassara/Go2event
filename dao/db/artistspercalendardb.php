@@ -42,7 +42,7 @@ class ArtistsPerCalendarDb extends SingletonDAO implements \interfaces\Idao
       $this->connection = Connection::getInstance();
       return $this->connection->executeNonQuery($sql, $parameters);
     }catch(\PDOException $ex){
-      throw $ex;
+      $ex->getMessage();
     }
   }
 
@@ -63,13 +63,13 @@ class ArtistsPerCalendarDb extends SingletonDAO implements \interfaces\Idao
 
 
     }catch(Exception $ex){
-      throw $ex;
+       $ex->getMessage();
     }
     if(!empty($response)){
       foreach ($response as $key => $value) {
 
        $arrayArtists[] = $this->daoArtist->retrieveById($value['id_artist']);
-       //var_dump($arrayArtists);
+    
 
 
       }
@@ -89,7 +89,7 @@ class ArtistsPerCalendarDb extends SingletonDAO implements \interfaces\Idao
       $response = $this->connection->execute($sql, $parameters);
 
     }catch(Exception $ex){
-      throw $ex;
+       $ex->getMessage();
     }
     if(!empty($response)){
 
