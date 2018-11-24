@@ -1,0 +1,24 @@
+﻿To Do List:
+-->  ̶M̶o̶s̶t̶r̶a̶r̶ ̶y̶/̶o̶ ̶G̶u̶a̶r̶d̶a̶r̶ ̶f̶e̶c̶h̶a̶ ̶s̶i̶n̶ ̶h̶o̶r̶a̶ ̶e̶n̶ ̶u̶n̶ ̶c̶a̶l̶e̶n̶d̶a̶r̶i̶o̶.̶   >>RESUELTO<<
+-->  ̶V̶i̶s̶t̶a̶ ̶d̶e̶ ̶m̶u̶l̶t̶i̶p̶l̶e̶s̶ ̶e̶v̶e̶n̶t̶o̶s̶  >>RESUELTO<<
+-->  ̶C̶o̶n̶t̶r̶o̶l̶a̶d̶o̶r̶a̶s̶ ̶+̶ ̶M̶é̶t̶o̶d̶o̶s̶ ̶d̶e̶ ̶b̶u̶s̶q̶u̶e̶d̶a̶ ̶p̶o̶r̶ ̶N̶o̶m̶b̶r̶e̶/̶A̶r̶t̶i̶s̶t̶a̶/̶C̶a̶t̶e̶g̶o̶r̶i̶a̶  >>RESUELTO<<
+--> Vista de Ventas + Vista de Carrito de compras
+--> Controladora de venta + Método de venta (Revisar Seats porque agrega todos y los que no deberia agregar los deja en 0).
+--> Vender un evento.
+--> Agrear alertas y capturar exceptions. (eg. Si agregué que aparezca un "Agregado correctamente" o algo asi).
+--> Intentar registrar un cliente con Facebook.
+--> Capturar las excepciones de PDO en el mismo DAO, castañeda nos dijo que estaba OK.
+
+
+--> BUGS: - Cuando la imagen es muy pesada (tampoco tan pesada, con img menor a 5mb igual se rompe)
+	-cuando se agregan mas tickets de igual tipo que se sumen a la misma linea
+
+
+
+-->  \   /
+-->   \ /
+-->    |   Salimos haciendo la vertical!
+-->   /|\
+-->  /(_)\
+--> /     \
+*****************     
