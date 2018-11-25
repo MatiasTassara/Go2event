@@ -69,23 +69,29 @@ class ControllerPurchase{
             $eventName = $seat->getCalendar()->getEvent()->getName();
             $dateCalendar = $seat->getCalendar()->getDate();
 
-            echo 'esto es quant:' . $quant .'<br>';
-            echo 'esto es remaining' . $seat->getRemaining();
+            //echo 'esto es quant:' . $quant .'<br>';
+            //echo 'esto es remaining' . $seat->getRemaining();
             if($quant <= $seat->getRemaining()){
                 
                 $purchase = $_SESSION['purchase']; 
                 $purchaseItem = new M_PurchaseItem($quant,($seat->getPrice() * $quant),$purchase,$seat);
-                $_SESSION['purchaseItem'][] = $purchaseItem;
-                echo '<pre>';
-                var_dump($_SESSION['purchaseItem']);
-            
-                //$this->index();
+                $_SESSION['purchaseItems'][] = $purchaseItem;
+                //echo '<pre>';
+                //print_r($_SESSION['purchaseItem']);
+                //include(ROOT .'views/cart.php');
+                $this->index();
             }
             else{
                 $alert = "No hay disponibilidad para la cantidad entradas ingresada";
                 $this->controllerHome->index($alert);
             }
     }
+
+    public function removeFromCart(){
+
+    }
+
+
     //cuando se efectue la compra hacer unset de session[purchase] y session[purchaseitem]
     public function placeOrder($nameAsOnCard,$expirationDate,$cardNumber,$securityCode){
         //parametros extra para a futuro usar api de tarjeta de credito
@@ -105,7 +111,7 @@ class ControllerPurchase{
             unset($_SESSION['purchaseItems']);
         }
     }
-
+    
 
 
     private function is_valid_luhn($number) {
@@ -149,7 +155,5 @@ class ControllerPurchase{
         }
     }
 
-    public function removeFromCart(){
-
-    }
+    
 }
