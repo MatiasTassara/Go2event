@@ -106,6 +106,7 @@ class ControllerPurchase{
             }
             unset($_SESSION['purchase']);
             unset($_SESSION['purchaseItems']);
+            
         }
         //al finalizar la compra generar el qr e instanciar el ticket
     }
