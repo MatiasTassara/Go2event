@@ -89,26 +89,40 @@ class ControllerPurchase{
     }
 
 
-    //cuando se efectue la compra hacer unset de session[purchase] y session[purchaseitem]
-    public function placeOrder($nameAsOnCard,$expirationDate,$cardNumber,$securityCode){
+        public function placeOrder($nameAsOnCard,$expirationDate,$cardNumber,$securityCode){
         //parametros extra para a futuro usar api de tarjeta de credito
-      
         $purchase = $_SESSION['purchase'];
         $purchaseItems[] = $_SESSION['purchaseItems'];
         if(is_valid_luhn($cardNumber) == true){
             $this->daoPurchase->add($purchase);
+            $purchaseFromDb = $this->daoPurchase->getLastPurchase();// para poder mandarle el obj completo al 
+            // para cada linea de compra
             foreach ($purchaseItems as $key => $value) {
                 $this->$daoPurchaseItem->add($value);
-               //actualizamos el remaining del seat para cada plaza segun cantidad de entradas por linea
+                $valiuWithId = $this->$daoPurchaseItem->getLastItem();// para poder mandarle el obj completo (con id) al new ticket
                 $seat = $this->daoSeat->retrieveById($value->getSeat()->getId());
+                $cantItems = $value->getQuantity();
+                // se crea un ticket para cada elemento en esa linea de compra
+                while($cantItems > 0){
+                    $qrCode = openssl_random_pseudo_bytes(255);
+                    // Es al pedo generar la imagen aca, se debería generar cuando se mande el mail o cuando se quiera mostrar el qr
+                        $qrFileName = "images/tempQR-".$cantItems;
+                        QRcode::png($qrCode,$qrFileName);
+                    //
+                    $ticketNumber = $seat->getQuantity() - $seat->getRemaining() + $cantItems;
+                    $ticket = new M_Ticket($ticketNumber,$qrCode,$valiuWithId);
+                    $this->daoTicket->add($ticket);
+                }
+               //actualizamos el remaining del seat para cada plaza segun cantidad de entradas por linea                
                 $seat->setRemaining($seat->getRemaining() - $value->getQuantity());
                 $this->daoSeat->update($seat); 
             }
             unset($_SESSION['purchase']);
             unset($_SESSION['purchaseItems']);
-            
-        }
-        //al finalizar la compra generar el qr e instanciar el ticket
+            $this->index();
+        }else{
+            $alert = "Los datos de la tajeta ingresados son incorrectos";
+            include('reemplazar-con-vista-tarjeta-de-credito.php');
     }
     
 
