@@ -15,6 +15,8 @@
 	require_once "Config/Request.php";
 	require_once "Config/Router.php";
 	require_once "DAO/SingletonDAO.php";
+	require_once "lib/phpqrcode/qrlib.php";
+
 	/**
 	 * Alias
 	 */
