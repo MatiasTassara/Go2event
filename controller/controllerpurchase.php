@@ -125,7 +125,7 @@ class ControllerPurchase{
             include('reemplazar-con-vista-tarjeta-de-credito.php');
     }
     
-
+    }
 
     private function is_valid_luhn($number) {
         settype($number, 'string');
