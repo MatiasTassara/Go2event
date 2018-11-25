@@ -60,25 +60,15 @@ class ControllerPurchase{
     }*/
 
     public function addToCart($idSeat,$quant){
-        
-        
-        // Chequea que la cantidad total de asientos este disponible para ese Calendar
+         // Chequea que la cantidad total de asientos este disponible para ese Calendar
         
             $seat = $this->daoSeat->retrieveById($idSeat);
-            //variables para la vista....
-            $eventName = $seat->getCalendar()->getEvent()->getName();
-            $dateCalendar = $seat->getCalendar()->getDate();
-
-            //echo 'esto es quant:' . $quant .'<br>';
-            //echo 'esto es remaining' . $seat->getRemaining();
             if($quant <= $seat->getRemaining()){
                 
                 $purchase = $_SESSION['purchase']; 
                 $purchaseItem = new M_PurchaseItem($quant,($seat->getPrice() * $quant),$purchase,$seat);
                 $_SESSION['purchaseItems'][] = $purchaseItem;
-                //echo '<pre>';
-                //print_r($_SESSION['purchaseItem']);
-                //include(ROOT .'views/cart.php');
+                
                 $this->index();
             }
             else{
@@ -87,8 +77,10 @@ class ControllerPurchase{
             }
     }
 
-    public function removeFromCart(){
-
+    public function removeFromCart($itemKey){
+        print_r($_SESSION['purchaseItems'][$itemKey]);
+        //unset($_SESSION['purchaseItems'][$itemKey]);
+        //$this->index();
     }
 
 

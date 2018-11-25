@@ -12,7 +12,7 @@
       <div class="card-header p-0" id="headingOne">
         <h5 class="mb-0">
           <button class="btn btn-lg btn-block btn-light rounded-0 p-3" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            Carrito de compras
+            Carrito de compras 
           </button>
         </h5>
       </div>
@@ -40,7 +40,7 @@
                           <td> <?php echo $value->getSeat()->getCalendar()->getDate(); ?></td>
                           <td> <?php echo $value->getQuantity(); ?></td>
                           <td> <?php echo '$' .  $value->getSeat()->getPrice(); ?></td>
-                          <td> <?php echo '$' .($value->getSeat()->getPrice()) * $value->getQuantity(); ?></td>
+                          <td> <?php echo '$' . ($value->getSeat()->getPrice()) * $value->getQuantity(); ?></td>
                           
                           <td>
                             <div class="col-auto ">
@@ -49,8 +49,8 @@
                           </td>
                           <td>
                             <div class="col-auto ">
-                              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal">
-                                Eliminar
+                              <button type="submit" class="btn btn-danger" name="item" value="<?php $key?>" action="Purchase/removeFromCart" >
+                                 Eliminar
                               </button>
                             </div>
                           </td>
