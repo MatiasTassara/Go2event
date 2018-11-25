@@ -21,12 +21,13 @@ class EventDb extends SingletonDAO implements \interfaces\Idao
 
   public function add($obj){
 
-    $sql ="INSERT INTO events (name_event, description, img_path, id_category) VALUES (:name_event, :description, :img_path, :id_category)";
+    $sql ="INSERT INTO events (name_event, description, img_path, id_category, active) VALUES (:name_event, :description, :img_path, :id_category, :active)";
 
     $parameters['name_event'] = $obj->getName();
     $parameters['description'] = $obj->getDesc();
     $parameters['img_path'] = $obj->getImgPath();
     $parameters['id_category'] =$obj->getCategory()->getId();
+    $parameters['active'] = 1;
 
 
     try{
@@ -42,7 +43,7 @@ class EventDb extends SingletonDAO implements \interfaces\Idao
 
   public function retrieveByName($name){
 
-    $sql = "SELECT * FROM events where name_event LIKE %:name_event%";
+    $sql = "SELECT * FROM events where name_event LIKE %:name_event% and active = 1";
 
     $parameters['name_event'] = $name;
 
@@ -68,7 +69,7 @@ class EventDb extends SingletonDAO implements \interfaces\Idao
 
   public function retrieveById($id){
 
-    $sql = "SELECT * from events where id_event = :id_event";
+    $sql = "SELECT * from events where id_event = :id_event and active = 1";
     $parameters['id_event'] = $id;
     try{
       $this->connection = Connection::getInstance();
@@ -93,7 +94,7 @@ class EventDb extends SingletonDAO implements \interfaces\Idao
 
   public function getAll(){
 
-    $sql = "SELECT * FROM events order by name_event";
+    $sql = "SELECT * FROM events WHERE active = 1 order by name_event";
     try{
       $this->connection = Connection::getInstance();
       $response = $this->connection->execute($sql);
@@ -106,6 +107,34 @@ class EventDb extends SingletonDAO implements \interfaces\Idao
     return null;
 
   }
+
+  public function getAllNonActive(){
+    $sql = "SELECT * FROM events WHERE active = 2 ORDER BY name_event";
+    try{
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql);
+    }catch(Exception $ex){
+      throw $ex;
+    }
+    if(!empty($response))
+    return $this->map($response);
+    else
+    return null;
+  }
+  public function getEventsActAndNonAct(){
+    $sql = "SELECT * FROM events ORDER BY name_event";
+    try{
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql);
+    }catch(Exception $ex){
+      throw $ex;
+    }
+    if(!empty($response))
+    return $this->map($response);
+    else
+    return null;
+  }
+
   protected function map($value) {
 
     $value = is_array($value) ? $value : [];
@@ -143,9 +172,9 @@ class EventDb extends SingletonDAO implements \interfaces\Idao
 
   public function delete($id){
 
-    $sql = "DELETE from events where id_event = :id_event";
+    $sql = "UPDATE events SET active = :active where id_event = :id_event";
     $parameters['id_artist'] = $id;
-
+    $parameters['active'] = 2;
     try{
       $this->connection = Connection::getInstance();
       $response = $this->connection->executeNonQuery($sql, $parameters);

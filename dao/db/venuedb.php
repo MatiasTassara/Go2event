@@ -15,12 +15,13 @@ class VenueDb extends SingletonDAO implements \interfaces\Idao
   }
   public function add($obj){
 
-    $sql ="INSERT INTO venues (name_venue, address, city, capacityLimit) VALUES (:name_venue, :address, :city, :capacityLimit)";
+    $sql ="INSERT INTO venues (name_venue, address, city, capacityLimit, active) VALUES (:name_venue, :address, :city, :capacityLimit, :active)";
 
     $parameters['name_venue'] = $obj->getName();
     $parameters['address'] =$obj->getAddress();
     $parameters['city'] = $obj->getCity();
     $parameters['capacityLimit'] =$obj->getCapacityLimit();
+    $parameters['active'] = 1;
 
     try{
       $this->connection = Connection::getInstance();
@@ -35,7 +36,7 @@ class VenueDb extends SingletonDAO implements \interfaces\Idao
 
   public function retrieveByName($name){
 
-    $sql = "SELECT * FROM venues WHERE name_venue LIKE %:name_venue%";
+    $sql = "SELECT * FROM venues WHERE name_venue LIKE %:name_venue% and active = 1";
     $parameters['name_venue'] = $name;
 
     try{
@@ -55,7 +56,7 @@ class VenueDb extends SingletonDAO implements \interfaces\Idao
   }
   public function retrieveById($id){
 
-    $sql = "SELECT * FROM venues WHERE id_venue =:id_venue";
+    $sql = "SELECT * FROM venues WHERE id_venue =:id_venue and active = 1";
     $parameters['id_venue'] = $id;
     try{
       $this->connection = Connection::getInstance();
@@ -77,7 +78,7 @@ class VenueDb extends SingletonDAO implements \interfaces\Idao
 
   public function getAll(){
 
-    $sql = "SELECT * FROM venues order by name_venue";
+    $sql = "SELECT * FROM venues WHERE active = 1 order by name_venue";
     try{
       $this->connection = Connection::getInstance();
       $response = $this->connection->execute($sql);
@@ -91,6 +92,36 @@ class VenueDb extends SingletonDAO implements \interfaces\Idao
     else
     return null;
 
+  }
+  public function getAllNonActive(){
+    $sql = "SELECT * FROM venues WHERE active = 2 ORDER BY name_venue";
+    try{
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql);
+    }catch(Exception $ex){
+      throw $ex;
+    }
+    if(!empty($response)){
+
+      return $this->map($response);
+    }
+    else
+    return null;
+  }
+  public function getAllVenuesActAndNonAct(){
+    $sql = "SELECT * FROM venues ORDER BY name_venue";
+    try{
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql);
+    }catch(Exception $ex){
+      throw $ex;
+    }
+    if(!empty($response)){
+
+      return $this->map($response);
+    }
+    else
+    return null;
   }
 
   public function update($obj){
@@ -113,8 +144,9 @@ class VenueDb extends SingletonDAO implements \interfaces\Idao
 
   public function delete($id){
 
-    $sql = "DELETE FROM venues WHERE id_venue = :id_venue";
+    $sql = "UPDATE venues SET active = :active WHERE id_venue = :id_venue";
     $parameters['id_venue'] = $id;
+    $parameters['active'] = 2;
     try{
       $this->connection = Connection::getInstance();
       $response = $this->connection->executeNonQuery($sql, $parameters);

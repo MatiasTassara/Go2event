@@ -23,10 +23,11 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
 
   public function add($obj){
 
-    $sql ="INSERT INTO calendars (id_venue, id_event, date_calendar) VALUES (:id_venue, :id_event, :date_calendar)";
+    $sql ="INSERT INTO calendars (id_venue, id_event, date_calendar, active) VALUES (:id_venue, :id_event, :date_calendar, :active)";
     $parameters['id_venue'] = $obj->getVenue()->getId();
     $parameters['id_event'] = $obj->getEvent()->getId();
     $parameters['date_calendar'] = $obj->getDate();
+    $parameters['active'] = 1;
 
 
 
@@ -71,7 +72,7 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
 
   public function retrieveById($id){
 
-    $sql = "SELECT * from calendars where id_calendar = :id_calendar";
+    $sql = "SELECT * from calendars where id_calendar = :id_calendar and active = 1";
     $parameters['id_calendar'] = $id;
     try{
       $this->connection = Connection::getInstance();
@@ -95,6 +96,38 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
 
 
   public function getAll(){
+
+    $sql = "SELECT * FROM calendars WHERE active = 1";
+    try{
+      $this->connection = Connection::getInstance();
+      $response =$this->connection->execute($sql);
+    }catch(Exception $ex){
+      $ex->getMessage();
+    }
+    if(!empty($response))
+      return $this->map($response);
+    else
+    return null;
+
+  }
+
+  public function getAllNonActive(){
+
+    $sql = "SELECT * FROM calendars WHERE active = 2";
+    try{
+      $this->connection = Connection::getInstance();
+      $response =$this->connection->execute($sql);
+    }catch(Exception $ex){
+      $ex->getMessage();
+    }
+    if(!empty($response))
+      return $this->map($response);
+    else
+    return null;
+
+  }
+
+  public function getCalendarsActAndNonAct(){
 
     $sql = "SELECT * FROM calendars";
     try{
@@ -145,8 +178,9 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
 
   public function delete($id){
 
-    $sql = "DELETE from calendars where id_calendar = :id_calendar";
+    $sql = "UPDATE calendars SET active = :active where id_calendar = :id_calendar";
     $parameters['id_calendar'] = $id;
+    $parameters['active'] = 2;
 
     try{
       $this->connection = Connection::getInstance();
@@ -161,7 +195,7 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
   //Desde calendars
   public function retrieveByIdEvent($id){
 
-    $sql = "SELECT * from calendars where id_event = :id_event AND date_calendar >= NOW() ORDER BY date_calendar";
+    $sql = "SELECT * from calendars where id_event = :id_event AND active = 1 AND date_calendar >= NOW() ORDER BY date_calendar";
     $parameters['id_event'] = $id;
     try{
       $this->connection = Connection::getInstance();
@@ -178,7 +212,7 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
   }
   public function retrieveUpcomingEvents(){
 
-    $sql = "SELECT id_event FROM calendars WHERE date_calendar >= now() GROUP BY id_event ORDER BY min(date_calendar)limit 6;";
+    $sql = "SELECT id_event FROM calendars WHERE date_calendar >= now() AND active = 1 GROUP BY id_event ORDER BY min(date_calendar)limit 6;";
 
     try{
       $this->connection = Connection::getInstance();
@@ -202,7 +236,7 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
   }
   public function retrieveAllEvents(){
 
-    $sql = "SELECT id_event FROM calendars where date_calendar >= now() GROUP BY id_event ORDER BY min(date_calendar);";
+    $sql = "SELECT id_event FROM calendars where date_calendar >= now() and active = 1 GROUP BY id_event ORDER BY min(date_calendar);";
     try{
       $this->connection = Connection::getInstance();
       $response = $this->connection->execute($sql);
@@ -228,7 +262,7 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
     FROM calendars c inner join events e on c.id_event = e.id_event
     inner join categories ca on ca.id_category = e.id_category
     where LOWER(ca.name_category) LIKE :name_category
-    and c.date_calendar >= now()
+    and c.date_calendar >= now() and c.active = 1
     GROUP BY c.id_event, c.date_calendar
     ORDER BY min(c.date_calendar);";
 
@@ -260,6 +294,7 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
     FROM calendars c inner join events e on c.id_event = e.id_event
     where
     lower(e.name_event) like :name_event and c.date_calendar >= now()
+    and c.active = 1
     GROUP BY c.id_event, c.date_calendar
     ORDER BY min(c.date_calendar)";
 
@@ -291,6 +326,7 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
     on c.id_calendar = ac.id_calendar
     inner join artists a on ac.id_artist = a.id_artist
     where LOWER(a.name_artist) LIKE :name_artist and c.date_calendar >= now()
+    and c.active = 1
     GROUP BY c.id_event, c.date_calendar
     ORDER BY min(c.date_calendar)";
 
