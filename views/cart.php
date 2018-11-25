@@ -83,6 +83,10 @@
                          </div>
                       <?php }
                     }?>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td> <?php echo 'Total: $' . $acumTotal; ?></td>
                   </tbody>
                 </table>
