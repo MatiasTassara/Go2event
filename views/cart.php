@@ -18,7 +18,7 @@
       </div>
       <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
         <div class="card-body">
-          <form action = "<?=FRONT_ROOT?>Purchase/removeFromCart" method="post">
+          
             <div class="col-auto form-group">
               <section id="listado" class="p-0">
                 <table class="table table-striped">
@@ -49,19 +49,43 @@
                           </td>
                           <td>
                             <div class="col-auto ">
-                              <button type="submit" class="btn btn-danger" name="item" value="<?php $key?>" >
+                          
+                            <button type="button"  name="id-obj" value="" class="btn btn-danger" data-toggle="modal" data-target="#delete<?= $key;?>">
                                  Eliminar
                               </button>
                             </div>
                           </td>
                         </tr>
+                        <div class="modal fade" id="delete<?= $key;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                           <div class="modal-dialog modal-dialog-centered" role="document">
+                             <div class="modal-content">
+                               <div class="modal-header">
+                                 <h5 class="modal-title" id="exampleModalCenterTitle">Eliminar Artista</h5>
+                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                   <span aria-hidden="true">&times;</span>
+                                 </button>
+                               </div>
+                               <div class="modal-body">
+                               ¿Esta seguro que quiere eliminar?
+                               </div>
+                               <div class="modal-footer">
+                               <form class="" action="<?= FRONT_ROOT ?>Purchase/removeFromCart" method="post">
+                                 <input type="hidden" name="key" value="<?=$key?>">
+                                 <button type="submit" class="btn btn-danger">Eliminar</button>
+                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                               </form>
+                               </div>
+                             </div>
+                           </div>
+                         </div>
                       <?php }
                     }?>
+                    
                   </tbody>
                 </table>
               </section>
             </div>
-          </form>
+          
         </div>
       </div>
     </div>
