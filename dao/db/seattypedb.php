@@ -15,10 +15,11 @@ class SeatTypeDb extends SingletonDAO implements \interfaces\Idao
   }
   public function add($obj){
 
-    $sql ="INSERT INTO seattypes (name_seattype, description) VALUES (:name_seattype, :description)";
+    $sql ="INSERT INTO seattypes (name_seattype, description, active) VALUES (:name_seattype, :description, :active)";
 
     $parameters['name_seattype'] = $obj->getName();
     $parameters['description'] =$obj->getDescription();
+    $parameters['active'] = 1;
 
     try{
       $this->connection = Connection::getInstance();
@@ -33,7 +34,7 @@ class SeatTypeDb extends SingletonDAO implements \interfaces\Idao
 
   public function retrieveByName($name){
 
-    $sql = "SELECT * FROM seattypes where name_seattype = :name_seattype";
+    $sql = "SELECT * FROM seattypes where name_seattype = :name_seattype and active = 1";
     $parameters['name_seattype'] = $name;
     try{
       $this->connection = Connection::getInstance();
@@ -54,7 +55,7 @@ class SeatTypeDb extends SingletonDAO implements \interfaces\Idao
 
   public function retrieveById($id){
 
-    $sql = "SELECT * FROM seattypes where id_seattype = :id_seattype";
+    $sql = "SELECT * FROM seattypes where id_seattype = :id_seattype and active = 1";
     $parameters['id_seattype'] = $id;
     try{
       $this->connection = Connection::getInstance();
@@ -73,7 +74,7 @@ class SeatTypeDb extends SingletonDAO implements \interfaces\Idao
   }
   public function getAll(){
 
-    $sql = "SELECT * FROM seattypes order by name_seattype";
+    $sql = "SELECT * FROM seattypes WHERE active = 1 order by name_seattype";
     try{
       $this->connection = Connection::getInstance();
       $response = $this->connection->execute($sql);
@@ -87,6 +88,38 @@ class SeatTypeDb extends SingletonDAO implements \interfaces\Idao
     else
     return null;
 
+  }
+
+  public function getAllNonActive(){
+    $sql = "SELECT * FROM seattypes WHERE active = 2 ORDER BY name_seattype";
+    try{
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql);
+
+    }catch(Exception $ex){
+      throw $ex;
+    }
+    if(!empty($response)){
+      return  $this->map($response);
+    }
+    else
+    return null;
+  }
+
+  public function getSeattypesActAndNonAct(){
+    $sql = "SELECT * FROM seattypes ORDER BY name_seattype";
+    try{
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql);
+
+    }catch(Exception $ex){
+      throw $ex;
+    }
+    if(!empty($response)){
+      return  $this->map($response);
+    }
+    else
+    return null;
   }
 
   public function update($obj){
@@ -110,8 +143,9 @@ class SeatTypeDb extends SingletonDAO implements \interfaces\Idao
 
   public function delete($id){
 
-    $sql = "DELETE from seattypes where id_seattype =:id_seattype";
+    $sql = "UPDATE seattypes SET active = :active where id_seattype =:id_seattype";
     $parameters['id_seattype'] = $id;
+    $parameters['active'] = 2;
     try{
       $this->connection = Connection::getInstance();
       $response = $this->connection->executeNonQuery($sql,$parameters);

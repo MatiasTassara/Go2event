@@ -15,9 +15,10 @@ class CategoryDb extends SingletonDAO implements \interfaces\Idao
   }
   public function add($obj){
 
-    $sql ="INSERT INTO categories (name_category) VALUES (:name_category)";
+    $sql ="INSERT INTO categories (name_category, active) VALUES (:name_category, :active)";
 
     $parameters['name_category'] = $obj->getName();
+    $parameters['active'] = 1;
 
 
     try{
@@ -35,7 +36,7 @@ class CategoryDb extends SingletonDAO implements \interfaces\Idao
 
   public function retrieveByName($name){
 
-    $sql = "SELECT * FROM categories where name_category = :name_category";
+    $sql = "SELECT * FROM categories where name_category = :name_category and active = 1";
 
     $parameters['name_category'] = $name;
 
@@ -61,7 +62,7 @@ class CategoryDb extends SingletonDAO implements \interfaces\Idao
 
   public function retrieveById($id){
 
-    $sql = "SELECT * from categories where id_category = :id_category";
+    $sql = "SELECT * from categories where id_category = :id_category and active = 1";
     $parameters['id_category'] = $id;
     try{
       $this->connection = Connection::getInstance();
@@ -86,7 +87,7 @@ class CategoryDb extends SingletonDAO implements \interfaces\Idao
 
   public function getAll(){
 
-    $sql = "SELECT * FROM categories order by name_category";
+    $sql = "SELECT * FROM categories WHERE active = 1 order by name_category";
     try{
       $this->connection = Connection::getInstance();
       $response =$this->connection->execute($sql);
@@ -99,6 +100,35 @@ class CategoryDb extends SingletonDAO implements \interfaces\Idao
     return null;
 
   }
+
+  public function getAllNonActive(){
+    $sql = "SELECT * FROM categories WHERE active = 2 ORDER BY name_category";
+    try{
+      $this->connection = Connection::getInstance();
+      $response =$this->connection->execute($sql);
+    }catch(Exception $ex){
+      throw $ex;
+    }
+    if(!empty($response))
+    return $this->map($response);
+    else
+    return null;
+  }
+
+  public function getCategoriesActAndNonAct(){
+    $sql = "SELECT * FROM categories ORDER BY name_category";
+     try{
+      $this->connection = Connection::getInstance();
+      $response =$this->connection->execute($sql);
+    }catch(Exception $ex){
+      throw $ex;
+    }
+    if(!empty($response))
+    return $this->map($response);
+    else
+    return null;
+  }
+
   protected function map($value) {
 
     $value = is_array($value) ? $value : [];
@@ -128,8 +158,9 @@ class CategoryDb extends SingletonDAO implements \interfaces\Idao
 
     public function delete($id){
 
-      $sql = "DELETE from categories where id_category = :id_category";
+      $sql = "UPDATE  categories SET active = :active where id_category = :id_category";
       $parameters['id_category'] = $id;
+      $parameters['active'] = 2;
 
       try{
         $this->connection = Connection::getInstance();

@@ -15,10 +15,11 @@ class ArtistDb extends \dao\SingletonDAO implements \interfaces\Idao
   }
   public function add($obj){
 
-    $sql ="INSERT INTO artists (name_artist, description) VALUES (:name_artist, :description)";
+    $sql ="INSERT INTO artists (name_artist, description, active) VALUES (:name_artist, :description, :active)";
 
     $parameters['name_artist'] = $obj->getName();
     $parameters['description'] =$obj->getDesc();
+    $parameters['active'] = 1;
 
     try{
       $this->connection = Connection::getInstance();
@@ -34,7 +35,7 @@ class ArtistDb extends \dao\SingletonDAO implements \interfaces\Idao
 
   public function retrieveByName($name){
 
-    $sql = "SELECT * FROM artists where name_artist LIKE %:name_artist%";
+    $sql = "SELECT * FROM artists where name_artist LIKE %:name_artist% and active = 1";
 
     $parameters['name_artist'] = $name;
 
@@ -61,7 +62,7 @@ class ArtistDb extends \dao\SingletonDAO implements \interfaces\Idao
 
   public function retrieveById($id){
 
-    $sql = "SELECT * from artists where id_artist = :id_artist";
+    $sql = "SELECT * from artists where id_artist = :id_artist and active = 1";
     $parameters['id_artist'] = $id;
     try{
       $this->connection = Connection::getInstance();
@@ -90,7 +91,7 @@ class ArtistDb extends \dao\SingletonDAO implements \interfaces\Idao
 
   public function getAll(){
 
-    $sql = "SELECT * FROM artists order by name_artist";
+    $sql = "SELECT * FROM artists where active = 1 order by name_artist";
     try{
       $this->connection = Connection::getInstance();
       $response = $this->connection->execute($sql);
@@ -104,6 +105,41 @@ class ArtistDb extends \dao\SingletonDAO implements \interfaces\Idao
     return $this->map($response);
     else
     return null;
+
+  }
+  public function getAllNonActive(){
+    $sql = "SELECT * FROM artists where active = 2 order by name_artist";
+    try{
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql);
+
+    }catch(Exception $ex){
+      $ex = "Error en la base de datos";
+      throw $ex;
+    }
+
+    if(!empty($response))
+    return $this->map($response);
+    else
+    return null;
+
+  }
+  public function getAllArtistsActAndNonAct(){
+    $sql = "SELECT * FROM artists ORDER BY name_artist";
+    try{
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql);
+
+    }catch(Exception $ex){
+      $ex = "Error en la base de datos";
+      throw $ex;
+    }
+
+    if(!empty($response))
+    return $this->map($response);
+    else
+    return null;
+
 
   }
   protected function map($value) {
@@ -136,8 +172,9 @@ class ArtistDb extends \dao\SingletonDAO implements \interfaces\Idao
 
     public function delete($id){
 
-      $sql = "DELETE from artists where id_artist = :id_artist";
+      $sql = "UPDATE artists SET active = :active WHERE id_artist = :id_artist";
       $parameters['id_artist'] = $id;
+      $parameters['active'] = 2;  //2 representa el estado de inactividad, que es sinonimo de borrado sin borrar información.
 
       try{
         $this->connection = Connection::getInstance();

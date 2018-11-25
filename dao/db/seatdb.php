@@ -24,13 +24,14 @@ class SeatDb extends SingletonDAO implements \interfaces\Idao
 
   public function add($obj){
 
-    $sql ="INSERT INTO seats (quant, price, remaining, id_seattype, id_calendar) VALUES (:quant, :price, :remaining, :id_seattype, :id_calendar)";
+    $sql ="INSERT INTO seats (quant, price, remaining, id_seattype, id_calendar, active) VALUES (:quant, :price, :remaining, :id_seattype, :id_calendar, :active)";
 
     $parameters['quant'] = $obj->getQuantity();
     $parameters['price'] = $obj->getPrice();
     $parameters['remaining'] =$obj->getRemaining();
     $parameters['id_seattype'] =$obj->getSeatType()->getId();
     $parameters['id_calendar'] =$obj->getCalendar()->getId();
+    $parameters['active'] = 1;
 
 
     try{
@@ -53,7 +54,7 @@ class SeatDb extends SingletonDAO implements \interfaces\Idao
 
   public function retrieveById($id){
 
-    $sql = "SELECT * from seats where id_seat = :id_seat";
+    $sql = "SELECT * from seats where id_seat = :id_seat and active = 1";
     $parameters['id_seat'] = $id;
     try{
       $this->connection = Connection::getInstance();
@@ -78,6 +79,36 @@ class SeatDb extends SingletonDAO implements \interfaces\Idao
 
   public function getAll(){
 
+    $sql = "SELECT * FROM seats WHERE active = 1";
+    try{
+      $this->connection = Connection::getInstance();
+      $response =$this->connection->execute($sql);
+    }catch(Exception $ex){
+      throw $ex;
+    }
+    if(isset($response))
+    return $this->map($response);
+    else
+    return null;
+
+  }
+  public function getAllNonActive(){
+
+    $sql = "SELECT * FROM seats WHERE active = 2";
+    try{
+      $this->connection = Connection::getInstance();
+      $response =$this->connection->execute($sql);
+    }catch(Exception $ex){
+      throw $ex;
+    }
+    if(isset($response))
+    return $this->map($response);
+    else
+    return null;
+  }
+
+  public function getSeatsActAndNonAct(){
+
     $sql = "SELECT * FROM seats";
     try{
       $this->connection = Connection::getInstance();
@@ -89,6 +120,7 @@ class SeatDb extends SingletonDAO implements \interfaces\Idao
     return $this->map($response);
     else
     return null;
+
 
   }
 
@@ -116,6 +148,7 @@ class SeatDb extends SingletonDAO implements \interfaces\Idao
     $parameters['quant'] = $obj->getQuantity();
     $parameters['price'] = $obj->getPrice();
     $parameters['remaining'] = $obj->getRemaining();
+    $parameters['id_seat'] = $obj->getId();
     try{
       $this->connection = Connection::getInstance();
       return $this->connection->ExecuteNonQuery($sql, $parameters);
@@ -126,7 +159,7 @@ class SeatDb extends SingletonDAO implements \interfaces\Idao
 
   }
   public function  retrieveSeatsByIdCalendar($id_calendar){
-    $sql= "SELECT * from seats where id_calendar = :id_calendar";
+    $sql= "SELECT * from seats where id_calendar = :id_calendar and active = 1";
     $parameters['id_calendar'] = $id_calendar;
     try{
       $this->connection = Connection::getInstance();
@@ -144,6 +177,17 @@ class SeatDb extends SingletonDAO implements \interfaces\Idao
     }
 
   public function delete($id){
+
+    $sql = "UPDATE seats SET active = :active WHERE id_seat = :id_seat";
+    $parameters['id_seat'] = $id;
+    $parameters['active'] = 2;
+    try{
+      $this->connection = Connection::getInstance();
+      return $this->connection->ExecuteNonQuery($sql, $parameters);
+    }catch(\PDOException $ex){
+      throw $ex;
+
+    }
 
 
   }

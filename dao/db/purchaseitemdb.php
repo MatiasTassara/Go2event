@@ -43,6 +43,22 @@ class PurchaseItemDb extends SingletonDAO implements \interfaces\Idao
     }
 
   }
+  public function getLastPurchaseItems(){
+    $sql = "SELECT * FROM purchase_items order by id_purchase_item desc limit 1";
+    try{
+      $this->connection = Connection::getInstance();
+      $response =$this->connection->execute($sql);
+    }catch(Exception $ex){
+       $ex->getMessage();
+    }
+    if(!empty($response)){
+
+      $result = $this->map($response);
+      return array_shift($result);
+    }
+
+    else
+    return null;
 
   public function retrieveByName($name){
 
