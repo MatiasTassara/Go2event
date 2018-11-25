@@ -16,6 +16,17 @@ class ControllerStats{
         include(ROOT.'views/stats');
     }
 
-    public function getAmountBilled
+    public function getAmounts($from,$to){
+
+        $seats = $this->daoSeat->retrieveSeatsByDate($from,$to);
+        $totalBilled = 0;
+        $totalSold = 0;
+        foreach ($seats as $key => $value) {
+            $totalSold += ($value->getQuantity() - $value->getRemaining());
+            $totalBilled += ($value->getQuantity() - $value->getRemaining()) * $value->getPrice();
+        }
+        $this->index();
+    }
+ 
 
 }
