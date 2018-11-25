@@ -89,7 +89,7 @@ class ControllerPurchase{
     }
 
 
-        public function placeOrder($nameAsOnCard,$expirationDate,$cardNumber,$securityCode){
+    public function placeOrder($nameAsOnCard,$expirationDate,$cardNumber,$securityCode){
         //parametros extra para a futuro usar api de tarjeta de credito
         $purchase = $_SESSION['purchase'];
         $purchaseItems[] = $_SESSION['purchaseItems'];
