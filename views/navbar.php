@@ -32,10 +32,10 @@
           <span class="nav-link text-white uk-button" uk-tooltip = "title:<?= $_SESSION["user"]->getName().' '.$_SESSION["user"]->getSurname()?>;pos: bottom"><?= $_SESSION["user"]->getName()?></span>
         </li>
         <li class = "nav-item">
-          <a href="<?=FRONT_ROOT?>" ><span uk-icon="icon: cart; ratio: 1.5" uk-tooltip="title: hola?>; pos: bottom"></span></a>
+          <a href="<?=FRONT_ROOT?>Purchase" ><span class="mr-3" uk-icon="icon: cart; ratio: 1.5" uk-tooltip="title: Elementos en el carrito: <?= count($_SESSION["purchaseItems"]); ?>; pos: bottom"></span></a>
         </li>
         <li class="nav-item">
-          <a href="<?=FRONT_ROOT?>Login/Logout"><button class="uk-button uk-button-text">Cerrar Sesion</button></a>
+          <a href="<?=FRONT_ROOT?>Login/Logout"><button class="uk-button uk-button-text mr-3">Cerrar Sesion</button></a>
         </li>
       </div>
     <?php } ?>
