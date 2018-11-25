@@ -4,6 +4,7 @@ namespace dao\db;
 use Model\PurchaseItem as M_PurchaseItem;
 use Dao\db\PurchaseDb as D_Purchase;
 use Dao\singletondao as SingletonDAO;
+use Dao\db\SeatDb as D_Seat;
 /**
 *
 */
@@ -12,20 +13,23 @@ class PurchaseItemDb extends SingletonDAO implements \interfaces\Idao
 
   private $connection;
   private $daoPurchases;
+  private $daoSeats;
   function __construct(){
 
     $this->daoPurchases = D_Purchase::getInstance();
+    $this->daoSeats = D_Seat::getInstance();
 
   }
 
 
   public function add($obj){
 
-    $sql ="INSERT INTO purchase_items (quantity, price, id_purchase) VALUES (:quantity, :price, :id_purchase)";
+    $sql ="INSERT INTO purchase_items (quantity, price, id_purchase, id_seat) VALUES (:quantity, :price, :id_purchase, :id_seat)";
 
     $parameters['quantity'] = $obj->getQuantity();
     $parameters['price'] = $obj->getPrice();
     $parameters['id_purchase'] = $obj->getPurchase()->getId();
+    $parameters['id_seat'] = $obj->getSeat()->getId();
 
 
 
@@ -100,8 +104,9 @@ class PurchaseItemDb extends SingletonDAO implements \interfaces\Idao
     $resp = array_map(function($p){
 
       $purchase = $this->daoPurchases->retrieveById($p['id_purchase']);
+      $seat = $daoSeats->retrieveById($p['id_seat']);
 
-      return new M_PurchaseItem ($p['quantity'], $p['price'], $purchase, $p['id_purchase_item']);
+      return new M_PurchaseItem ($p['quantity'], $p['price'], $purchase, $seat, $p['id_purchase_item']);
     }, $value);
 
     return count($resp) >= 1 ? $resp : $arrayResponse[] = $resp['0'];
@@ -110,11 +115,12 @@ class PurchaseItemDb extends SingletonDAO implements \interfaces\Idao
   }
 
   public function update($obj){
-    $sql = "UPDATE purchase_items SET quantity = :quantity, price = :price, id_purchase = :id_purchase where id_purchase_item = :id_purchase_item";
+    $sql = "UPDATE purchase_items SET quantity = :quantity, price = :price, id_purchase = :id_purchase, id_seat = :id_seat where id_purchase_item = :id_purchase_item";
     $parameters['id_purchase_item'] = $obj->getId();
     $parameters['quantity'] = $obj->getQuantity();
     $parameters['price'] = $obj->getPrice();
     $parameters['id_purchase'] = $obj->getPurchase()->getId();
+    $parameters['id_seat'] = $obj->getSeat()->getId();
 
 
     try{
