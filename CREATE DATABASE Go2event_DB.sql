@@ -140,5 +140,10 @@ INSERT INTO users(id_role,email,name,surname,pass)
 			(2,"cliente@cliente","Simple","Peasant","$2y$10$mrG95dhyFQchG7BhL7ya5u.7goe0W.YJU/etqmb3bZXVT6BWYrDTu");
 
 
+SELECT 	p.date as PurchaseDate,
+		e.date as EventDate
+FROM
+
+WHERE
 
 
