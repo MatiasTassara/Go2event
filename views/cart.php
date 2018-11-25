@@ -18,7 +18,7 @@
       </div>
       <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
         <div class="card-body">
-          <form action = "" method="post">
+          <form action = "<?=FRONT_ROOT?>Purchase/removeFromCart" method="post">
             <div class="col-auto form-group">
               <section id="listado" class="p-0">
                 <table class="table table-striped">
@@ -49,7 +49,7 @@
                           </td>
                           <td>
                             <div class="col-auto ">
-                              <button type="submit" class="btn btn-danger" name="item" value="<?php $key?>" action="Purchase/removeFromCart" >
+                              <button type="submit" class="btn btn-danger" name="item" value="<?php $key?>" >
                                  Eliminar
                               </button>
                             </div>

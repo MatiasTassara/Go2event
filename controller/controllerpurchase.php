@@ -78,6 +78,7 @@ class ControllerPurchase{
     }
 
     public function removeFromCart($itemKey){
+        echo ' lo que llega de la vista : <br>';
         print_r($_SESSION['purchaseItems'][$itemKey]);
         //unset($_SESSION['purchaseItems'][$itemKey]);
         //$this->index();
