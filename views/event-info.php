@@ -32,7 +32,10 @@
             <td><?php foreach ($artistsPerCalendar[$value->getId()] as $k => $v) {
                 echo $v->getName(); if((count($artistsPerCalendar[$value->getId()]) - 1) > $k){echo ", ";}
             } ?></td>
-            <td><button type="button" class="btn btn-warning <?php if(!isset($_SESSION["user"])){echo "disabled uk-tooltip=\"Inicie sesión para poder comprar\"";} ?>" data-toggle="modal" data-target="#buy<?= $value->getId(); ?>">Comprar Entradas</button></td>
+            <?php if(!isset($_SESSION["user"])){?>
+            <td><button type="button" class="btn btn-warning disabled" uk-tooltip="Inicie sesión para poder comprar" >Comprar Entradas</button></td>
+          <?php }else{ ?>
+            <td><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#buy<?= $value->getId(); ?>">Comprar Entradas</button></td>
 
             <!-- Modal -->
             <div class="modal fade" id="buy<?= $value->getId();?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -64,6 +67,7 @@
                 </div>
               </div>
             </div>
+            <?php } ?>
           </tr>
         <?php } ?>
       </tbody>
