@@ -84,7 +84,7 @@ class PurchaseDb extends SingletonDAO implements \interfaces\Idao
 
     else
     return null;
-
+  }
 
 
   public function getAll(){

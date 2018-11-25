@@ -59,7 +59,7 @@ class PurchaseItemDb extends SingletonDAO implements \interfaces\Idao
 
     else
     return null;
-
+  }
   public function retrieveByName($name){
 
 
