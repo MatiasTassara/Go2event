@@ -8,7 +8,8 @@ use Dao\db\PurchaseDb as D_Purchase;
 use Model\PurchaseItem as M_PurchaseItem;
 use Dao\db\PurchaseItemDb as D_PurchaseItem;
 use Controller\ControllerHome as C_Home;
-
+use Model\Ticket as M_Ticket;
+use Dao\db\TicketDb as D_Ticket;
 
 
 
@@ -17,11 +18,13 @@ class ControllerPurchase{
     private $daoPurchase;
     private $daoPurchaseItem;
     private $controllerHome;
+    private $daoTicket;
 
     public function __construct(){
         $this->daoSeat = D_Seat::getInstance();
         $this->daoPurchase = D_Purchase::getInstance();
         $this->daoPurchaseItem = D_PurchaseItem::getInstance();
+        $this->daoTicket = D_Ticket::getInstance();
         $this->controllerHome = new C_Home();
     }
 
@@ -66,7 +69,7 @@ class ControllerPurchase{
             if($quant <= $seat->getRemaining()){
                 
                 $purchase = $_SESSION['purchase']; 
-                $purchaseItem = new M_PurchaseItem($quant,($seat->getPrice() * $quant),$purchase,$seat);
+                $purchaseItem = new M_PurchaseItem($quant,($seat->getPrice() * $quant),$purchase,$seat,3);
                 $_SESSION['purchaseItems'][] = $purchaseItem;
                 
                 $this->index();
@@ -104,6 +107,7 @@ class ControllerPurchase{
             unset($_SESSION['purchase']);
             unset($_SESSION['purchaseItems']);
         }
+        //al finalizar la compra generar el qr e instanciar el ticket
     }
     
 
