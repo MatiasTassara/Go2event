@@ -34,6 +34,7 @@
                   <tbody>
                     <?php
                     if(!empty($_SESSION['purchaseItems'])){
+                        $acumTotal = 0;
                       foreach ($_SESSION['purchaseItems'] as $key => $value) {?>
                         <tr>
                           <td> <?php echo $value->getSeat()->getCalendar()->getEvent()->getName(); ?></td>
@@ -41,6 +42,7 @@
                           <td> <?php echo $value->getQuantity(); ?></td>
                           <td> <?php echo '$' .  $value->getSeat()->getPrice(); ?></td>
                           <td> <?php echo '$' . ($value->getSeat()->getPrice()) * $value->getQuantity(); ?></td>
+                          <?php $acumTotal = $acumTotal + (($value->getSeat()->getPrice()) * $value->getQuantity());?>
                           
                           <td>
                             <div class="col-auto ">
@@ -56,6 +58,7 @@
                             </div>
                           </td>
                         </tr>
+                        
                         <div class="modal fade" id="delete<?= $key;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                            <div class="modal-dialog modal-dialog-centered" role="document">
                              <div class="modal-content">
@@ -80,7 +83,7 @@
                          </div>
                       <?php }
                     }?>
-                    
+                    <td> <?php echo 'Total: $' . $acumTotal; ?></td>
                   </tbody>
                 </table>
               </section>
