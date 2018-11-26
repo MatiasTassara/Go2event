@@ -4,12 +4,12 @@ namespace Model;
 class Purchase{
   private $id;
   private $date;
-  private $client;
+  private $user;
 
-  public function __construct($date,$client, $id = ''){
+  public function __construct($date,$user, $id = ''){
     $this->id = $id;
     $this->date = $date;
-    $this->client = $client;
+    $this->user = $user;
   }
   public function getId(){
     return $this->id;
@@ -17,8 +17,8 @@ class Purchase{
   public function getDate(){
     return $this->date;
   }
-  public function getClient(){
-    return $this->client;
+  public function getUser(){
+    return $this->user;
   }
   public function setId($id){
     $this->id = $id;
@@ -26,8 +26,8 @@ class Purchase{
   public function setDate($date){
     $this->date = $date;
   }
-  public function setClient($client){
-    $this->client = $client;
+  public function setUser($user){
+    $this->user = $user;
   }
 
 }

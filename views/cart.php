@@ -84,7 +84,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="" method="post">
+        
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="inputEmail4">Número de Tarjeta</label>
@@ -92,7 +92,7 @@
               </div>
               <div class="form-group col-md-6">
               <label for="inputEmail4">Clave de Segurirdad</label>
-              <input type="text" class="form-control" placeholder="Clave de Segurirdad" maxlength="4" >
+              <input type="password" class="form-control" placeholder="Clave de Segurirdad" maxlength="4" >
 
               </div>
               <div class="form-group col-md-6">
@@ -110,14 +110,28 @@
                   <option value="<?= $i ?>"><?= $i ?></option>
               <?php  } ?>
             </select>
+            </div>
+            <div class="form-check form-check-inline col-3">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="">
+              <label class="form-check-label" for="inlineRadio1">UTN BANK</label>
+            </div>
+            <div class="form-check form-check-inline col-3">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="">
+              <label class="form-check-label" for="inlineRadio2">Visa</label>
+            </div>
+            <div class="form-check form-check-inline col-3">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="">
+              <label class="form-check-label" for="inlineRadio3">Mastercard</label>
+            </div>
               </div>
 
-        </form>
-      </div>
+        
+    <form action="<?= FRONT_ROOT ?>Purchase/placeOrder" method="post">
       <div class="modal-footer">
-        <button type="button" class="btn btn-warning">Comprar</button>
+        <button type="submit" class="btn btn-warning">Comprar</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
       </div>
+      </form>
     </div>
   </div>
 </div>

@@ -21,9 +21,8 @@ class PurchaseDb extends SingletonDAO implements \interfaces\Idao
 
   public function add($obj){
 
-    $sql ="INSERT INTO purchases (date_purchase, id_user) VALUES (:date_purchase, :id_user)";
+    $sql ="INSERT INTO purchases (date_purchase, id_user) VALUES (NOW(), :id_user)";
 
-    $parameters['date_purchase'] = $obj->getDate();
     $parameters['id_user'] = $obj->getUser()->getId();
 
 

@@ -19,6 +19,7 @@ class PurchaseItemDb extends SingletonDAO implements \interfaces\Idao
     $this->daoPurchases = D_Purchase::getInstance();
     $this->daoSeats = D_Seat::getInstance();
 
+
   }
 
 
@@ -143,7 +144,7 @@ class PurchaseItemDb extends SingletonDAO implements \interfaces\Idao
     $resp = array_map(function($p){
 
       $purchase = $this->daoPurchases->retrieveById($p['id_purchase']);
-      $seat = $daoSeats->retrieveById($p['id_seat']);
+      $seat = $this->daoSeats->retrieveById($p['id_seat']);
 
       return new M_PurchaseItem ($p['quantity'], $p['price'], $purchase, $seat, $p['id_purchase_item']);
     }, $value);

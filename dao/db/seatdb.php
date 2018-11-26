@@ -137,7 +137,7 @@ class SeatDb extends SingletonDAO implements \interfaces\Idao
 
 
   public function update($obj){
-    $sql = "UPDATE seats SET quant = :quant, price = :price, remaining = :remaining,  where id_seat = :id_seat";
+    $sql = "UPDATE seats SET quant = :quant, price = :price, remaining = :remaining  where id_seat = :id_seat";
     $parameters['quant'] = $obj->getQuantity();
     $parameters['price'] = $obj->getPrice();
     $parameters['remaining'] = $obj->getRemaining();

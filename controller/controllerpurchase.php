@@ -69,7 +69,7 @@ class ControllerPurchase{
             if($quant <= $seat->getRemaining()){
 
                 $purchase = $_SESSION['purchase'];
-                $purchaseItem = new M_PurchaseItem($quant,($seat->getPrice() * $quant),$purchase,$seat,3);
+                $purchaseItem = new M_PurchaseItem($quant,($seat->getPrice() * $quant),$purchase,$seat);
                 $_SESSION['purchaseItems'][] = $purchaseItem;
 
                 $this->index();
@@ -87,36 +87,35 @@ class ControllerPurchase{
     }
 
 
-    public function placeOrder($nameAsOnCard,$expirationDate,$cardNumber,$securityCode){
+    public function placeOrder(/*$nameAsOnCard,$expirationDate,$cardNumber,$securityCode*/){
         //parametros extra para a futuro usar api de tarjeta de credito
         $purchase = $_SESSION['purchase'];
-        $purchaseItems[] = $_SESSION['purchaseItems'];
-        if(is_valid_luhn($cardNumber) == true){
+        $purchaseItems = $_SESSION['purchaseItems'];
+        if(/*is_valid_luhn($cardNumber) == */true){
             $this->daoPurchase->add($purchase);
             $purchaseFromDb = $this->daoPurchase->getLastPurchase();// para poder mandarle el obj completo al
             // para cada linea de compra
             foreach ($purchaseItems as $key => $value) {
-                $this->$daoPurchaseItem->add($value);
-                $valiuWithId = $this->$daoPurchaseItem->getLastItem();// para poder mandarle el obj completo (con id) al new ticket
+                $value->setPurchase($purchaseFromDb);
+                $this->daoPurchaseItem->add($value);
+                $valueWithId = $this->daoPurchaseItem->getLastPurchaseItems();// para poder mandarle el obj completo (con id) al new ticket
+                
                 $seat = $this->daoSeat->retrieveById($value->getSeat()->getId());
                 $cantItems = $value->getQuantity();
                 // se crea un ticket para cada elemento en esa linea de compra
                 while($cantItems > 0){
                     $qrCode = openssl_random_pseudo_bytes(255);
-                    // Es al pedo generar la imagen aca, se debería generar cuando se mande el mail o cuando se quiera mostrar el qr
-                        $qrFileName = "images/tempQR-".$cantItems;
-                        QRcode::png($qrCode,$qrFileName);
-                    //
                     $ticketNumber = $seat->getQuantity() - $seat->getRemaining() + $cantItems;
-                    $ticket = new M_Ticket($ticketNumber,$qrCode,$valiuWithId);
+                    $ticket = new M_Ticket($ticketNumber,$qrCode,$valueWithId);
                     $this->daoTicket->add($ticket);
+                    $cantItems--;
                 }
                //actualizamos el remaining del seat para cada plaza segun cantidad de entradas por linea
                 $seat->setRemaining($seat->getRemaining() - $value->getQuantity());
                 $this->daoSeat->update($seat);
             }
-            unset($_SESSION['purchase']);
-            unset($_SESSION['purchaseItems']);
+            $_SESSION['purchaseItems'] = [];
+            
             $this->index();
         }else{
             $alert = "Los datos de la tajeta ingresados son incorrectos";

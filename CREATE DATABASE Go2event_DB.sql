@@ -130,7 +130,7 @@ CREATE TABLE purchase_items(
 CREATE TABLE tickets(
 	id_ticket int unsigned auto_increment,
 	number_ticket bigint unsigned,
-	qr varchar(200),
+	qr varbinary(500),
 	id_purchase_item int unsigned,
 	constraint pk_tickets primary key (id_ticket),
 	constraint fk_tickets_purchase_item foreign key (id_purchase_item) references purchase_items(id_purchase_item)

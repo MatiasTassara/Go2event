@@ -29,7 +29,7 @@ class ControllerLogin extends ControllerArtist{
                 $date = getDate();
                 $purchase = new M_Purchase($date,$user);
                 $_SESSION['purchase'] = $purchase;
-                $_SESSION['purchaseItems'] = array(); 
+                $_SESSION['purchaseItems'] = []; 
                 $this->cHome->index();
               }else $this->index("Contraseña incorrecta");
       }else $this->index("Usuario inexistente");
