@@ -121,8 +121,10 @@ CREATE TABLE purchase_items(
 	quantity int unsigned,
 	price float,
 	id_purchase int unsigned,
+	id_seat int unsigned,
 	constraint pk_purchase_item primary key (id_purchase_item),
-	constraint fk_purchase_item_purchase foreign key (id_purchase) references purchases (id_purchase)
+	constraint fk_purchase_item_purchase foreign key (id_purchase) references purchases (id_purchase),
+	constraint fk_purchase_item_seat foreign key (id_seat) references seats (id_seat)
 
 );
 CREATE TABLE tickets(

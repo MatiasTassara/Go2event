@@ -59,66 +59,7 @@
 
 </div>
   <?php } ?>
-<div class="uk-container uk-container-expand  mb-3">
 
-
-  <h2 class="uk-heading-line uk-text-center"><span>Más Vendidos</span></h2>
-
-  <div class="uk-position-relative uk-visible-toggle uk-light" uk-slider="clsActivated: uk-transition-active; center: true; pause-on-hover: true; autoplay: true; autoplay-interval: 4500">
-
-    <ul class="uk-slider-items uk-grid">
-      <li class="uk-width-1-2">
-        <div class="uk-panel">
-          <img src="<?= FRONT_ROOT."img/imagen.jpg"?>" alt="">
-          <div class="uk-overlay uk-overlay-primary uk-position-bottom uk-text-center uk-transition-slide-bottom">
-            <h3 class="uk-margin-remove">Lollapalooza 2019</h3>
-            <p class="uk-margin-remove">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </div>
-        </div>
-      </li>
-      <li class="uk-width-1-2">
-        <div class="uk-panel">
-          <img src="<?= FRONT_ROOT."img/imagen.jpg"?>" alt="">
-          <div class="uk-overlay uk-overlay-primary uk-position-bottom uk-text-center uk-transition-slide-bottom">
-            <h3 class="uk-margin-remove">Luis Miguel en Argentina</h3>
-            <p class="uk-margin-remove">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </div>
-        </div>
-      </li>
-      <li class="uk-width-1-2">
-        <div class="uk-panel">
-          <img src="<?= FRONT_ROOT."img/imagen.jpg"?>" alt="">
-          <div class="uk-overlay uk-overlay-primary uk-position-bottom uk-text-center uk-transition-slide-bottom">
-            <h3 class="uk-margin-remove">Roger Waters Us + Them World Tour</h3>
-            <p class="uk-margin-remove">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </div>
-        </div>
-      </li>
-      <li class="uk-width-1-2">
-        <div class="uk-panel">
-          <img src="<?= FRONT_ROOT."img/imagen.jpg"?>" alt="">
-          <div class="uk-overlay uk-overlay-primary uk-position-bottom uk-text-center uk-transition-slide-bottom">
-            <h3 class="uk-margin-remove">AC/DC Rock or Bust World Tour</h3>
-            <p class="uk-margin-remove">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </div>
-        </div>
-      </li>
-      <li class="uk-width-1-2">
-        <div class="uk-panel">
-          <img src="<?= FRONT_ROOT."img/imagen.jpg"?>" alt="">
-          <div class="uk-overlay uk-overlay-primary uk-position-bottom uk-text-center uk-transition-slide-bottom">
-            <h3 class="uk-margin-remove">aaaaaaaaaaaaaaaaaa</h3>
-            <p class="uk-margin-remove">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </div>
-        </div>
-      </li>
-    </ul>
-
-    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
-
-  </div>
-</div>
 
 
 <?php include("navfooter.php"); ?>

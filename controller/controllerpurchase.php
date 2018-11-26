@@ -44,15 +44,15 @@ class ControllerPurchase{
         }
         if($everythingOk){
             // Creamos la compra y luego las lineas de compra
-            
-            $purchase = $_SESSION['purchase']; 
+
+            $purchase = $_SESSION['purchase'];
             while ($i < count($arrIdsSeats)) {
                 $seat = $this->daoSeat->retrieveById($arrIdsSeats[i]);
                 $purchaseItem = new M_PurchaseItem($value,$seat->getPrice(),$purchase);
                 $_SESSION['purchaseItem'][] = $purchaseItem;
                 $i++;
             }
-           
+
         }
         if(!$everythingOk){
             $errorMessage = "No hay disponibilidad para la cantidad entradas ingresada";
@@ -64,14 +64,14 @@ class ControllerPurchase{
 
     public function addToCart($idSeat,$quant){
          // Chequea que la cantidad total de asientos este disponible para ese Calendar
-        
+
             $seat = $this->daoSeat->retrieveById($idSeat);
             if($quant <= $seat->getRemaining()){
-                
-                $purchase = $_SESSION['purchase']; 
+
+                $purchase = $_SESSION['purchase'];
                 $purchaseItem = new M_PurchaseItem($quant,($seat->getPrice() * $quant),$purchase,$seat,3);
                 $_SESSION['purchaseItems'][] = $purchaseItem;
-                
+
                 $this->index();
             }
             else{
@@ -81,11 +81,9 @@ class ControllerPurchase{
     }
 
     public function removeFromCart($itemKey){
-        echo ' lo que llega de la vista : <br>';
-        echo 'itemkey:::' .  $itemKey;
-        print_r($_SESSION['purchaseItems'][$itemKey]);
-        //unset($_SESSION['purchaseItems'][$itemKey]);
-        //$this->index();
+        $itemKey = $itemKey - 1;
+        unset($_SESSION['purchaseItems'][$itemKey]);
+        $this->index();
     }
 
 
@@ -95,7 +93,7 @@ class ControllerPurchase{
         $purchaseItems[] = $_SESSION['purchaseItems'];
         if(is_valid_luhn($cardNumber) == true){
             $this->daoPurchase->add($purchase);
-            $purchaseFromDb = $this->daoPurchase->getLastPurchase();// para poder mandarle el obj completo al 
+            $purchaseFromDb = $this->daoPurchase->getLastPurchase();// para poder mandarle el obj completo al
             // para cada linea de compra
             foreach ($purchaseItems as $key => $value) {
                 $this->$daoPurchaseItem->add($value);
@@ -113,21 +111,20 @@ class ControllerPurchase{
                     $ticket = new M_Ticket($ticketNumber,$qrCode,$valiuWithId);
                     $this->daoTicket->add($ticket);
                 }
-               //actualizamos el remaining del seat para cada plaza segun cantidad de entradas por linea                
+               //actualizamos el remaining del seat para cada plaza segun cantidad de entradas por linea
                 $seat->setRemaining($seat->getRemaining() - $value->getQuantity());
-                $this->daoSeat->update($seat); 
-                $cantItems --;
+                $this->daoSeat->update($seat);
             }
             unset($_SESSION['purchase']);
             unset($_SESSION['purchaseItems']);
-            $alert = "Transacción efectuada con exito. Gracias por su compra.";
-            $this->controllerHome->index($alert);
+            $this->index();
         }else{
             $alert = "Los datos de la tajeta ingresados son incorrectos";
             include('reemplazar-con-vista-tarjeta-de-credito.php');
     }
-    
-    }
+  }
+
+
 
     private function is_valid_luhn($number) {
         settype($number, 'string');
@@ -146,7 +143,7 @@ class ControllerPurchase{
         $to      = $mail;
         $subject = '¡Gracias por comprar en GoToEvent!';
         $msg = "Hola, como estas? aca estan el/los codigos QR";
-        
+
         $headers = array(
             'From' => $from,
             'To' => $to,
@@ -170,5 +167,5 @@ class ControllerPurchase{
         }
     }
 
-    
+
 }
