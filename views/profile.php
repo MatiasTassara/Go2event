@@ -36,8 +36,8 @@
                   <td> <?= $value['eventNames'] ?></td>
                   <td> <?= $value['eventDates'] ?></td>
                   <td> <?= $value['seatTypes'] ?> </td>
-                  <td> <?= $value['prices'] ?> </td>
-                  <td> </td>
+                  <td> $<?= $value['prices'] ?> </td>
+                  <td><img src="<?= FRONT_ROOT ?><?= $value['qrImgPaths'] ?>" width="100" heigth="100"> </td>
                 </tr>
               <?php }?>
         </tbody>

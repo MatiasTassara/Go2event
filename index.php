@@ -15,7 +15,7 @@
 	require_once "Config/Request.php";
 	require_once "Config/Router.php";
 	require_once "DAO/SingletonDAO.php";
-	include_once "lib/phpqrcode/qrlib.php";
+	require_once "phpqrcode/qrlib.php";
 
 	/**
 	 * Alias
@@ -24,6 +24,7 @@
 	use Config\Router 	as Router;
 	use Config\Request 	as Request;
 	use DAO\SingletonDAO as SingletonDao;
+	
 
 	Autoload::start();
 	session_start();
