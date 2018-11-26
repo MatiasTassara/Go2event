@@ -58,7 +58,7 @@ class ControllerProfile{
       $arrProfileInfo['prices']= $value->getPurchaseItem()->getSeat()->getPrice();
       $arrProfileInfo['qrImgPaths'] = 0;
       $arrayTickets[] = $arrProfileInfo;//ROOT."images/tempQR/tempQR-".$key;
-      //QRcode::png($value->getQr(),ROOT."images/tempQR/tempQR-".$key);
+      QRcode::png($value->getQr(),ROOT."images/tempQR/tempQR-".$key);
     }
     include(ROOT.'views/profile.php');
   }
