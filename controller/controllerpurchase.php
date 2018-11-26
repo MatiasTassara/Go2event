@@ -28,7 +28,7 @@ class ControllerPurchase{
         $this->controllerHome = new C_Home();
     }
 
-    public function index(){
+    public function index($alert = null){
         include(ROOT.'views/cart.php');
     }
 /*
@@ -116,7 +116,7 @@ class ControllerPurchase{
             }
             $_SESSION['purchaseItems'] = [];
             
-            $this->index();
+            $this->index('Compra exitosa');
         }else{
             $alert = "Los datos de la tajeta ingresados son incorrectos";
             include('reemplazar-con-vista-tarjeta-de-credito.php');

@@ -29,7 +29,7 @@
         </li>
       <?php }else{ ?>
         <li class = "nav-item">
-          <a href="<?=FRONT_ROOT?>Profile"><span class="nav-link text-white uk-button" uk-tooltip = "title:<?= $_SESSION["user"]->getName().' '.$_SESSION["user"]->getSurname()?>;pos: bottom"><?= $_SESSION["user"]->getName()?></span></a>
+          <a href="<?=FRONT_ROOT?>Profile"><button class="mr-3 nav-link uk-button uk-button-text" uk-tooltip = "title:<?= $_SESSION["user"]->getName().' '.$_SESSION["user"]->getSurname()?>;pos: bottom"><?= $_SESSION["user"]->getName()?></button></a>
         </li>
         <li class = "nav-item">
           <a href="<?=FRONT_ROOT?>Purchase" ><span class="mr-3" uk-icon="icon: cart; ratio: 1.5" uk-tooltip="title: Elementos en el carrito: <?= count($_SESSION["purchaseItems"]); ?>; pos: bottom"></span></a>
