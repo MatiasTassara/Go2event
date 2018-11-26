@@ -15,6 +15,12 @@
 .uk-icon{
   color: #fff !important;
 }
+.uk-icon-button{
+  background: #f00 !important;
+}
+.uk-icon-button:hover{
+  background-color: #d80808 !important;
+}
 .uk-button-text{
   color: #fff !important;
 
