@@ -100,12 +100,10 @@ class ControllerUser{
       $arrProfileInfo['eventDates'][] = $value->getPurchaseItem()->getSeat()->getCalendar()->getEvent()->getDate();
       $arrProfileInfo['seatTypes'][] = $value->getPurchaseItem()->getSeat()->getSeattype()->getName();
       $arrProfileInfo['prices'][] = $value->getPurchaseItem()->getSeat()->getPrice();
-      $arrProfileInfo['qrImgPaths'][] = ROOT."images/tempQR-".$key;
-      QRcode::png($value->getQr(),ROOT."images/tempQR-".$key);
+      $arrProfileInfo['qrImgPaths'][] = ROOT."images/tempQR/tempQR-".$key;
+      QRcode::png($value->getQr(),ROOT."images/tempQR/tempQR-".$key);
     }
-    
 
-    return ;
   }
 
 }

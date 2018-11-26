@@ -69,7 +69,7 @@ class PurchaseItemDb extends SingletonDAO implements \interfaces\Idao
     $parameters['id_purchase'] = $idPurchase;
      try{
       $this->connection = Connection::getInstance();
-      $response =$this->connection->execute($sql);
+      $response =$this->connection->execute($sql,$parameters);
     }catch(Exception $ex){
        $ex->getMessage();
     }
