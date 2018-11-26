@@ -29,6 +29,9 @@
         <a class="nav-link" href="<?=FRONT_ROOT?>SeatType"><button class="uk-button uk-button-text">Tipos de Plaza</button></a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" href="<?=FRONT_ROOT?>Stats"><button class="uk-button uk-button-text">Stats</button></a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="<?=FRONT_ROOT?>User"><button class="uk-button uk-button-text">Usuarios</button></a>
       </li>
     </div>

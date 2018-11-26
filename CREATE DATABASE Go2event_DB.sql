@@ -149,3 +149,5 @@ FROM
 WHERE
 
 
+SELECT s.*  FROM  seats s inner join calendars c on s.id_calendar = c.id_calendar
+            where  c.date_calendar BETWEEN date "2018-10-01" AND date "2018-11-30" AND s.active = 1

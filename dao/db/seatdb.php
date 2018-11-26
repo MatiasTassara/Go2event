@@ -131,7 +131,7 @@ class SeatDb extends SingletonDAO implements \interfaces\Idao
 
       return new M_Seat($p['quant'], $p['price'], $p['remaining'], $seattype, $calendar, $p['id_seat']);
     }, $value);
-
+      //echo '<pre> $resp en map de seatDb = ';var_dump($resp);
     return count($resp) >= 1 ? $resp : $arrayResponse[] = $resp['0'];
   }
 
@@ -182,10 +182,18 @@ class SeatDb extends SingletonDAO implements \interfaces\Idao
   }
 
   public function  retrieveSeatsByDate($from,$to){
-    $sql= " SELECT *  FROM  seats s inner join calendars c on s.id_calendar = c.id_calendar
-            where  c.date_calendar BETWEEN :fromDate AND :toDate AND s.active = 1";
+    $sql= " SELECT 
+                s.quant as quant,
+                s.price as price,
+                s.remaining as remaining,
+                s.id_seattype as id_seattype,
+                s.id_calendar as id_calendar,
+                s.id_seat as id_seat
+            FROM  seats s ";//inner join calendars c on s.id_calendar = c.id_calendar
+            //where  c.date_calendar BETWEEN :fromDate AND :toDate";
     $parameters['fromDate'] = $from;
     $parameters['toDate'] = $to;
+   
     try{
       $this->connection = Connection::getInstance();
       $response =$this->connection->execute($sql,$parameters);
@@ -193,7 +201,8 @@ class SeatDb extends SingletonDAO implements \interfaces\Idao
       throw $ex;
     }
     if(isset($response)){
-      return $this->map($response);
+      $result = $this->map($response);
+      return array_shift($result);
       }
     else
       return null;
