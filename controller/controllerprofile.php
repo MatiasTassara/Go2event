@@ -37,7 +37,7 @@ class ControllerProfile{
 
   public function index($alert = null){
     if(isset($_SESSION["user"])){
-      $this->showProfile();
+      $this->showProfile($alert);
 
     }
     else{
@@ -45,7 +45,7 @@ class ControllerProfile{
     }
   }
 
-  public function showProfile(){
+  public function showProfile($alert){
     $user = $_SESSION['user'];
     $tickets = $this->daoTicket->retrieveTicketsByIdUser($user->getId());
     // Armamos array con todo lo que le queremos pasar a la vista

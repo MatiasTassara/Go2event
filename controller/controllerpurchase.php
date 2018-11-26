@@ -10,6 +10,7 @@ use Dao\db\PurchaseItemDb as D_PurchaseItem;
 use Controller\ControllerHome as C_Home;
 use Model\Ticket as M_Ticket;
 use Dao\db\TicketDb as D_Ticket;
+use Controller\ControllerProfile as C_Profile;
 
 
 
@@ -19,6 +20,7 @@ class ControllerPurchase{
     private $daoPurchaseItem;
     private $controllerHome;
     private $daoTicket;
+    private $controllerProfile;
 
     public function __construct(){
         $this->daoSeat = D_Seat::getInstance();
@@ -26,11 +28,13 @@ class ControllerPurchase{
         $this->daoPurchaseItem = D_PurchaseItem::getInstance();
         $this->daoTicket = D_Ticket::getInstance();
         $this->controllerHome = new C_Home();
+        $this->controllerProfile = new C_Profile();
     }
 
     public function index($alert = null){
         include(ROOT.'views/cart.php');
     }
+
 /*
     public function addToCart($arrQuant,$arrIdsSeats){
         $i = 0;
@@ -116,7 +120,7 @@ class ControllerPurchase{
             }
             $_SESSION['purchaseItems'] = [];
             
-            $this->index('Compra exitosa');
+            $this->controllerProfile->index('Compra exitosa &#x2714');
         }else{
             $alert = "Los datos de la tajeta ingresados son incorrectos";
             include('reemplazar-con-vista-tarjeta-de-credito.php');
