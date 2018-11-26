@@ -46,6 +46,32 @@ class TicketDb extends SingletonDAO implements \interfaces\Idao
 
   }
 
+  public function retrieveByPurchaseItemId($idPurchaseItem){
+
+    $sql = "SELECT t.id_ticket FROM tickets t INNER JOIN purchase_items pi
+          ON t.id_purchase_item = pi.id_purchase_item WHERE t.id_purchase_item = :id_purchase_item";
+    $parameters['id_purchase_item'] = $idPurchaseItem;
+    try{
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql, $parameters);
+
+    }catch(Exception $ex){
+      throw $ex;
+
+    }
+    $arrayTickets = array();
+    if(isset($response)){
+      foreach ($response as $key => $value) {
+        $ticket = $this->retrieveById($value['id_purchase_item']);
+        $arrayTickets[] = $ticket;
+      }
+      return $arrayTickets;
+    }else{
+      return null;
+    }
+
+  }
+
 
   public function retrieveById($id){
 

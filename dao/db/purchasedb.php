@@ -86,6 +86,33 @@ class PurchaseDb extends SingletonDAO implements \interfaces\Idao
     return null;
   }
 
+  public function retrieveByUserEmail($email){
+
+    $sql= "SELECT p.id_purchase FROM purchases p INNER JOIN users s ON p.id_user = s.id_user WHERE email = :email";
+    $parameters['email'] = $email;
+    try{
+      $this->connection = Connection::getInstance();
+      $response =$this->connection->execute($sql, $parameters);
+    }catch(Exception $ex){
+       $ex->getMessage();
+    }
+    $arrayPurchases = array();
+    if(isset($response)){
+      foreach ($response as $key => $value) {
+        $purchase = $this->retrieveById($value['id_purchase']);
+        $arrayPurchases[] = $purchase;
+        
+      }
+      return $arrayPurchases;
+    }else{
+      return null;
+    }
+
+
+
+
+  }
+
 
   public function getAll(){
 

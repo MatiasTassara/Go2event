@@ -60,6 +60,29 @@ class PurchaseItemDb extends SingletonDAO implements \interfaces\Idao
     else
     return null;
   }
+
+  public function retrieveByPurchaseId($idPurchase){
+
+    $sql= "SELECT pi.id_purchase_item FROM purchase_items pi INNER JOIN purchases p ON 
+           pi.id_purchase = p.id_purchase WHERE pi.id_purchase = :id_purchase";
+    $parameters['id_purchase'] = $idPurchase;
+     try{
+      $this->connection = Connection::getInstance();
+      $response =$this->connection->execute($sql);
+    }catch(Exception $ex){
+       $ex->getMessage();
+    }
+    $arrayPurchaseItems = array();
+    if(isset($response)){
+      foreach ($response as $key => $value) {
+        $purchaseItem = $this->retrieveById($value['id_purchase_item']);
+        $arrayPurchaseItems[] = $purchaseItem;
+      }
+      return $arrayPurchaseItems;
+    }else{
+      return null;
+    }
+  }
   public function retrieveByName($name){
 
 

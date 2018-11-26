@@ -182,11 +182,8 @@ class SeatDb extends SingletonDAO implements \interfaces\Idao
   }
 
   public function  retrieveSeatsByDate($from,$to){
-    $sql= " SELECT * 
-            FROM
-              seats s inner join calendars c on s.id_calendar = c.id_calendar
-            where 
-              c.date_calendar BETWEEN :fromDate AND :toDate AND s.active = 1";
+    $sql= " SELECT *  FROM  seats s inner join calendars c on s.id_calendar = c.id_calendar
+            where  c.date_calendar BETWEEN :fromDate AND :toDate AND s.active = 1";
     $parameters['fromDate'] = $from;
     $parameters['toDate'] = $to;
     try{
