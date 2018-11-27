@@ -1,4 +1,4 @@
-<?php include(ROOT."views/navbar.php");
+<?php include(ROOT."views/navbaradmin.php");
     if(isset($alert)) { ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
         <?php echo $alert ?>

@@ -98,7 +98,7 @@ INSERT INTO `artists_x_calendar` (`id_artist`, `id_calendar`) VALUES
 (36, 2),
 (36, 3),
 (36, 4),
-(37, 5),
+(37, 5),   
 (38, 8);
 
 CREATE TABLE `calendars` (
