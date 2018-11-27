@@ -19,11 +19,11 @@
           <form action="<?= FRONT_ROOT ?>Login/login" class="" method="post">
             <div class="form-group">
               <label class="uk-form-label text-center" for="exampleInputEmail1">Email</label>
-              <input type="email" name="email" class="form-control uk-input" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese Email" required>
+              <input type="email" name="email" class="form-control uk-input" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese Email">
             </div>
             <div class="form-group">
               <label class="text-center uk-form-label" for="exampleInputPassword1">Contraseña</label>
-              <input type="password" name="pass" class="form-control uk-input" id="exampleInputPassword1" placeholder="Ingrese Contraseña" required>
+              <input type="password" name="pass" class="form-control uk-input" id="exampleInputPassword1" placeholder="Ingrese Contraseña">
             </div>
             <div class="form-group">
               <button type="submit" class="uk-button btn-warning btn-block">Ingresar</button>
@@ -37,19 +37,19 @@
           <form action="<?= FRONT_ROOT ?>Signup/addClient" class="" method="post">
             <div class="form-group">
               <label class="uk-form-label text-center" for="exampleInputEmail1">Email</label>
-              <input type="email" name="email" class="form-control uk-input" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese Email" required>
+              <input type="email" name="email" class="form-control uk-input" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese Email">
             </div>
             <div class="form-group">
               <label class="text-center uk-form-label" for="exampleInputPassword1">Contraseña</label>
-              <input type="password" name="pass" class="form-control uk-input" id="exampleInputPassword1" placeholder="Ingrese Contraseña" required>
+              <input type="password" name="pass" class="form-control uk-input" id="exampleInputPassword1" placeholder="Ingrese Contraseña">
             </div>
             <div class="form-group">
               <label class="uk-form-label text-center" for="exampleInputEmail1">Nombre</label>
-              <input type="text" name="name" class="form-control uk-input" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese Nombre" required>
+              <input type="text" name="name" class="form-control uk-input" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese Nombre">
             </div>
             <div class="form-group">
               <label class="uk-form-label text-center" for="exampleInputEmail1">Apellido</label>
-              <input type="text" name="surname" class="form-control uk-input" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese Apellido" required>
+              <input type="text" name="surname" class="form-control uk-input" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese Apellido">
             </div>
             <div class="form-group">
               <button type="submit" class="uk-button btn-warning btn-block">Registrarse</button>

@@ -39,7 +39,7 @@
 
     <?php if (isset($eventsByArtist) && !empty($eventsByArtist)) { ?>
 
-     <h2 class="uk-heading-line uk-text-center"><span>Artistas para <?= $text ?></span></h2>
+     <h2 class="uk-heading-line uk-text-center"><span>Artistas encontrados para <?= $text ?></span></h2>
       <div class="card-columns">
         <?php foreach ($eventsByArtist as $key => $value) {?>
         <a href="<?=FRONT_ROOT?>Home/EventInfo/<?= $value->getId(); ?>">
@@ -57,7 +57,7 @@
 
       <?php if (isset($eventsByCategory) && !empty($eventsByCategory)) { ?>
 
-       <h2 class="uk-heading-line uk-text-center"><span>Categorias para <?= $text ?></span></h2>
+       <h2 class="uk-heading-line uk-text-center"><span>Eventos por categoria:  <?= $text ?></span></h2>
         <div class="card-columns">
           <?php foreach ($eventsByCategory as $key => $value) {?>
           <a href="<?=FRONT_ROOT?>Home/EventInfo/<?= $value->getId(); ?>">

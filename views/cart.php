@@ -84,7 +84,7 @@
         </button>
       </div>
       <div class="modal-body">
-        
+
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="inputEmail4">Número de Tarjeta</label>
@@ -111,21 +111,21 @@
               <?php  } ?>
             </select>
             </div>
-            <div class="form-check form-check-inline col-3">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="">
-              <label class="form-check-label" for="inlineRadio1">UTN BANK</label>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="" checked>
+              <label class="form-check-label" for="inlineRadio1"><span class="uk-icon uk-icon-image" style="background-image: url(<?= FRONT_ROOT ?>img/mc.png);"></span></label>
             </div>
-            <div class="form-check form-check-inline col-3">
+            <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="">
-              <label class="form-check-label" for="inlineRadio2">Visa</label>
+              <label class="form-check-label" for="inlineRadio2"><span class="uk-icon uk-icon-image" style="background-image: url(<?= FRONT_ROOT ?>img/ae.jpg);"></span></label>
             </div>
-            <div class="form-check form-check-inline col-3">
+            <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="">
-              <label class="form-check-label" for="inlineRadio3">Mastercard</label>
+              <label class="form-check-label" for="inlineRadio3"><span class="uk-icon uk-icon-image" style="background-image: url(<?= FRONT_ROOT ?>img/visa.png);"></span></label>
             </div>
               </div>
 
-        
+
     <form action="<?= FRONT_ROOT ?>Purchase/placeOrder" method="post">
       <div class="modal-footer">
         <button type="submit" class="btn btn-warning">Comprar</button>

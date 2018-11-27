@@ -208,7 +208,7 @@
 
 
     <?php include("footer.php") ?>
-    <script> let alert = <?php $alert ?>
+    <!--script> let alert = <?php $alert ?>
     $( document ).ready(function(){
       if (alert !== null){
         UIkit.notification({
@@ -218,4 +218,5 @@
         timeout: 5000
       });
       }
-    })  </script>
+    })  </script-->
+  

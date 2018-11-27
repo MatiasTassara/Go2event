@@ -2,7 +2,7 @@
 
 <?php if(isset($alert)) { ?>
   <div class="alert alert-success alert-dismissible fade show" role="alert">
-     <?php echo $alert ?>
+    <?php echo $alert ?>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -28,21 +28,23 @@
           <th scope="col">QR</th>
         </tr>
       </thead>
-          <tbody>
-            
+      <tbody>
+        <?php if (isset($arrayTickets)){ ?>
 
-              <?php foreach ($arrayTickets as $key => $value){ ?>
-                <tr>
-                  <td> <?= $value['purchaseDates'] ?></td>
-                  <td> <?= $value['eventNames'] ?></td>
-                  <td> <?= $value['eventDates'] ?></td>
-                  <td> <?= $value['seatTypes'] ?> </td>
-                  <td> $<?= $value['prices'] ?> </td>
-                  <td><img src="<?= FRONT_ROOT ?><?= $value['qrImgPaths'] ?>" width="100" heigth="100"> </td>
-                </tr>
-              <?php }?>
-        </tbody>
-        </table>
+
+          <?php foreach ($arrayTickets as $key => $value){ ?>
+            <tr>
+              <td> <?= $value['purchaseDates'] ?></td>
+              <td> <?= $value['eventNames'] ?></td>
+              <td> <?= $value['eventDates'] ?></td>
+              <td> <?= $value['seatTypes'] ?> </td>
+              <td> $<?= $value['prices'] ?> </td>
+              <td><img src="<?= FRONT_ROOT ?><?= $value['qrImgPaths'] ?>" width="100" heigth="100"> </td>
+            </tr>
+          <?php }?>
+        <?php } ?>
+      </tbody>
+    </table>
 
   </div>
 </div>

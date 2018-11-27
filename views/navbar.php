@@ -25,11 +25,11 @@
     <div class="uk-navbar-right">
       <?php if(!isset($_SESSION["user"])){?>
         <li class="nav-item">
-          <a href="<?=FRONT_ROOT?>Home/Login"><button class="uk-button uk-button-text">Iniciar Sesion</button></a>
+          <a href="<?=FRONT_ROOT?>Home/Login"><button class="uk-button uk-button-text  mr-3 ">Iniciar Sesion</button></a>
         </li>
       <?php }else{ ?>
         <li class = "nav-item">
-          <a href="<?=FRONT_ROOT?>Profile"><button class="mr-3 nav-link uk-button uk-button-text" uk-tooltip = "title:<?= $_SESSION["user"]->getName().' '.$_SESSION["user"]->getSurname()?>;pos: bottom"><?= $_SESSION["user"]->getName()?></button></a>
+          <a href="<?=FRONT_ROOT?>Profile"><button class="mr-3 nav-link uk-button uk-button-text" uk-tooltip = "title:<?= $_SESSION["user"]->getName().' '.$_SESSION["user"]->getSurname()?>;pos: bottom">Perfil</button></a>
         </li>
         <li class = "nav-item">
           <a href="<?=FRONT_ROOT?>Purchase" ><span class="mr-3" uk-icon="icon: cart; ratio: 1.5" uk-tooltip="title: Elementos en el carrito: <?= count($_SESSION["purchaseItems"]); ?>; pos: bottom"></span></a>
