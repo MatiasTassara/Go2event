@@ -83,21 +83,21 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+    <form action="<?= FRONT_ROOT ?>Purchase/placeOrder" method="post">
       <div class="modal-body">
-
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="inputEmail4">Número de Tarjeta</label>
-                <input type="text" class="form-control" placeholder="Número de Tarjeta">
+                <input type="text" class="form-control" name="cardNumber" placeholder="Número de Tarjeta" required>
               </div>
               <div class="form-group col-md-6">
               <label for="inputEmail4">Clave de Segurirdad</label>
-              <input type="password" class="form-control" placeholder="Clave de Segurirdad" maxlength="4" >
+              <input type="password" class="form-control" name="CVV" placeholder="Clave de Segurirdad" maxlength="4" required>
 
               </div>
               <div class="form-group col-md-6">
                 <label for="vencimiento">Vencimiento</label>
-                <select class="form-control" id="vencimiento">
+                <select class="form-control" name="expire" id="vencimiento" required>
                 <?php for ($i=1; $i <= 12 ; $i++) {?>
                   <option value="<?= $i ?>"><?= $i ?></option>
               <?php  } ?>
@@ -126,7 +126,6 @@
               </div>
 
 
-    <form action="<?= FRONT_ROOT ?>Purchase/placeOrder" method="post">
       <div class="modal-footer">
         <button type="submit" class="btn btn-warning">Comprar</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
