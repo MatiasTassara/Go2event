@@ -14,7 +14,7 @@ CREATE TABLE events(
 
 	id_event int unsigned auto_increment,
 	name_event varchar(50),
-	description varchar(300),
+	description varchar(1400),
 	img_path varchar(200),
 	id_category int unsigned,
 	active int unsigned,
@@ -47,7 +47,7 @@ CREATE TABLE artists(
 
 	id_artist int unsigned auto_increment,
 	name_artist varchar(50),
-	description varchar (80),
+	description varchar (400),
 	active int unsigned,
 	constraint pk_id_artist primary key (id_artist)
 	
