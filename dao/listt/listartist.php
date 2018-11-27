@@ -32,7 +32,6 @@ class ListArtist extends SingletonDAO implements \interfaces\Idao{
         $check = false;
       }
     }
-
     if($check){
 
       $id = $_SESSION['idsArtists'];
@@ -47,7 +46,7 @@ class ListArtist extends SingletonDAO implements \interfaces\Idao{
 
     $artistsReturn = null;
     foreach ($this->artists as $key => $value) {
-      if($name === $value->getName()){
+      if($name == $value->getName()){
         if($artistsReturn == null){
 
           $artistsReturn = array();
@@ -62,7 +61,7 @@ class ListArtist extends SingletonDAO implements \interfaces\Idao{
 
     $artistReturn = null;
     foreach ($this->artists as $key => $value) {
-      if($id === $value->getId()){
+      if($id == $value->getId()){
 
         $artistReturn = $value;
       }
@@ -75,7 +74,7 @@ class ListArtist extends SingletonDAO implements \interfaces\Idao{
 
   public function update($obj){
 
-    $this->artists = $_SESSION['seattypes'];
+    $this->artists = $_SESSION['artists'];
     if(isset($this->artists[$obj->getId()])){
 
       $this->artists[$obj->getId()] = $obj;
@@ -87,8 +86,8 @@ class ListArtist extends SingletonDAO implements \interfaces\Idao{
   public function delete($id){
 
     $artists = $_SESSION['artists'];
-    foreach ($this->seattypes as $key => $value) {
-      if($value->getId() === $id){
+    foreach ($this->artists as $key => $value) {
+      if($value->getId() == $id){
         unset($artists[$key]);
         $_SESSION['artists'] = $artists;
 

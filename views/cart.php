@@ -117,7 +117,7 @@
             </div>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="">
-              <label class="form-check-label" for="inlineRadio2"><span class="uk-icon uk-icon-image" style="background-image: url(<?= FRONT_ROOT ?>img/ae.jpg);"></span></label>
+              <label class="form-check-label" for="inlineRadio2"><span class="uk-icon uk-icon-image" style="background-image: url(<?= FRONT_ROOT ?>img/am.png);"></span></label>
             </div>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="">

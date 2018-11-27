@@ -33,7 +33,7 @@
 
   <h2 class="uk-heading-line uk-text-center"><span>Próximos</span></h2>
 
-  <div class="uk-position-relative uk-visible-toggle uk-light" uk-slider="clsActivated: uk-transition-active; center: true; pause-on-hover: true; autoplay: true; autoplay-interval: 4500">
+  <div class="uk-position-relative uk-visible-toggle uk-light" uk-slider="clsActivated: uk-transition-active; center: true; pause-on-hover: true; autoplay: true; autoplay-interval: 3000">
     <ul class="uk-slider-items uk-grid">
       <?php foreach ($events as $key => $value) {?>
 
