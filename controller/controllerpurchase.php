@@ -122,7 +122,7 @@ class ControllerPurchase{
             
             $this->controllerProfile->index('&#x2714 Compra exitosa');
         }else{
-            $this->index('&#x2718 La tarjeta ingresada no es válida. Contacte a su banco o vuelva a intentar.'.$cardNumber);
+            $this->index('&#x2718 ATENCION: La tarjeta ingresada no es válida. Contacte a su banco o intente nuevamente.');
         }
   }
 
@@ -148,10 +148,28 @@ class ControllerPurchase{
         }
         return ($total % ($mod5 ? 5 : 10) == 0 ? true : false); // If the mod 10 or mod 5 value is equal to zero (0), then it is valid
     }
+    
+/*    private function sendMailApi(){
+        # Include the Autoloader (see "Libraries" for install instructions)
+        
+        # Instantiate the client.
+        $mgClient = new Mailgun('f4f783358d14dfca4d7da1b9eb296867-1053eade-0fb4efda');
+        $domain = "sandbox8a6eadd7f5364ce5bc60e8a2e8128a87.mailgun.org";
 
-    private function sendMail($mail){
+        # Make the call to the client.
+        $result = $mgClient->sendMessage($domain, array(
+            'from'    => 'Excited User <Lisandro@sandbox8a6eadd7f5364ce5bc60e8a2e8128a87.mailgun.org>',
+            'to'      => 'licanueto@hotmail.com',
+            'subject' => 'Entradas GoToEvent',
+            'text'    => 'Acá están tus entradas!',
+            'html'    => '<html>Inline image: <img src="cid:tempQR-0.png"></html>'
+        ), array('inline' => array(ROOT.'images/tempQR/tempQR-0.png')
+        ));
+    }
+  
+    private function sendMailSmtp($mail){
         $from = '<matiastassara59@gmail.com>';
-        $to      = $mail;
+        $to      = '<licanueto@hotmail.com>'; //$mail;
         $subject = '¡Gracias por comprar en GoToEvent!';
         $msg = "Hola, como estas? aca estan el/los codigos QR";
 
@@ -162,11 +180,12 @@ class ControllerPurchase{
         );
 
         $smtp = Mail::factory('smtp', array(
-                'host' => 'ssl://smtp.gmail.com',
-                'port' => '465',
+                'host' => 'ssl://smtp.mailgun.org',
+                'port' => '587',
                 'auth' => true,
-                'username' => 'johndoe@gmail.com',
-                'password' => 'iuy34WEFsef_=-'
+                'username' => 'postmaster@sandbox8a6eadd7f5364ce5bc60e8a2e8128a87.mailgun.org',
+                //'password' => 'iuy34WEFsef_=-'
+                'password' => 'd80b9d7908cd2bf2741417882c45f4a9-1053eade-eae58232'
             ));
 
         $mail = $smtp->send($to, $headers, $msg);
@@ -177,6 +196,8 @@ class ControllerPurchase{
             echo('<p>Message successfully sent!</p>');
         }
     }
+*/
+    
 
 
 }
