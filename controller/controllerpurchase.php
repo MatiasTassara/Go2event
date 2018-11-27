@@ -91,11 +91,11 @@ class ControllerPurchase{
     }
 
 
-    public function placeOrder(/*$nameAsOnCard,$expirationDate,$cardNumber,$securityCode*/){
+    public function placeOrder(/*$nameAsOnCard,*/$cardNumber,$securityCode,$expirationDate){
         //parametros extra para a futuro usar api de tarjeta de credito
         $purchase = $_SESSION['purchase'];
         $purchaseItems = $_SESSION['purchaseItems'];
-        if(/*is_valid_luhn($cardNumber) == */true){
+        if($this->is_valid_luhn($cardNumber) == true){
             $this->daoPurchase->add($purchase);
             $purchaseFromDb = $this->daoPurchase->getLastPurchase();// para poder mandarle el obj completo al
             // para cada linea de compra
@@ -120,27 +120,35 @@ class ControllerPurchase{
             }
             $_SESSION['purchaseItems'] = [];
             
-            $this->controllerProfile->index('Compra exitosa &#x2714');
+            $this->controllerProfile->index('&#x2714 Compra exitosa');
         }else{
-            $alert = "Los datos de la tajeta ingresados son incorrectos";
-            include('reemplazar-con-vista-tarjeta-de-credito.php');
-    }
+            $this->index('&#x2718 La tarjeta ingresada no es válida. Contacte a su banco o vuelva a intentar.'.$cardNumber);
+        }
   }
 
 
 
-    private function is_valid_luhn($number) {
-        settype($number, 'string');
-        $sumTable = array(
-          array(0,1,2,3,4,5,6,7,8,9),
-          array(0,2,4,6,8,1,3,5,7,9));
-        $sum = 0;
-        $flip = 0;
-        for ($i = strlen($number) - 1; $i >= 0; $i--) {
-          $sum += $sumTable[$flip++ & 0x1][$number[$i]];
+  private function is_valid_luhn($number, $mod5 = false) {
+        $parity = strlen($number) % 2;
+        $total = 0;
+        $digits = str_split($number);
+        foreach($digits as $key => $digit) { // Foreach digit
+            // for every second digit from the right most, we must multiply * 2
+            if (($key % 2) == $parity) 
+                $digit = ($digit * 2);
+            // each digit place is it's own number (11 is really 1 + 1)
+            if ($digit >= 10) {
+                // split the digits
+                $digit_parts = str_split($digit);
+                // add them together
+                $digit = $digit_parts[0]+$digit_parts[1];
+            }
+            // add them to the total    
+            $total += $digit;
         }
-        return $sum % 10 == 0;
+        return ($total % ($mod5 ? 5 : 10) == 0 ? true : false); // If the mod 10 or mod 5 value is equal to zero (0), then it is valid
     }
+
     private function sendMail($mail){
         $from = '<matiastassara59@gmail.com>';
         $to      = $mail;
