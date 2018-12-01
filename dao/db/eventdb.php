@@ -123,6 +123,36 @@ class EventDb extends SingletonDAO implements \interfaces\Idao
     return null;
 
   }
+  public function rankingMostSold(){
+
+    $sql = "SELECT e.* FROM events e inner join calendars c on e.id_event = c.id_event inner join seats s on s.id_calendar = c.id_calendar group by e.id_event order by sum(s.quant) - sum(s.remaining) desc";
+    try{
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql);
+    }catch(Exception $ex){
+      $ex->getMessage();
+    }
+    if(!empty($response))
+    return $this->map($response);
+    else
+    return null;
+
+  }
+  public function rankingLessSold(){
+
+    $sql = "SELECT e.* FROM events e inner join calendars c on e.id_event = c.id_event inner join seats s on s.id_calendar = c.id_calendar group by e.id_event order by sum(s.quant) - sum(s.remaining)";
+    try{
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql);
+    }catch(Exception $ex){
+      $ex->getMessage();
+    }
+    if(!empty($response))
+    return $this->map($response);
+    else
+    return null;
+
+  }
   public function eventHasTicket($idEvent){
 
     $sql="SELECT t.id_ticket FROM events e INNER JOIN calendars c ON e.id_event = c.id_event
@@ -157,6 +187,46 @@ class EventDb extends SingletonDAO implements \interfaces\Idao
     return true;
     else
     return false;
+  }
+  public function quantityTicketsPerEvent($idEvent){
+
+    $sql="SELECT sum(t.id_ticket) as result FROM events e INNER JOIN calendars c ON e.id_event = c.id_event
+          INNER JOIN seats s ON c.id_calendar = s.id_calendar INNER JOIN purchase_items pi 
+          ON s.id_seat = pi.id_seat INNER JOIN tickets t ON pi.id_purchase_item = t.id_purchase_item
+          WHERE e.id_event = :id_event";
+    $parameters["id_event"] = $idEvent;
+    try{
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql, $parameters);
+    }catch(Exception $ex){
+       $ex->getMessage();
+    }
+    if(!empty($response)){
+      $quantity = $response['result'];
+      return $quantity;
+    } else
+    return 0;
+
+  }
+  public function quantityMoneyPerEvent($idEvent){
+
+    $sql="SELECT sum(pi.quantity * pi.price) as result FROM events e INNER JOIN calendars c ON e.id_event = c.id_event
+          INNER JOIN seats s ON c.id_calendar = s.id_calendar INNER JOIN purchase_items pi 
+          ON s.id_seat = pi.id_seat INNER JOIN tickets t ON pi.id_purchase_item = t.id_purchase_item
+          WHERE e.id_event = :id_event";
+    $parameters["id_event"] = $idEvent;
+    try{
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql, $parameters);
+    }catch(Exception $ex){
+       $ex->getMessage();
+    }
+    if(!empty($response)){
+      $money = $response['result'];
+      return $quantity;
+    } else
+    return 0;
+
   }
 
   

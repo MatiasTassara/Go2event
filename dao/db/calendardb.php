@@ -175,6 +175,47 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
     }
 
   }
+   public function quantityTicketsPerCalendar($idCalendar){
+
+    $sql="SELECT sum(t.id_ticket) as result FROM calendars c
+          INNER JOIN seats s ON c.id_calendar = s.id_calendar INNER JOIN purchase_items pi 
+          ON s.id_seat = pi.id_seat INNER JOIN tickets t ON pi.id_purchase_item = t.id_purchase_item
+          WHERE c.id_calendar = :id_calendar";
+    $parameters["id_calendar"] = $idCalendar;
+    try{
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql, $parameters);
+    }catch(Exception $ex){
+       $ex->getMessage();
+    }
+    if(!empty($response)){
+      $quantity = $response['result'];
+      return $quantity;
+    } else
+    return 0;
+
+  }
+  public function quantityMoneyPerCalendar($idCalendar){
+
+    $sql="SELECT sum(pi.quantity * pi.price) as result FROM  calendars c
+          INNER JOIN seats s ON c.id_calendar = s.id_calendar INNER JOIN purchase_items pi 
+          ON s.id_seat = pi.id_seat INNER JOIN tickets t ON pi.id_purchase_item = t.id_purchase_item
+          WHERE c.id_calendar = :id_calendar";
+    $parameters["id_calendar"] = $idCalendar;
+    try{
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql, $parameters);
+    }catch(Exception $ex){
+       $ex->getMessage();
+    }
+    if(!empty($response)){
+      $money = $response['result'];
+      return $quantity;
+    } else
+    return 0;
+
+  }
+
 
   public function delete($id){
 

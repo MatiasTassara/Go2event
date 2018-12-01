@@ -132,6 +132,25 @@ class PurchaseItemDb extends SingletonDAO implements \interfaces\Idao
     return null;
 
   }
+  public function totalIncome($dateFrom, $dateTo){
+
+    $sql = "SELECT sum(pi.quantity * pi.price) as total FROM purchase_items pi INNER JOIN seats s
+            ON pi.id_seat = s.id_seat INNER JOIN calendars c ON s.id_calendar = c.id_calendar
+            WHERE c.date_calendar >= :date_from AND c.date_calendar <= :date_to";
+    $parameters['date_from'] = $dateFrom;
+    $parameters['date_to'] = $dateTo;
+    try{
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql, $parameters);
+    }catch(Exception $ex){
+       $ex->getMessage();
+    }
+    if(!empty($response)){
+      $money = $response['total'];
+      return $money;
+    } else
+    return 0;
+  }
 
 
 
