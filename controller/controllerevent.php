@@ -62,13 +62,17 @@ class controllerEvent{
   }
 
   function deleteEvent($idEvent) {
-    if(metodomaru){
-      $modalAlert = 'Atención! Se está por borrar un evento para el cual hay entradas vendidas<br>¿Está seguro de que quiere borrar el evento?';
-    $this->daoEvent->delete($idEvent);
+    if($this->daoEvent->eventHasTicket($idEvent)){
+      $this->daoEvent->delete($idEvent);
+      $this->index('Atención! Se borró un evento para el cual habia entradas vendidas');
+    }else if($this->daoEvent->eventHasCalendar($idEvent)){
+        $this->daoEvent->delete($idEvent);
+        $this->index('Atención! Se borró un evento sin entrdas vendidas pero con fechas cargadas');
+    }else{
+      $this->daoEvent->delete($idEvent);
+      $this->index('El evento se borró exitosamente');
     }
-    $this->index();
   }
-
 }
 
 
