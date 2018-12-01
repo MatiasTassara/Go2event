@@ -188,6 +188,23 @@ class ArtistDb extends \dao\SingletonDAO implements \interfaces\Idao
 
     }
 
+    public function beingUsed($id)
+    {
+      $sql = "SELECT * FROM artists_x_calendar where id_artist = :id_artist";
+      $parameters['id_artist'] = $id;
+       try{
+        $this->connection = Connection::getInstance();
+        $response =$this->connection->execute($sql,$parameters);
+      }catch(Exception $ex){
+        throw $ex;
+      }
+      if(!empty($response))
+        return true;
+      else{
+        return false;
+      }
+    }
+
 
   }
 

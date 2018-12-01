@@ -142,10 +142,10 @@ class CategoryDb extends SingletonDAO implements \interfaces\Idao
     }
 
     public function update($obj){
+
       $sql = "UPDATE categories SET name_category = :name_category where id_category = :id_category";
       $parameters['id_category'] = $obj->getId();
       $parameters['name_category'] = $obj->getName();
-
       try{
         $this->connection = Connection::getInstance();
         return $this->connection->ExecuteNonQuery($sql, $parameters);
@@ -171,6 +171,23 @@ class CategoryDb extends SingletonDAO implements \interfaces\Idao
 
 
 
+    }
+
+    public function beingUsed($id)
+    {
+      $sql = "SELECT * FROM events where id_category = :id_category AND active = 1";
+      $parameters['id_category'] = $id;
+       try{
+        $this->connection = Connection::getInstance();
+        $response =$this->connection->execute($sql,$parameters);
+      }catch(Exception $ex){
+        throw $ex;
+      }
+      if(!empty($response))
+        return true;
+      else{
+        return false;
+      }
     }
 
 
