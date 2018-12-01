@@ -212,3 +212,15 @@ limit 6
 ////////////////////////////////////////////
 ////////////////////////////////////////////
 color para fondo     #f2f2ef
+
+
+
+
+
+SELECT e.* 
+FROM events e inner join calendars c on e.id_event = c.id_event 
+inner join seats s on s.id_calendar = c.id_calendar 
+
+group by e.id_event 
+having (sum(s.quant) - sum(s.remaining)) > 0 
+order by sum(s.quant) - sum(s.remaining) desc
