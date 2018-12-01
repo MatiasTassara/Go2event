@@ -151,3 +151,61 @@ WHERE
 
 SELECT s.*  FROM  seats s inner join calendars c on s.id_calendar = c.id_calendar
             where  c.date_calendar BETWEEN date "2018-10-01" AND date "2018-11-30" AND s.active = 1
+
+SELECT
+	td2.id_event,
+	sum(td2.vendidas) as eventosVendidos
+FROM 
+	events e inner join 
+						(SELECT 
+							td.id_calendar, 
+							td.vendidas,
+							td.id_event	
+						FROM 
+								(SELECT
+									sum(s.quant) - sum(s.remaining) as vendidas,
+									c.date_calendar,
+									c.id_calendar,
+									c.active,
+									c.id_event
+								FROM 
+									seats s INNER JOIN calendars c on s.id_calendar = c.id_calendar
+								GROUP BY s.id_calendar) as td on e.id_event = td.id_event
+						WHERE td.date_calendar >= now() AND td.active = 1 AND td.vendidas > 0
+						GROUP BY td.id_event 
+						) as td2
+	GROUP BY td2.id_event
+ORDER BY eventosVendidos DESC
+LIMIT 6
+
+
+
+SELECT
+	e.id_event,
+	e.name_event,
+	sum(s.quant) - sum(s.remaining) as vendidas
+
+FROM 
+	events e 
+	inner join calendars c on e.id_event = c.id_event
+	inner join seats s on s.id_calendar = c.id_calendar
+group by
+	e.id_event
+order by
+	vendidas desc
+limit 6
+
+
+
+
+SELECT
+	e.id_event
+FROM 
+	events e 
+	inner join calendars c on e.id_event = c.id_event
+	inner join seats s on s.id_calendar = c.id_calendar
+group by
+	e.id_event
+order by
+	sum(s.quant) - sum(s.remaining) desc
+limit 6	

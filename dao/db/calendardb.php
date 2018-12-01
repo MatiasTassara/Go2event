@@ -212,7 +212,12 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
   }
   public function retrieveUpcomingEvents(){
 
-    $sql = "SELECT id_event FROM calendars WHERE date_calendar >= now() AND active = 1 GROUP BY id_event ORDER BY min(date_calendar)limit 6;";
+    $sql = "SELECT id_event 
+            FROM calendars 
+            WHERE date_calendar >= now() AND active = 1 
+            GROUP BY id_event 
+            ORDER BY min(date_calendar)
+            limit 6;";
 
     try{
       $this->connection = Connection::getInstance();
@@ -234,6 +239,7 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
     }
 
   }
+  
   public function retrieveAllEvents(){
 
     $sql = "SELECT id_event FROM calendars where date_calendar >= now() and active = 1 GROUP BY id_event ORDER BY min(date_calendar);";

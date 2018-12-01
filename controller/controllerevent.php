@@ -62,7 +62,10 @@ class controllerEvent{
   }
 
   function deleteEvent($idEvent) {
+    if(metodomaru){
+      $modalAlert = 'Atención! Se está por borrar un evento para el cual hay entradas vendidas<br>¿Está seguro de que quiere borrar el evento?';
     $this->daoEvent->delete($idEvent);
+    }
     $this->index();
   }
 

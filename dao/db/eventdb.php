@@ -108,6 +108,26 @@ class EventDb extends SingletonDAO implements \interfaces\Idao
 
   }
 
+  public function retrieveMostSold(){
+
+    $sql = "SELECT e.* FROM events e inner join calendars c on e.id_event = c.id_event inner join seats s on s.id_calendar = c.id_calendar group by e.id_event order by sum(s.quant) - sum(s.remaining) desc limit 6";
+    try{
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql);
+    }catch(Exception $ex){
+      throw $ex;
+    }
+    if(!empty($response))
+    return $this->map($response);
+    else
+    return null;
+
+  }
+
+  
+
+
+
   public function getAllNonActive(){
     $sql = "SELECT * FROM events WHERE active = 2 ORDER BY name_event";
     try{
