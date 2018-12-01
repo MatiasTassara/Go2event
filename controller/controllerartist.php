@@ -38,23 +38,23 @@ class ControllerArtist{
   public function modifyArtist($id,$name, $desc) {
 
     $obj = $this->daoArtist->retrieveById($id);
-
     $obj->setName($name);
     $obj->setDesc($desc);
-
     $this->daoArtist->update($obj);
     $this->index();
+
+
   }
 
   public function deleteArtist($idArtist) {
-    try{
-      $this->daoArtist->delete($idArtist);
-      $this->index();
-    }
-    catch (\PDOException $ex)
-    {
-      $this->index("Imposible eliminar un artista que tiene asignada una fecha");
-    }
+      if (!$this->daoArtist->beingUsed($idArtist))
+      {
+        $this->daoArtist->delete($idArtist);
+        $this->index();
+      }
+      else {
+        $this->index("<strong>¡ERROR!</strong> El artista que está queriendo eliminar está en uso");
+      }
 
   }
 

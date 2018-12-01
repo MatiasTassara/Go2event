@@ -17,7 +17,7 @@ class ControllerCategory{
 
   }
 
-  public function index(){
+  public function index($alert = null){
     if(isset($_SESSION["user"]) && $_SESSION["user"]->isAdmin() == 1)
     {
       $categories = $this->daoCategory->getAll();
@@ -33,19 +33,22 @@ class ControllerCategory{
     $this->daoCategory->add($objCategory);
     $this->index();
   }
+
   function modifyCategory($id,$name) {
-
     $obj = $this->daoCategory->retrieveById($id);
-
     $obj->setName($name);
-
-
     $this->daoCategory->update($obj);
     $this->index();
   }
 
   function deleteCategory($idCategory) {
-    $this->daoCategory->delete($idCategory);
-    $this->index();
+    if (!$this->daoCategory->beingUsed($idCategory)) {
+      $this->daoCategory->delete($idCategory);
+      $this->index();
+    }
+    else
+    {
+      $this->index("<strong>¡ERROR!</strong> La categoría que está queriendo eliminar esta en uso");
+    }
   }
 }
