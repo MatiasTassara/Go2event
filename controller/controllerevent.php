@@ -6,7 +6,7 @@ use Model\Event as M_Event;
 //use Dao\listt\ListEvent as D_Event;
 use Dao\db\EventDb as D_Event;
 use Model\Category as M_Category;
-
+use Dao\db\CalendarDb as D_Calendar;
 use Dao\db\CategoryDb as D_Category;
 
 
@@ -15,10 +15,12 @@ class controllerEvent{
   private $daoEvent;
   private $daoCategory;
   private $cHome;
+  private $daoCalendar;
 
   public function __construct(){
     $this->daoEvent = D_Event::getInstance();
     $this->daoCategory = D_Category::getInstance();
+    $this->daoCalendar = D_Calendar::getInstance();
     $this->cHome = new C_Home();
 
   }
@@ -62,16 +64,23 @@ class controllerEvent{
   }
 
   function deleteEvent($idEvent) {
+    $this->daoEvent->delete($idEvent);
     if($this->daoEvent->eventHasTicket($idEvent)){
-      $this->daoEvent->delete($idEvent);
-      $this->index('Atención! Se borró un evento para el cual habia entradas vendidas');
+      $this->daoCalendar->delete($value->getId());
+      $calendars = $this->daoCalendar->retrieveByIdEvent($idEvent);
+      foreach ($calendars as $key => $value) {
+      }
+      $this->index('Atención! Se borró un evento para el cual habia entradas vendidas! También fueron borradas sus fechas correspondientes');
     }else if($this->daoEvent->eventHasCalendar($idEvent)){
-        $this->daoEvent->delete($idEvent);
-        $this->index('Atención! Se borró un evento sin entrdas vendidas pero con fechas cargadas');
+        $calendars = $this->daoCalendar->retrieveByIdEvent($idEvent);
+        foreach ($calendars as $key => $value) {
+          $this->daoCalendar->delete($value->getId());
+        }
+        $this->index('Atención! Se borró un evento y sus fechas (sin entradas vendidas)');
     }else{
-      $this->daoEvent->delete($idEvent);
-      $this->index('El evento se borró exitosamente');
+       $this->index('El evento se borró exitosamente');
     }
+    
   }
 }
 
