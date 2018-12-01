@@ -108,8 +108,18 @@ class ControllerCalendar{
 
   public function deleteCalendar($idCalendar) {
     $this->daoCalendar->delete($idCalendar);
-    $this->index();
+    $seats = $this->daoSeat->retrieveSeatsByIdCalendar($idCalendar);
+    foreach ($seats as $key => $value) {
+      $this->daoSeat->delete($value->getId());
+    }
+    if($this->daoCalendar->calendarHasTicket($idCalendar)){
+      $this->index('Atención! Se borró una fecha para la cual habia entradas vendidas! También fueron borradas sus plazas correspondientes');
+    }
+    else {
+      $this->index('Atención! Se borró una fechas y sus plazas (sin entradas vendidas)');
+    } 
   }
+
 
   public function filterEvents(){
     $calendarArray = $this->daoCalendar->getAll();
