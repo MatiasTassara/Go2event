@@ -33,6 +33,7 @@ class  ControllerHome{
   public function index($alert = null){
     $events = $this->daoCalendar->retrieveUpcomingEvents();
     $mostSold = $this->daoEvent->retrieveMostSold();
+    
     include(ROOT.'views/index.php');
   }
   public function login(){

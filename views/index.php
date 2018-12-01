@@ -49,6 +49,33 @@
           </a>
         </li>
       <?php } ?>
+        </div></div>
+
+      <?php if(isset($mostSold)){ ?>
+      <div class="uk-container uk-container-expand mt-3 mb-3">
+  
+  <h2 class="uk-heading-line uk-text-center"><span>Mas vendidos</span></h2>
+
+<div class="uk-position-relative uk-visible-toggle uk-light" uk-slider="clsActivated: uk-transition-active; center: true; pause-on-hover: true; autoplay: true; autoplay-interval: 2500">
+  <ul class="uk-slider-items uk-grid">
+    <?php foreach ($mostSold as $key => $value) {?>
+
+      <li class="uk-width-1-2">
+        <a href="<?=FRONT_ROOT?>Home/EventInfo/<?= $value->getId();?>">
+        <div class="uk-panel">
+          <img src="<?= FRONT_ROOT ?>images/<?php echo $value->getImgPath() ?>">
+          <div class="uk-overlay uk-overlay-primary uk-position-bottom uk-text-center uk-transition-slide-bottom">
+            <h3 class="uk-margin-remove"><?= $value->getName(); ?></h3>
+            <p class="uk-margin-remove uk-text-truncate"><?= $value->getDesc()?></p>
+          </div>
+        </div>
+        </a>
+      </li>-->
+    <?php } 
+    }?>
+
+
+
     </ul>
 
 
