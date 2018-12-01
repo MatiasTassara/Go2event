@@ -115,13 +115,48 @@ class EventDb extends SingletonDAO implements \interfaces\Idao
       $this->connection = Connection::getInstance();
       $response = $this->connection->execute($sql);
     }catch(Exception $ex){
-      throw $ex;
+      $ex->getMessage();
     }
     if(!empty($response))
     return $this->map($response);
     else
     return null;
 
+  }
+  public function eventHasTicket($idEvent){
+
+    $sql="SELECT t.id_ticket FROM events e INNER JOIN calendars c ON e.id_event = c.id_event
+          INNER JOIN seats s ON c.id_calendar = s.id_calendar INNER JOIN purchase_items pi 
+          ON s.id_seat = pi.id_seat INNER JOIN tickets t ON pi.id_purchase_item = t.id_purchase_item
+          WHERE e.id_event = :id_event";
+    $parameters["id_event"] = $idEvent;
+    try{
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql, $parameters);
+    }catch(Exception $ex){
+       $ex->getMessage();
+    }
+    if(!empty($response))
+    return true;
+    else
+    return false;
+
+  }
+  public function eventHasCalendar($idCalendar){
+
+    $sql ="SELECT e.id_event FROM event e INNER JOIN calendar c ON
+           e.id_event = c.id_event WHERE c.id_calendar = :id_calendar";
+    $parameters["id_calendar"] = $idCalendar;
+    try{
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql, $parameters);
+    }catch(Exception $ex){
+       $ex->getMessage();
+    }
+    if(!empty($response))
+    return true;
+    else
+    return false;
   }
 
   
