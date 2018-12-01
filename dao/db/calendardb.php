@@ -233,7 +233,25 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
 
 
   }
-  //Desde calendars
+  public function calendarHasTicket($idCalendar){
+
+    $sql="SELECT t.id_ticket FROM  calendars c 
+          INNER JOIN seats s ON c.id_calendar = s.id_calendar INNER JOIN purchase_items pi 
+          ON s.id_seat = pi.id_seat INNER JOIN tickets t ON pi.id_purchase_item = t.id_purchase_item
+          WHERE c.id_calendar = :id_calendar";
+    $parameters["id_calendar"] = $idCalendar;
+    try{
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql, $parameters);
+    }catch(Exception $ex){
+       $ex->getMessage();
+    }
+    if(!empty($response))
+    return true;
+    else
+    return false;
+
+  }
   public function retrieveByIdEvent($id){
 
     $sql = "SELECT * from calendars where id_event = :id_event AND active = 1 AND date_calendar >= NOW() ORDER BY date_calendar";
