@@ -3,7 +3,7 @@
 <div class="container mb-5">
 <?php if (isset($events) && !empty($events)) { ?>
 
- <h2 class="uk-heading-line uk-text-center"><span>Próximos</span></h2>
+ <h2 class="uk-heading-line uk-text-center"><span><?= $title?></span></h2>
   <div class="card-columns">
     <?php foreach ($events as $key => $value) {?>
     <a href="<?=FRONT_ROOT?>Home/EventInfo/<?= $value->getId(); ?>">

@@ -17,7 +17,7 @@
           <a class="nav-link" href="<?=FRONT_ROOT?>Home/UpcomingEvents"><button class="uk-button uk-button-text">Proximos</button></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?=FRONT_ROOT?>"><button class="uk-button uk-button-text">Mas Vendidos</button></a>
+          <a class="nav-link" href="<?=FRONT_ROOT?>Home/mostSoldEvents"><button class="uk-button uk-button-text">Mas Vendidos</button></a>
         </li>
 
       </ul>

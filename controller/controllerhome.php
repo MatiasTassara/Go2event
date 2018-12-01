@@ -53,8 +53,8 @@ class  ControllerHome{
      include(ROOT.'views/event-info.php');
   }
 
-  public function upcomingEvents()
-  {
+  public function upcomingEvents(){
+    $title = 'Proximos';
     $events = $this->daoCalendar->retrieveAllEvents();
     if(isset($events) && sizeof($events) > 1)
     {
@@ -85,6 +85,23 @@ class  ControllerHome{
 
 
 
+  }
+
+  public function mostSoldEvents(){
+    $title = 'Mas Vendidos';
+    $events = $this->daoEvent->rankingMostSold();
+    if(isset($events) && sizeof($events) > 1)
+    {
+      include(ROOT.'views/list-events.php');
+    }
+    else if(isset($events) && sizeof($events) == 1)
+    {
+      $this->eventInfo($events[0]->getId());
+    }
+    else if(!isset($events) || sizeof($events) == 0)
+    {
+      $this->index("No hay eventos con fechas disponibles");
+    }
   }
 
 
