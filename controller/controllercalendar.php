@@ -46,9 +46,9 @@ class ControllerCalendar{
     }
   }
 
-  public function addCalendar ( $idEvent, $idVenue, $idsArtist, $date, $arrIdsSeatType, $arrQuant, $arrPrice ){ //idsartist es arreglo de ids
-    // echo '<br><br>'. var_dump($date) .'<br>';
+  public function addCalendar ( $idEvent, $idVenue, $idsArtist, $date, $time, $arrIdsSeatType, $arrQuant, $arrPrice ){ //idsartist es arreglo de ids
 
+    $dateTime =  $date . ' ' . $time;
     $event = $this->daoEvent->retrieveById($idEvent);
     $venue = $this->daoVenue->retrieveById($idVenue);
     $totalQuant = 0;
@@ -63,7 +63,7 @@ class ControllerCalendar{
       }
     }
     //hasta este punto tenemos evento,lugar y array de artistas....
-    $objCalendar = new M_Calendar ($venue, $event, $date);
+    $objCalendar = new M_Calendar ($venue, $event, $dateTime);
     $calendarLastId = $this->daoCalendar->add($objCalendar);
     $calendar = $this->daoCalendar->getLastCalendar();
 
@@ -117,7 +117,7 @@ class ControllerCalendar{
     }
     else {
       $this->index('Atención! Se borró una fechas y sus plazas (sin entradas vendidas)');
-    } 
+    }
   }
 
 

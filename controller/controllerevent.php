@@ -17,7 +17,7 @@ class controllerEvent{
   private $daoCategory;
   private $cHome;
   private $daoCalendar;
-  private $daoSeat; 
+  private $daoSeat;
 
   public function __construct(){
     $this->daoEvent = D_Event::getInstance();
@@ -33,7 +33,7 @@ class controllerEvent{
     {
       $events = $this->daoEvent->getAll();
       $categories = $this->daoCategory->getAll();
-      include(ROOT.'views/events.php'); 
+      include(ROOT.'views/events.php');
     }else {
       $this->cHome->index("Usted no es un administrador");
     }
@@ -55,13 +55,13 @@ class controllerEvent{
 
   }
 
-  function modifyEvent($id,$name,$imgRoute,$category) {
+  function modifyEvent($id,$name,$desc,$idCategory) {
 
     $obj = $this->daoEvent->retrieveById($id);
-
+    $objCategory = $this->daoCategory->retrieveById($idCategory);
     $obj->setName($name);
-    $obj->setDesc($imgRoute);
-    $obj->setCategory($category);
+    $obj->setDesc($desc);
+    $obj->setCategory($objCategory);
     $this->daoEvent->update($obj);
     $this->index();
   }
@@ -92,7 +92,7 @@ class controllerEvent{
     }else{
        $this->index('El evento se borró exitosamente');
     }
-    
+
   }
 }
 
