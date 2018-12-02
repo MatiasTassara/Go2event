@@ -39,9 +39,19 @@
               <td> <?= $value['eventDates'] ?></td>
               <td> <?= $value['seatTypes'] ?> </td>
               <td> $<?= $value['prices'] ?> </td>
-              <td><img src="<?= FRONT_ROOT ?><?= $value['qrImgPaths'] ?>" width="100" heigth="100"> </td>
+              <td>
+              <div uk-lightbox="animation: slide">
+              <div>
+                  <a class="uk-inline" href="<?= FRONT_ROOT ?><?= $value['qrImgPaths'] ?>">
+                      <img src="<?= FRONT_ROOT ?><?= $value['qrImgPaths'] ?>" width="100" heigth="100">
+                  </a>
+              </div>
+              </div>
+
+              </td>
             </tr>
           <?php }?>
+
         <?php } ?>
       </tbody>
     </table>

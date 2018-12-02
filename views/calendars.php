@@ -38,7 +38,7 @@
                       <tr>
                         <td> <?php echo $value->getId(); ?></td>
                         <td> <?php echo $value->getEvent()->getName(); ?></td>
-                        <td> <?php echo $value->getDateFront();?></td>
+                        <td> <?php echo $value->getDate();?></td>
                         <td><img src="<?= FRONT_ROOT ?>images/<?php echo $value->getEvent()->getImgPath() ?>" width="150" heigth="150"></td>
                         <td>
                           <div class="col-auto ">
@@ -103,9 +103,14 @@
                   <?php  } ?>
                 </select>
               </div>
-              <div class="form-group col-6">
+              <div class="form-group col-4">
                 <label for="exampleFormControlFile1">Fecha</label>
                 <input type="date" class="form-control" name="date" id="exampleFormControlFile1" required>
+                <span class="validity"></span>
+              </div>
+              <div class="form-group col-2">
+                <label for="exampleFormControlFile1">Hora</label>
+                <input type="time" class="form-control" name="time" id="exampleFormControlFile1" required>
                 <span class="validity"></span>
               </div>
             </div>
@@ -219,4 +224,3 @@
       });
       }
     })  </script-->
-  
