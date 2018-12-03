@@ -22,7 +22,7 @@
         <tr>
           <th scope="col">Fecha de Compra</th>
           <th scope="col">Evento</th>
-          <th scope="col">Día</th>
+          <th scope="col">Fecha y Hora</th>
           <th scope="col">Tipo de Entrada</th>
           <th scope="col">Precio</th>
           <th scope="col">QR</th>
@@ -40,13 +40,13 @@
               <td> <?= $value['seatTypes'] ?> </td>
               <td> $<?= $value['prices'] ?> </td>
               <td>
-              <div uk-lightbox="animation: slide">
-              <div>
-                  <a class="uk-inline" href="<?= FRONT_ROOT ?><?= $value['qrImgPaths'] ?>">
+                <div uk-lightbox="animation: slide">
+                  <div>
+                    <a class="uk-inline" href="<?= FRONT_ROOT ?><?= $value['qrImgPaths'] ?>">
                       <img src="<?= FRONT_ROOT ?><?= $value['qrImgPaths'] ?>" width="100" heigth="100">
-                  </a>
-              </div>
-              </div>
+                    </a>
+                  </div>
+                </div>
 
               </td>
             </tr>

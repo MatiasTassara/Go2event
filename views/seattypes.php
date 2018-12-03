@@ -1,6 +1,4 @@
-<?php include(ROOT."views/header.php") ?>
-<body>
-  <?php include(ROOT."views/navbaradmin.php") ?>
+<?php include(ROOT."views/navbaradmin.php") ?>
   <div id="accordion">
     <div class="card rounded-0">
       <div class="card-header p-0" id="headingOne">
@@ -11,10 +9,7 @@
         </h5>
       </div>
       <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-        <div class="card-body">
-          <form action = "" method="post">
-            <div class="col-auto form-group">
-              <section id="listado" class="p-0">
+
                 <table class="table table-striped">
                   <thead>
                     <tr>
@@ -35,14 +30,14 @@
                           <td nowrap> <?php echo $value->getDescription();?></td>
                           <td>
                             <div class="col-auto ">
-                              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#ModifyModal">
+                              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#ModifyModal" disabled>
                                 Modificar
                               </button>
                             </div>
                           </td>
                           <td>
                             <div class="col-auto ">
-                              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal">
+                              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal" disabled>
                                 Eliminar
                               </button>
                             </div>
@@ -53,11 +48,7 @@
 
                   </tbody>
                 </table>
-              </section>
-            </div>
-          </form>
 
-        </div>
       </div>
     </div>
     <div class="card rounded-0">

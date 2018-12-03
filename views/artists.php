@@ -17,111 +17,104 @@
       </h5>
     </div>
     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-      <div class="card-body">
 
-        <div class="col-auto form-group">
-          <section id="listado" class="">
 
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th scope="col">ID</th>
-                  <th scope="col">Nombre</th>
-                  <th scope="col">Descripcion</th>
-                  <th scope="col"></th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
 
-              <tbody>
-                <?php
-                if(isset($artists)){
-                  foreach ($artists as $key => $value) {
-                    ?>
-                    <tr>
+        <tbody>
+          <?php
+          if(isset($artists)){
+            foreach ($artists as $key => $value) {
+              ?>
+              <tr>
 
-                      <td> <?php echo $value->getId(); ?></td>
-                      <td class= "uk-text-truncate"> <?php echo $value->getName(); ?></td>
-                      <td class= "uk-text-truncate"> <?php echo $value->getDesc();?></td>
+                <td> <?php echo $value->getId(); ?></td>
+                <td class= "uk-text-truncate"> <?php echo $value->getName(); ?></td>
+                <td class= "uk-text-truncate"> <?php echo $value->getDesc();?></td>
 
-                      <td>
-                        <button type="button" name="id-obj" value="" class="btn btn-warning" data-toggle="modal" data-target="#modify<?= $value->getId();?>">
-                          Modificar
-                        </button>
-                      </td>
+                <td>
+                  <button type="button" name="id-obj" value="" class="btn btn-warning" data-toggle="modal" data-target="#modify<?= $value->getId();?>">
+                    Modificar
+                  </button>
+                </td>
 
-                      <td>
-                        <button type="button"  name="id-obj" value="" class="btn btn-danger" data-toggle="modal" data-target="#delete<?= $value->getId();?>">
-                          Eliminar
-                        </button>
-                      </td>
+                <td>
+                  <button type="button"  name="id-obj" value="" class="btn btn-danger" data-toggle="modal" data-target="#delete<?= $value->getId();?>">
+                    Eliminar
+                  </button>
+                </td>
 
-                    </tr>
+              </tr>
 
-                    <!-- MODIFY Modal -->
+              <!-- MODIFY Modal -->
 
-                    <div class="modal fade" id="modify<?= $value->getId();?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalCenterTitle">Modificar Artista</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <form action="<?= FRONT_ROOT ?>Artist/modifyArtist" method="post">
-                              <input type="hidden" name="id" value = "<?= $value->getId();?>">
-                              <div class="col-auto form-group">
-                                <label for="exampleFormControlInput1">Nombre Artista:</label>
-                                <input type="text" name="name" value = "<?=$value->getName();?>" class="form-control" id="exampleFormControlInput1" placeholder="Ej: Encias Sangrantes Murphy">
-                              </div>
-                              <div class="col-auto form-group">
-                                <label for="exampleFormControlTextarea1">Descripcion:</label>
-                                <textarea class="form-control"  id="exampleFormControlTextarea1" name="desc" rows="2" placeholder="Ej: Encías Sangrantes Murphy es un saxofonista de jazz conocido por su gran álbum: 'Sax on the Beach'."required><?= $value->getDesc();?></textarea>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="submit" class="btn btn-warning">Modificar</button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
+              <div class="modal fade" id="modify<?= $value->getId();?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalCenterTitle">Modificar Artista</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
                     </div>
-
-                    <!-- DELETE Modal -->
-                    <div class="modal fade" id="delete<?= $value->getId();?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalCenterTitle">Eliminar Artista</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            ¿Esta seguro que quiere eliminar?
-                          </div>
-                          <div class="modal-footer">
-                            <form class="" action="<?= FRONT_ROOT ?>Artist/deleteArtist" method="post">
-                              <input type="hidden" name="id" value="<?=$value->getId();?>">
-                              <button type="submit" class="btn btn-danger">Eliminar</button>
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            </form>
-                          </div>
+                    <div class="modal-body">
+                      <form action="<?= FRONT_ROOT ?>Artist/modifyArtist" method="post">
+                        <input type="hidden" name="id" value = "<?= $value->getId();?>">
+                        <div class="col-auto form-group">
+                          <label for="exampleFormControlInput1">Nombre Artista:</label>
+                          <input type="text" name="name" value = "<?=$value->getName();?>" class="form-control" id="exampleFormControlInput1" placeholder="Ej: Encias Sangrantes Murphy">
                         </div>
-                      </div>
+                        <div class="col-auto form-group">
+                          <label for="exampleFormControlTextarea1">Descripcion:</label>
+                          <textarea class="form-control"  id="exampleFormControlTextarea1" name="desc" rows="2" placeholder="Ej: Encías Sangrantes Murphy es un saxofonista de jazz conocido por su gran álbum: 'Sax on the Beach'."required><?= $value->getDesc();?></textarea>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-warning">Modificar</button>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        </div>
+                      </form>
                     </div>
+                  </div>
+                </div>
+              </div>
 
-                  <?php  } ?>
-                <?php }?>
-              </tbody>
-            </table>
-          </section>
-        </div>
+              <!-- DELETE Modal -->
+              <div class="modal fade" id="delete<?= $value->getId();?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalCenterTitle">Eliminar Artista</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      ¿Esta seguro que quiere eliminar?
+                    </div>
+                    <div class="modal-footer">
+                      <form class="" action="<?= FRONT_ROOT ?>Artist/deleteArtist" method="post">
+                        <input type="hidden" name="id" value="<?=$value->getId();?>">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-      </div>
+            <?php  } ?>
+          <?php }?>
+        </tbody>
+      </table>
     </div>
   </div>
   <div class="card rounded-0">

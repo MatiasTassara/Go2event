@@ -50,7 +50,7 @@
         <?php  }else{ ?>
           <li><a href="<?=FRONT_ROOT?>Login/logOut">Cerrar Sesion</a></li>
           <?php if(($_SESSION["user"]->isAdmin() == 1)){ ?>
-            <li><a href="<?=FRONT_ROOT?>Artist">Menu Admin</a></li>
+            <li class="uk-active"><a href="<?=FRONT_ROOT?>Artist">Menu Admin</a></li>
           <?php } }?>
 
         </ul>

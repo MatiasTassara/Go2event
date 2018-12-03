@@ -49,14 +49,15 @@
       <ul class="uk-nav uk-nav-primary">
         <li class="<?php if(ACTIVE_METHOD == ''){echo "uk-active";}?>"><a href="<?=FRONT_ROOT?>">Inicio</a></li>
         <li class="<?php if(ACTIVE_METHOD == 'UpcomingEvents'){echo "uk-active";}?>"><a href="<?=FRONT_ROOT?>Home/UpcomingEvents">Próximos</a></li>
-        <li><a href="<?=FRONT_ROOT?>">Más Vendidos</a></li>
+        <li class="<?php if(ACTIVE_METHOD == 'MostSoldEvents'){echo "uk-active";}?>"><a href="<?=FRONT_ROOT?>Home/MostSoldEvents">Más Vendidos</a></li>
         <?php if (!isset($_SESSION["user"])) { ?>
           <li class="<?php if(ACTIVE_METHOD == 'Login'){echo "uk-active";}?>"><a href="<?=FRONT_ROOT?>Home/Login">Iniciar Sesion</a></li>
         <?php  }else{ ?>
-          <li><a href="<?=FRONT_ROOT?>Login/logOut">Cerrar Sesion</a></li>
           <?php if(($_SESSION["user"]->isAdmin() == 1)){ ?>
             <li><a href="<?=FRONT_ROOT?>Artist">Menu Admin</a></li>
-          <?php } }?>
+          <?php } ?>
+          <li><a href="<?=FRONT_ROOT?>Login/logOut">Cerrar Sesion</a></li>
+        <?php }?>
 
         </ul>
       </div>
