@@ -46,6 +46,24 @@ class TicketDb extends SingletonDAO implements \interfaces\Idao
 
   }
 
+  public function getTotalTickets()
+  {
+    $sql = "SELECT count(*) as total from tickets;";
+    try{
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql);
+
+    }catch(Exception $ex){
+      throw $ex;
+
+    }if(!empty($response)){
+      return $response[0]['total'];
+    }
+
+    else
+    return null;
+
+  }
   public function retrieveByPurchaseItemId($idPurchaseItem){
 
     $sql = "SELECT t.id_ticket FROM tickets t INNER JOIN purchase_items pi

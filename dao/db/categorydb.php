@@ -84,7 +84,31 @@ class CategoryDb extends SingletonDAO implements \interfaces\Idao
 
   }
 
+  public function moneyEarnedPerCategory()
+  {
+      $sql = "SELECT e.id_category, ifnull(sum(pi.quantity * pi.price),0) as total
+      FROM events e inner join calendars c on e.id_event = c.id_event
+      inner join seats s on s.id_calendar = c.id_calendar left outer join purchase_items pi
+      on s.id_seat = pi.id_seat
+      group by e.id_category
+      order by sum(pi.quantity * pi.price) desc";
+      try{
+        $this->connection = Connection::getInstance();
+        $response = $this->connection->execute($sql);
+      }catch(Exception $ex){
+        $ex->getMessage();
+      }
+      if(!empty($response)){
+        foreach ($response as $key => $value) {
+          $arrayResponse['categories'][] = $this->retrieveById($value['id_category']);
+          $arrayResponse['total'][] = $value['total'];
+        }
+        return $arrayResponse;
+      }
 
+      else
+      return null;
+    }
   public function getAll(){
 
     $sql = "SELECT * FROM categories WHERE active = 1 order by name_category";

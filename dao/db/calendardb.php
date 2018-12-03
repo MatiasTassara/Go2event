@@ -178,7 +178,7 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
    public function quantityTicketsPerCalendar($idCalendar){
 
     $sql="SELECT sum(t.id_ticket) as result FROM calendars c
-          INNER JOIN seats s ON c.id_calendar = s.id_calendar INNER JOIN purchase_items pi 
+          INNER JOIN seats s ON c.id_calendar = s.id_calendar INNER JOIN purchase_items pi
           ON s.id_seat = pi.id_seat INNER JOIN tickets t ON pi.id_purchase_item = t.id_purchase_item
           WHERE c.id_calendar = :id_calendar";
     $parameters["id_calendar"] = $idCalendar;
@@ -198,7 +198,7 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
   public function quantityMoneyPerCalendar($idCalendar){
 
     $sql="SELECT sum(pi.quantity * pi.price) as result FROM  calendars c
-          INNER JOIN seats s ON c.id_calendar = s.id_calendar INNER JOIN purchase_items pi 
+          INNER JOIN seats s ON c.id_calendar = s.id_calendar INNER JOIN purchase_items pi
           ON s.id_seat = pi.id_seat INNER JOIN tickets t ON pi.id_purchase_item = t.id_purchase_item
           WHERE c.id_calendar = :id_calendar";
     $parameters["id_calendar"] = $idCalendar;
@@ -235,8 +235,8 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
   }
   public function calendarHasTicket($idCalendar){
 
-    $sql="SELECT t.id_ticket FROM  calendars c 
-          INNER JOIN seats s ON c.id_calendar = s.id_calendar INNER JOIN purchase_items pi 
+    $sql="SELECT t.id_ticket FROM  calendars c
+          INNER JOIN seats s ON c.id_calendar = s.id_calendar INNER JOIN purchase_items pi
           ON s.id_seat = pi.id_seat INNER JOIN tickets t ON pi.id_purchase_item = t.id_purchase_item
           WHERE c.id_calendar = :id_calendar";
     $parameters["id_calendar"] = $idCalendar;
@@ -254,7 +254,7 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
   }
   public function retrieveByIdEvent($id){
 
-    $sql = "SELECT * from calendars where id_event = :id_event AND active = 1 AND date_calendar >= NOW() ORDER BY date_calendar";
+    $sql = "SELECT * from calendars where id_event = :id_event AND active = 1 ORDER BY date_calendar";
     $parameters['id_event'] = $id;
     try{
       $this->connection = Connection::getInstance();
@@ -271,10 +271,10 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
   }
   public function retrieveUpcomingEvents(){
 
-    $sql = "SELECT id_event 
-            FROM calendars 
-            WHERE date_calendar >= now() AND active = 1 
-            GROUP BY id_event 
+    $sql = "SELECT id_event
+            FROM calendars
+            WHERE date_calendar >= now() AND active = 1
+            GROUP BY id_event
             ORDER BY min(date_calendar)
             limit 6;";
 
@@ -298,7 +298,7 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
     }
 
   }
-  
+
   public function retrieveAllEvents(){
 
     $sql = "SELECT id_event FROM calendars where date_calendar >= now() and active = 1 GROUP BY id_event ORDER BY min(date_calendar);";
