@@ -56,12 +56,11 @@ class ControllerProfile{
       $arrProfileInfo['eventDates'] = $value->getPurchaseItem()->getSeat()->getCalendar()->getDate();
       $arrProfileInfo['seatTypes'] = $value->getPurchaseItem()->getSeat()->getSeattype()->getName();
       $arrProfileInfo['prices']= $value->getPurchaseItem()->getSeat()->getPrice();
-      \QRcode::png($value->getQr(),"images/tempQR/tempQR-".$key.".png");
-      $arrProfileInfo['qrImgPaths'] = "images/tempQR/tempQR-".$key.".png";
-      $arrayTickets[] = $arrProfileInfo;//ROOT."images/tempQR/tempQR-".$key;
-
-      //QRcode::png("abc","images/tempQR/tempQR.png");
-
+      if(!file_exists("images/tempQR/tempQR-".$value->getId().".png")){
+        \QRcode::png($value->getQr(),"images/tempQR/tempQR-".$value->getId().".png");
+      }
+      $arrProfileInfo['qrImgPaths'] = "images/tempQR/tempQR-".$value->getId().".png";
+      $arrayTickets[] = $arrProfileInfo;
     }
     include(ROOT.'views/profile.php');
   }
