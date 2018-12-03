@@ -57,7 +57,7 @@
                           <?php  } ?>
                         </select>
                         <div class="mt-2">
-                          <input type="number" min = "0" max="<?php $value->getRemaining()?>" name="quant" class="form-control"  style="text-align:center" id="inputSeattype" placeholder="Cantidad" required>
+                          <input type="number" min = "1" max="<?php $value->getRemaining()?>" name="quant" class="form-control"  style="text-align:center" id="inputSeattype" placeholder="Cantidad" required>
                         </div>
                       </div>
                       <div class="modal-footer">
