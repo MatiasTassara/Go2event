@@ -33,7 +33,6 @@ class  ControllerHome{
   public function index($alert = null){
     $events = $this->daoCalendar->retrieveUpcomingEvents();
     $mostSold = $this->daoEvent->retrieveMostSold();
-    
     include(ROOT.'views/index.php');
   }
   public function login(){
@@ -41,7 +40,7 @@ class  ControllerHome{
 
   }
 
-  public function eventInfo($id)
+  public function eventInfo($id,$alert = null)
   {
     $event = $this->daoEvent->retrieveById($id);
     $calendars = $this->daoCalendar->retrieveByIdEvent($id);
@@ -49,7 +48,7 @@ class  ControllerHome{
       $artistsPerCalendar[$value->getId()] = $this->daoArtistPerCalendar->retrieveArtistsByIdCalendar($value->getId());
       $seats[$value->getId()] = $this->daoSeat->retrieveSeatsByIdCalendar($value->getId());
     }
-    
+
      include(ROOT.'views/event-info.php');
   }
 
@@ -83,13 +82,11 @@ class  ControllerHome{
       $this->index("No se econtró ningun resultado para: \"".$text."\".");
     }
 
-
-
   }
 
   public function mostSoldEvents(){
     $title = 'Mas Vendidos';
-    $events = $this->daoEvent->rankingMostSold();
+    $events = $this->daoEvent->retrieveMostSoldNoLimit();
     if(isset($events) && sizeof($events) > 1)
     {
       include(ROOT.'views/list-events.php');

@@ -47,6 +47,7 @@ class ControllerArtist{
   }
 
   public function deleteArtist($idArtist) {
+    
       if (!$this->daoArtist->beingUsed($idArtist))
       {
         $this->daoArtist->delete($idArtist);

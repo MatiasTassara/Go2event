@@ -53,15 +53,15 @@ class ControllerProfile{
     foreach ($tickets as $key => $value) {
       $arrProfileInfo['purchaseDates'] = $value->getPurchaseItem()->getPurchase()->getDate();
       $arrProfileInfo['eventNames'] = $value->getPurchaseItem()->getSeat()->getCalendar()->getEvent()->getName();
-      $arrProfileInfo['eventDates'] = $value->getPurchaseItem()->getSeat()->getCalendar()->getDateFront();
+      $arrProfileInfo['eventDates'] = $value->getPurchaseItem()->getSeat()->getCalendar()->getDate();
       $arrProfileInfo['seatTypes'] = $value->getPurchaseItem()->getSeat()->getSeattype()->getName();
       $arrProfileInfo['prices']= $value->getPurchaseItem()->getSeat()->getPrice();
       \QRcode::png($value->getQr(),"images/tempQR/tempQR-".$key.".png");
       $arrProfileInfo['qrImgPaths'] = "images/tempQR/tempQR-".$key.".png";
       $arrayTickets[] = $arrProfileInfo;//ROOT."images/tempQR/tempQR-".$key;
-     
+
       //QRcode::png("abc","images/tempQR/tempQR.png");
-      
+
     }
     include(ROOT.'views/profile.php');
   }

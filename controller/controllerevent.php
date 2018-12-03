@@ -55,7 +55,7 @@ class controllerEvent{
 
   }
 
-  function modifyEvent($id,$name,$desc,$idCategory) {
+  function modifyEvent($id,$name,$idCategory,$desc) {
 
     $obj = $this->daoEvent->retrieveById($id);
     $objCategory = $this->daoCategory->retrieveById($idCategory);
@@ -67,34 +67,36 @@ class controllerEvent{
   }
 
   function deleteEvent($idEvent) {
-    $this->daoEvent->delete($idEvent);
-    if($this->daoEvent->eventHasTicket($idEvent)){
-      $this->daoCalendar->delete($value->getId());
-      $calendars = $this->daoCalendar->retrieveByIdEvent($idEvent);
-      foreach ($calendars as $key => $value) {
-        $this->daoCalendar->delete($value->getId());
-        $seats = $this->daoSeat->retrieveSeatsByIdCalendar($value->getId());
-        foreach ($seats as $key => $value) {
-          $this->daoSeat->delete($value->getId());
-        }
-      }
-      $this->index('Atención! Se borró un evento para el cual habia entradas vendidas! También fueron borradas sus fechas correspondientes');
-    }else if($this->daoEvent->eventHasCalendar($idEvent)){
-        $calendars = $this->daoCalendar->retrieveByIdEvent($idEvent);
-        foreach ($calendars as $key => $value) {
-          $this->daoCalendar->delete($value->getId());
-          $seats = $this->daoSeat->retrieveSeatsByIdCalendar($value->getId());
-          foreach ($seats as $key => $value) {
-            $this->daoSeat->delete($value->getId());
-          }
-        }
-        $this->index('Atención! Se borró un evento y sus fechas (sin entradas vendidas)');
-    }else{
-       $this->index('El evento se borró exitosamente');
-    }
+   if($this->daoEvent->eventHasTicketSold($idEvent)){
+     $calendars = $this->daoCalendar->retrieveByIdEvent($idEvent);
+     foreach ($calendars as $key => $value) {
+       $this->daoCalendar->delete($value->getId());
+       $seats = $this->daoSeat->retrieveSeatsByIdCalendar($value->getId());
+       foreach ($seats as $key => $value) {
+         $this->daoSeat->delete($value->getId());
+       }
+     }
+     $this->daoEvent->delete($idEvent);
+     $this->index('Atención! Se borró un evento para el cual habia entradas vendidas! También fueron borradas sus fechas correspondientes');
+   }else if($this->daoEvent->eventHasCalendar($idEvent)){
+       $calendars = $this->daoCalendar->retrieveByIdEvent($idEvent);
+       foreach ($calendars as $key => $value) {
+         $this->daoCalendar->delete($value->getId());
+         $seats = $this->daoSeat->retrieveSeatsByIdCalendar($value->getId());
+         foreach ($seats as $key => $value) {
+           $this->daoSeat->delete($value->getId());
+         }
+       }
+       $this->daoEvent->delete($idEvent);
+       $this->index('Atención! Se borró un evento y sus fechas (sin entradas vendidas)');
+   }else{
+      $this->index('El evento se borró exitosamente');
+   }
+ }
 
-  }
+
 }
+
 
 
 ?>

@@ -70,19 +70,34 @@ class ControllerPurchase{
          // Chequea que la cantidad total de asientos este disponible para ese Calendar
 
             $seat = $this->daoSeat->retrieveById($idSeat);
+            if ($key = $this->existsInCart($seat)) {
+              $remaining = $seat->getRemaining();
+              $remaining = $remaining - $_SESSION['purchaseItems'][$key-1]->getQuantity();
+              if($quant <= $remaining){
+                  $total = $_SESSION['purchaseItems'][$key-1]->getQuantity() + $quant;
+                  $_SESSION['purchaseItems'][$key-1]->setQuantity($total);
+                  $this->index();
+              }
+              else {
+                $alert = "No hay disponibilidad para la cantidad entradas ingresada";
+                $this->controllerHome->eventInfo($seat->getCalendar()->getEvent()->getId(),$alert);
+              }
+
+            }
+
+          else {
             if($quant <= $seat->getRemaining()){
-
                 $purchase = $_SESSION['purchase'];
-                $purchaseItem = new M_PurchaseItem($quant,($seat->getPrice() * $quant),$purchase,$seat);
+                $purchaseItem = new M_PurchaseItem($quant,$seat->getPrice(),$purchase,$seat);
                 $_SESSION['purchaseItems'][] = $purchaseItem;
-
                 $this->index();
             }
             else{
                 $alert = "No hay disponibilidad para la cantidad entradas ingresada";
                 $this->controllerHome->index($alert);
             }
-    }
+          }
+  }
 
     public function removeFromCart($itemKey){
         $itemKey = $itemKey - 1;
@@ -103,7 +118,7 @@ class ControllerPurchase{
                 $value->setPurchase($purchaseFromDb);
                 $this->daoPurchaseItem->add($value);
                 $valueWithId = $this->daoPurchaseItem->getLastPurchaseItems();// para poder mandarle el obj completo (con id) al new ticket
-                
+
                 $seat = $this->daoSeat->retrieveById($value->getSeat()->getId());
                 $cantItems = $value->getQuantity();
                 // se crea un ticket para cada elemento en esa linea de compra
@@ -119,10 +134,10 @@ class ControllerPurchase{
                 $this->daoSeat->update($seat);
             }
             $_SESSION['purchaseItems'] = [];
-            
+
             $this->controllerProfile->index('&#x2714 Compra exitosa');
         }else{
-            $this->index('&#x2718 ATENCION: La tarjeta ingresada no es válida. Contacte a su banco o intente nuevamente.');
+            $this->index('&#x2718 <strong>ATENCION</strong> La tarjeta ingresada no es válida. Contacte a su banco o intente nuevamente.');
         }
   }
 
@@ -134,7 +149,7 @@ class ControllerPurchase{
         $digits = str_split($number);
         foreach($digits as $key => $digit) { // Foreach digit
             // for every second digit from the right most, we must multiply * 2
-            if (($key % 2) == $parity) 
+            if (($key % 2) == $parity)
                 $digit = ($digit * 2);
             // each digit place is it's own number (11 is really 1 + 1)
             if ($digit >= 10) {
@@ -143,15 +158,25 @@ class ControllerPurchase{
                 // add them together
                 $digit = $digit_parts[0]+$digit_parts[1];
             }
-            // add them to the total    
+            // add them to the total
             $total += $digit;
         }
         return ($total % ($mod5 ? 5 : 10) == 0 ? true : false); // If the mod 10 or mod 5 value is equal to zero (0), then it is valid
     }
-    
+
+    private function existsInCart($seat)
+    {
+      foreach ($_SESSION['purchaseItems'] as $key => $value) {
+        if ($value->getSeat()->getId() == $seat->getId()) {
+          return $key+1;
+        }
+      }
+      return false;
+    }
+
 /*    private function sendMailApi(){
         # Include the Autoloader (see "Libraries" for install instructions)
-        
+
         # Instantiate the client.
         $mgClient = new Mailgun('f4f783358d14dfca4d7da1b9eb296867-1053eade-0fb4efda');
         $domain = "sandbox8a6eadd7f5364ce5bc60e8a2e8128a87.mailgun.org";
@@ -166,7 +191,7 @@ class ControllerPurchase{
         ), array('inline' => array(ROOT.'images/tempQR/tempQR-0.png')
         ));
     }
-  
+
     private function sendMailSmtp($mail){
         $from = '<matiastassara59@gmail.com>';
         $to      = '<licanueto@hotmail.com>'; //$mail;
@@ -197,7 +222,7 @@ class ControllerPurchase{
         }
     }
 */
-    
+
 
 
 }
