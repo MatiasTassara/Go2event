@@ -42,7 +42,7 @@ class Event{
     $this->Path = $imgPath;
   }
   public function setCategory($category){
-    $this->category = $categoory;
+    $this->category = $category;
   }
   public function setDesc($description){
     $this->description = $description;
