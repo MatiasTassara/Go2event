@@ -123,7 +123,7 @@ class ControllerPurchase{
                 $cantItems = $value->getQuantity();
                 // se crea un ticket para cada elemento en esa linea de compra
                 while($cantItems > 0){
-                    $qrCode = openssl_random_pseudo_bytes(255);
+                    $qrCode = openssl_random_pseudo_bytes(10);
                     $ticketNumber = $seat->getQuantity() - $seat->getRemaining() + $cantItems;
                     $ticket = new M_Ticket($ticketNumber,$qrCode,$valueWithId);
                     $this->daoTicket->add($ticket);
