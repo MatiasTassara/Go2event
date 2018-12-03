@@ -34,11 +34,11 @@
 
           <?php foreach ($arrayTickets as $key => $value){ ?>
             <tr>
-              <td> <?= $value['purchaseDates'] ?></td>
-              <td> <?= $value['eventNames'] ?></td>
-              <td> <?= $value['eventDates'] ?></td>
-              <td> <?= $value['seatTypes'] ?> </td>
-              <td> $<?= $value['prices'] ?> </td>
+              <td class="align-middle"> <?= $value['purchaseDates'] ?></td>
+              <td class="align-middle"> <?= $value['eventNames'] ?></td>
+              <td class="align-middle"> <?= $value['eventDates'] ?></td>
+              <td class="align-middle"> <?= $value['seatTypes'] ?> </td>
+              <td class="align-middle"> $<?= $value['prices'] ?> </td>
               <td>
                 <div uk-lightbox="animation: slide">
                   <div>

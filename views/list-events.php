@@ -76,4 +76,4 @@
 </div>
 
 
-<?php include(ROOT."views/footer.php") ?>
+<?php include(ROOT."views/navfooter.php") ?>

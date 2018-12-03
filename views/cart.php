@@ -74,7 +74,7 @@
   <div class="container col-5 p-2">
     <button type="button" class="btn btn-warning btn-lg btn-block " data-toggle="modal" data-target="#modalBuy">Comprar</button>
   </div>
-
+<!--PURCHASE MODAL-->
   <div class="modal fade" id="modalBuy" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -89,7 +89,7 @@
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="inputEmail4">Número de Tarjeta</label>
-                <input type="text" class="form-control" name="cardNumber" placeholder="Número de Tarjeta" required>
+                <input type="number" min="0" class="form-control" name="cardNumber" placeholder="Número de Tarjeta" required>
               </div>
               <div class="form-group col-md-6">
                 <label for="inputEmail4">Clave de Segurirdad</label>
