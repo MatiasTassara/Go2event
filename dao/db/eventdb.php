@@ -129,7 +129,7 @@ class EventDb extends SingletonDAO implements \interfaces\Idao
     return null;
 
   }
-  public function retrieveMostSoldOld(){
+  public function retrieveMostSoldForIndex(){
 
     $sql = "SELECT e.* FROM events e 
     inner join calendars c on e.id_event = c.id_event 

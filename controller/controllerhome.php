@@ -32,7 +32,7 @@ class  ControllerHome{
   }
   public function index($alert = null){
     $events = $this->daoCalendar->retrieveUpcomingEvents();
-    $mostSold = $this->daoEvent->retrieveMostSoldOld();
+    $mostSold = $this->daoEvent->retrieveMostSoldForIndex();
     include(ROOT.'views/index.php');
   }
   public function login(){
