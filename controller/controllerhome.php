@@ -32,7 +32,7 @@ class  ControllerHome{
   }
   public function index($alert = null){
     $events = $this->daoCalendar->retrieveUpcomingEvents();
-    $mostSold = $this->daoEvent->retrieveMostSold();
+    $mostSold = $this->daoEvent->retrieveMostSoldOld();
     include(ROOT.'views/index.php');
   }
   public function login(){
@@ -86,7 +86,7 @@ class  ControllerHome{
 
   public function mostSoldEvents(){
     $title = 'Mas Vendidos';
-    $events = $this->daoEvent->retrieveMostSoldNoLimit();
+    $events = $this->daoEvent->rankingMostSold();
     if(isset($events) && sizeof($events) > 1)
     {
       include(ROOT.'views/list-events.php');

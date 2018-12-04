@@ -129,6 +129,27 @@ class EventDb extends SingletonDAO implements \interfaces\Idao
     return null;
 
   }
+  public function retrieveMostSoldOld(){
+
+    $sql = "SELECT e.* FROM events e 
+    inner join calendars c on e.id_event = c.id_event 
+    inner join seats s on s.id_calendar = c.id_calendar 
+    where c.date_calendar >= now() and e.active = 1 
+    group by e.id_event 
+    having (sum(s.quant) - sum(s.remaining)) > 0 
+    order by sum(s.quant) - sum(s.remaining) desc limit 6";
+    try{
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql);
+    }catch(Exception $ex){
+      $ex->getMessage();
+    }
+    if(!empty($response))
+    return $this->map($response);
+    else
+    return null;
+
+  }
   public function retrieveMostSoldNoLimit(){
 
     $sql = "SELECT e.*
@@ -172,6 +193,28 @@ class EventDb extends SingletonDAO implements \interfaces\Idao
       return $arrayResponse;
     }
 
+    else
+    return null;
+
+  }
+
+  public function rankingMostSold(){
+
+    $sql = "SELECT e.* 
+    FROM events e inner join calendars c on e.id_event = c.id_event 
+    inner join seats s on s.id_calendar = c.id_calendar 
+    where c.date_calendar >= now() and e.active = 1
+    group by e.id_event 
+    having (sum(s.quant) - sum(s.remaining)) > 0 
+    order by sum(s.quant) - sum(s.remaining) desc";
+    try{
+      $this->connection = Connection::getInstance();
+      $response = $this->connection->execute($sql);
+    }catch(Exception $ex){
+      $ex->getMessage();
+    }
+    if(!empty($response))
+    return $this->map($response);
     else
     return null;
 
