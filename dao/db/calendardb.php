@@ -254,7 +254,7 @@ class CalendarDb extends \dao\SingletonDAO implements \interfaces\Idao
   }
   public function retrieveByIdEvent($id){
 
-    $sql = "SELECT * from calendars where id_event = :id_event AND active = 1 ORDER BY date_calendar";
+    $sql = "SELECT * from calendars where id_event = :id_event AND active = 1 and date_calendar >= now() ORDER BY date_calendar";
     $parameters['id_event'] = $id;
     try{
       $this->connection = Connection::getInstance();
